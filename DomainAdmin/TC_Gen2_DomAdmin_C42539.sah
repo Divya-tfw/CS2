@@ -1,0 +1,8 @@
+_include("../Base/IncludeFiles.sah");	
+
+//App should  allow unblocked domain admin to login.
+verifyAdminCanLoginWhenDomainAdminIsUnBlocked($sURL,$sDomainName1,$sDomainName1_Password,
+                                                      $sBlockDomainAdmin,$sBlockDomainAdminPassword);
+
+
+

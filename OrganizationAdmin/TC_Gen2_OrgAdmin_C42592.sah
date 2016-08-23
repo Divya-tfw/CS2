@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can add  a 'Policy Groups''
+	verifyThatOrgAdminCanAddaPolicyGroups
+      ($sGroups_PolicyGrpTitle, $sDescription);

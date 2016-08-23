@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Members included for the user group should be displayed under user group.
+ verifyExistanceofMembersAddedWhileCreatingUserGroup();

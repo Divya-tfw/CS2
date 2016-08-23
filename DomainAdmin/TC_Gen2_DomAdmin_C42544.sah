@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");	
+
+//verify Domain admin should be able to update his profile.
+ verifyDACanEditOwnProfile();
+
+

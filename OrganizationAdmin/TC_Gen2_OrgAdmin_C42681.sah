@@ -1,0 +1,7 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that custom report created by Organization admin is not visible to other Organization admin
+	verifyThatCustomReportCreatedByOrgAdminIsNotVisibleToOtherOrgAdmin
+      ($sCustomReport_Title1, $sCustomReport_Description);
+
+

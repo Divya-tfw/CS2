@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Verity that policy  groups created by  domain admin is not  visible to other organization member 
+verifyDomainCreatedPolicyGroupIsNotVisibleToOrgMembers($sURL,$sDomainName1,$sDomainName1_Password
+                                                      ,$sOrgAdminName1,$sOrgAdminPassword1);

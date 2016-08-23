@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin cannot include a employee/user added by domain admin
+	verifyThatOneOrgAdminCannotIncludeAEmployeeOrUserAddedByDomainAdmin();

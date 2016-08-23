@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin cannot assign a member as a new domain admin
+	verifyThatOrgAdminCannotAssignAMemberAsANewDomainAdmin();

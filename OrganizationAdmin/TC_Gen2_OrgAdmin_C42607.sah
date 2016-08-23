@@ -1,0 +1,8 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can add  'Custom Reports'
+	verifyThatOrgAdminCanAddCustomReports
+      ($sCustomReport_Title, $sCustomReport_Description, $sFromDate_CustmReport, $sTODate_CustmReport);
+
+
+

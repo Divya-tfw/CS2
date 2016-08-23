@@ -1,0 +1,8 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Call method to Verify that Policy created by domain admin is visible to other domain admins
+verifyDomainCreatedPolicyIsVisibleToAnotherDomainAdmin($sURL,$sDomainName1,$sDomainName1_Password,
+             $sDomainName2,$sDomainName2_Password,$sPolicyName,$sPolicyExpiryDate, $sPolicyDescription);
+
+
+

@@ -1,0 +1,10 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Call method to login to site with valid credentials
+loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+//Create custom report and verify same
+createCustomReport($lnk_CustomReport,$sReportName,$chk_boxMessageId,$chk_boxMessageStatus,$sToDate,$sToDate1);
+
+//Log out from app
+logOut();

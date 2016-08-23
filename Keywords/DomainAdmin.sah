@@ -1,0 +1,1885 @@
+_include("../Base/IncludeFiles.sah");	
+
+/*
+Function Name 					: 	verifyDACanEditOwnProfile
+TestCaseId						:  	TC_Gen2_DomAdmin_C42521
+Module							:	My Profile
+SubModule						:	Contact group
+Section							:	Edit
+Created Date 	 	     		:   8th June 2016
+Description		   	   	   		:   This method is to verify Domain admin should be able to update his profile.
+Input					     	:   sURL, $sOrgMem1, $sOrgMem1Pwd,$sOMContactSearchValue
+*/
+
+function verifyDACanEditOwnProfile()
+{
+		//Call method to login to site with valid credentials
+		loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+		//Click on My Profile
+		_click(_link($lnk_MyProfile));
+
+		//Click on Profile link
+		_click(_link($lnk_ProfileLinkUnderMP));
+		
+		//Click on edit button
+		_click(_italic($btn_EditUserGroup));
+
+		//Clear the contents of title
+		_setValue(_textbox($txt_Title), "");
+
+		//Edit the title
+		_setValue(_textbox($txt_Title), $sEditTitleValue);		
+		
+		//Enter phone number	
+		_setValue(_textbox($txt_PhoneNumber), $iPhoneNumber);
+
+		//Click on update button
+		_click(_submit($submit_Update));
+
+		//Validate existance of sucess message
+		_assertEqual($sProfileUpdatedSucessMsg, _getText(_div($sProfileUpdatedSucessMsg)));
+
+		//Validate existance of updated title
+		_assertEqual($sEditTitleValue, _getText(_span($sEditTitleValue)));
+
+        //Log out from app
+        logOut();
+	}
+
+/*
+Function Name 					: 	importBulkMBN
+TestCaseId						:  	TC_Gen2_DomAdmin_C42546
+Module							:	MBN Management
+SubModule						:	Import
+Section							:	Import
+Created Date 	 	     		:   8th June 2016
+Description		   	   	   		:   This method is to verify Domain admin should be able to import  MBN from CSV
+*/
+
+function importBulkMBN()
+{
+	//Call method to login to site with valid credentials
+	//loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	// Click on MBN Mgmt
+     _click(_link($lnk_MBNmgmt));	
+
+	//Read contents of CSV & delete MBN if already created else create new one by bulk import
+	readContentsOfMBNCSV();
+      
+	//Click on Import click
+	_click(_link($lnk_MBNIMport));
+
+	_wait(3000);
+
+	//Call method to Click on choose button & select specfic file from given path
+	setFileUpload(_file($btn_FileChoseForImport),$sImportMBNFilePath);
+
+	//Selected drop down value in action drop down
+	_setSelected(_select($drp_dwn_ConflictAction), $sDrpDwn_bulkImport);      
+	
+	//Click on Import button
+    _click(_submit($btn_ImportFile));
+
+	_wait(4000);
+
+	//Click on Proceed button	
+	_click(_submit($btn_Proceed));
+
+	_wait(3000);
+
+	//If no of failes records is zero then upload successfull else failure
+    if(_getText(_cell($txt_verifyAccountInfo, _near(_cell($txt_FailedRecords))))==0)
+    {
+      _log("File upload is successfull");
+		
+		//Click on back button
+      _click(_button($btn_Back));
+      
+      _wait(3000);
+      	
+    
+    }
+    else
+    {
+      _log("File upload is not successfull");	
+		
+		//Click on back button
+		_click(_button($btn_Back));
+		
+		//Click on back button
+		_click(_button($btn_Back));
+		
+		//Click on cancel button
+      _click(_submit($btn_CancelImport));   
+     }
+
+	//Log out from app
+    //logOut();
+}
+
+
+
+/*
+Function Name 					: 	setFileUpload
+TestCaseId						:  	TC_Gen2_DomAdmin_C42546
+Module							:	MBN Management
+SubModule						:	Import
+Section							:	Import
+Created Date 	 	     		:   8th June 2016
+Description		   	   	   		:   This method is to set file path on browser button
+Input							: File ,path	
+*/
+	function setFileUpload($file1,$path)
+    {
+    _focusWindow();
+    _wait(1000);
+    _focus($file1);
+    _wait(1000);
+    _typeKeyCodeNative(java.awt.event.KeyEvent.VK_SPACE);
+    _wait(1000);
+    _typeNative($path);
+    _wait(1000);
+    _typeKeyCodeNative(java.awt.event.KeyEvent.VK_ENTER);
+    _wait(1000);
+    }
+
+
+
+/*
+Function Name 					: 	readContentsOfMBNCSV
+TestCaseId						:  	TC_Gen2_DomAdmin_C42546
+Module							:	MBN Management
+SubModule						:	Import
+Section							:	Import
+Created Date 	 	     		:   8th June 2016
+Description		   	   	   		:   This method is to read contents of CSV & deleted MBN if already existinng in table
+Input							: File ,path	
+*/
+function readContentsOfMBNCSV()
+{
+	
+	var $sContactsInfo = _readCSVFile($sImportMBNFilePath);
+	
+	var $csvLength = $sContactsInfo.length;	
+
+	for(var $i=1;$i<$csvLength;$i++)
+	{
+		var $sMBNNumber= $sContactsInfo[$i][0]; 			
+		
+		// Click on ALL MBNs
+    _click(_link($lnk_AllMBNs, _near(_link($lnk_MBNmgmt))));
+		
+      // Click on Search Icon
+      _click(_italic($icon_Search));
+
+      // Enter the MBN number
+      _setValue(_textbox($txtbox_MBN), $sMBNNumber);
+
+      // Click on Search 
+      _click(_submit($submit_Search));
+
+      // Check for MBN number present in the list
+      if(_isVisible(_div($sMBNNumber)))
+      	{
+        	// click on Delete icon
+        	_click(_link($lnk_DeleteMBN));
+
+          	// click on Yes button
+          	_click(_button($btn_Yes, _near(_heading4($heading_ConfirmDelete))));
+			
+			//Click on reset button
+			_click(_reset($btn_Reset));
+		
+		  _click(_submit($submit_Search));
+       }
+		else
+		{
+		_log("MBN is not existing to delete"); 	
+		}			
+	}
+
+}
+
+
+
+
+/*
+Function Name 			:   verifyDomainAdminCanCreateOrg
+TestCaseId				  :   TC_Gen2_DomAdmin_C42549
+Module				    	:	Organisation
+SubModule	   			  :	  All
+Section						:	All
+Author 	 	    		    :	Divya
+Created Date 	 	 	 :   1st May 2016
+Description		   	   	   :   Verify Domain admin should be able to add  an 'organizations' successfully and Newly created organization should be  
+							displayed on the 'User Roles' module
+*/
+
+function verifyDomainAdminCanCreateOrg( $sNewOrgName)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Organisation link
+	_click(_link($lnk_Organisation));
+
+	//Click on All Organisation sub link
+	_click(_link($lnk_AllOrg, _near(_link($lnk_Organisation))));
+	
+	_wait(2000);
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_ONameTosearch), $sNewOrgName);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Verify existance of org-if yes then delete it 
+	if(_isVisible(_div($sNewOrgName)))
+       {
+         //Click on delete icon
+       _click(_italic($btn_DeleteAllUserOption, _near(_div($sNewOrgName))));
+         
+          //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+       }
+	   else{
+	   _log("Org name is not existing before");
+	   }
+
+	//Click on + icon to create new organisation
+	_click(_link($icon_PlusOrg, _near(_heading2($txt_AllOrg))));
+
+	//Enter org name
+    _setValue(_textbox($txt_GName), $sNewOrgName);
+
+	//Enter org type
+    _setValue(_textbox($txt_OrgType), $sNewOrgType);
+
+	//Select desired country 
+    _setSelected(_select($drp_dwn_OrgLocationId), $sNewOrgLocation);
+
+	//Enter Zip code
+    _setValue(_textbox($txt_MemberZipCode), $sNewOrgZipCode);
+
+	//Click on Submit button
+    _click(_submit($btn_Submit));
+
+	//click on create button to create new organisation
+    _click(_submit($btn_MemberCreate));
+
+   //Click on close button
+    _click(_button($btn_MemberClose));
+	
+	_wait(1000);
+
+	//Click on user roles link
+    _click(_link($lnk_UR));
+
+	//Click on Organization Admin
+    _click(_link($lnk_OA));
+
+	//Validate Newly created organization should be  displayed on the 'User Roles' module	
+    _assertEqual($sNewOrgName, _getText(_link($sNewOrgName)));
+	//Log out from app
+      logOut();
+}
+
+/*
+Function Name 			:   visibilityOfOrgCreatedByDA
+TestCaseId				  :   TC_Gen2_DomAdmin_C42549
+Module				    	:	Organisation
+SubModule	   			  :	  All
+Section						:	Domain Admin Visibility
+Author 	 	    		    :	Divya
+Created Date 	 	 	 :   1st May 2016
+Description		   	   	   :   Verify Domain admin should be able to add  an 'organizations' successfully and Newly created organization should be  
+							displayed on the 'User Roles' module
+*/
+
+function visibilityOfOrgCreatedByDA($sNewOrgNameForVisiblity)
+{
+//Call method to create org
+verifyDomainAdminCanCreateOrg( $sNewOrgNameForVisiblity+$sDF);
+
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDN2,$sDN2_Password);
+
+	
+	//Click on Organisation link
+	_click(_link($lnk_Organisation));
+
+	//Click on All Organisation sub link
+	_click(_link($lnk_AllOrg, _near(_link($lnk_Organisation))));
+
+	_wait(2000);
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter First name to search member name
+	_setValue(_textbox($txt_ONameTosearch), $sNewOrgNameForVisiblity+$sDF);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	if(_exists(_div($sNewOrgNameForVisiblity+$sDF)))
+       {
+		_log("Organization created by  domain admin is visible to other 'domain admins' ")	;        
+       }
+	   else
+	   {
+	   _log("Organization created by  domain admin is not visible to other 'domain admins' ");
+	   }
+	
+	//Log out from app
+      logOut();	
+
+}
+	
+
+
+/*
+Function Name 			:   visibilityOfOrgCreatedByOA
+TestCaseId				  :   TC_Gen2_DomAdmin_C42550
+Module				    	:	Organisation
+SubModule	   			  :	  All
+Section						:	Org Admin
+Author 	 	    		    :	Divya
+Created Date 	 	 	 :   1st May 2016
+Description		   	   	   :   Verify organization created by  domain admin is not  visible to other 'organization  admins'
+*/
+
+function visibilityOfOrgCreatedByOA($sNewOrgNameForVisiblity)
+{
+	//Call method to create org
+	verifyDomainAdminCanCreateOrg( $sNewOrgNameForVisiblity);
+	
+	//Call method to login to site with valid credentials
+  		loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);
+			
+  		//Change role to organisation admin
+		_click(_div($sOrgAdminNameToselect));
+	
+		// Click on User Roles
+          _click(_link($lnk_UserRoles));
+	
+		//Click on Organisation Admin
+		_click(_link($lnk_OA));
+	
+      	// Verifying Domain Admin link is not present
+          _assertNotVisible( _link($sNewOrgNameForVisiblity));	
+	
+	//Log out from app
+//      logOut();
+
+}
+	
+
+
+/*
+Function Name 			:   visibilityOfOrgCreatedByOM
+TestCaseId				  :   TC_Gen2_DomAdmin_C42551
+Module				    	:	Organisation
+SubModule	   			  :	  All
+Section						:	Org Admin
+Author 	 	    		    :	Divya
+Created Date 	 	 	 :   1st May 2016
+Description		   	   	   :   Verify organization created by  domain admin should not be visible to other 'organization member' 
+*/
+
+function visibilityOfOrgCreatedByOM($sNewOrgNameForVisiblity,$sOrgMember1, $sOrgMemPwd1)
+{
+	//Call method to create org
+	verifyDomainAdminCanCreateOrg( $sNewOrgNameForVisiblity);
+	
+	//Call method to login to site with valid credentials
+    loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+	
+      	// Verifying Domain Admin link is not present
+          _assertNotVisible( _link($option_Organisation));	
+	
+	//Log out from app
+      logOut();
+}
+	
+/*
+Function Name 			:   verifyDACreatedMemberVisibileToANotherDA
+TestCaseId				  :   TC_Gen2_DomAdmin_C42553
+Module				    	:	User Management
+SubModule	   			  :	  All
+Section						:	User Visibility
+Author 	 	    		    :	Divya
+Created Date 	 	 	 :   1st May 2016
+Description		   	   	   :   Employee/User created by domain admin should be visible other domain admins
+*/
+
+
+function verifyDACreatedMemberVisibileToANotherDA()
+{
+
+	$sEm=$dEmail3;
+	
+	//Verify Domain admin can create members 
+	verifyDomainAdminCanCreateMembers($sEm);	
+	
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDN2,$sDN2_Password);
+
+	//Click on User Management link
+	_wait(10000,_isVisible(_link($lnk_UserManagement)));
+	
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	_wait(2000);
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId), $sEm);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Check existance of member 
+    if(_exists(_div($sEm)))
+    {	
+      _log("Employee/User created by domain admin is visible other domain admins");
+    }
+	else
+	{
+	_log("Employee/User created by domain admin is not visible other domain admins");
+	}
+	
+	 //Log out from app
+      logOut();
+}
+
+
+/*
+Function Name 			:   verifyDACreatedMemberNotVisibileToANotherOA
+TestCaseId				  :   TC_Gen2_DomAdmin_C42554
+Module				    	:	Members
+SubModule	   			  :	  All
+Section						:	User Visibility
+Author 	 	    		    :	Divya
+Created Date 	 	 	 :   1st May 2016
+Description		   	   	   :   Employee/User created by domain admin is not  visible  to any organization
+*/
+
+
+function verifyDACreatedMemberNotVisibileToANotherOA()
+{
+	$sEm=$dEmail3;
+	
+	//Verify Domain admin can create members 
+	verifyDomainAdminCanCreateMembers($sEm);	
+	
+	//Call method to login to site with valid credentials
+  	loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);
+			
+  	//Change role to organisation admin
+	_click(_div($sOrgAdminNameToselect));
+
+	//Click on member tab
+	_click($lnk_OAMember);
+
+	//Click on All link
+	_click($lnk_OAAll);
+
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId), $sEm);
+	
+	//Click on search button
+	_click(_submit($btn_Search));	
+
+	// Verifying Domain Admin link is not present
+      _assertNotVisible( _div($sEm));	
+	
+	//Log out from app
+      logOut();
+}
+
+/*
+Function Name 			:   verifyDACreatedMemberNotVisibileToANotherOM
+TestCaseId				  :   TC_Gen2_DomAdmin_C42555
+Module				    	:	N/A
+SubModule	   			  :	  N/A
+Section						:	User Visibility
+Author 	 	    		    :	Divya
+Created Date 	 	 	 :   1st May 2016
+Description		   	   	   :   Employee/User created by domain admin should not be visible other organization member
+*/
+
+
+function verifyDACreatedMemberNotVisibileToANotherOM($sOrgMember1, $sOrgMemPwd1)
+{
+	$sEm=$dEmail3;
+	
+	//Verify Domain admin can create members 
+	verifyDomainAdminCanCreateMembers($sEm);
+	
+	//Call method to login to site with valid credentials
+    loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+	
+      	// Verifying Domain Admin link is not present
+          _assertNotVisible( _link($sEm));	
+	
+	//Log out from app
+      logOut();
+}
+	
+	
+	
+	
+/*
+Function Name 			: verifyDACanDeleteAddedContact
+TestCaseId				  :   TC_Gen2_DomAdmin_C42555
+Module				    	:	N/A
+SubModule	   			  :	  N/A
+Section						:	User Visibility
+Author 	 	    			:  Divya
+Created Date 	 		 :  13 June 2016
+Description		   	   		:  This method is used to Verify that Domain admin should be able to delete  'Contacts' successfully.
+*/
+function verifyDACanDeleteAddedContact()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on User Management link
+	_wait(10000,_isVisible(_link($lnk_UserManagement)));
+	
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	_wait(2000);	
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId),$dEmail);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Check existance of member 
+    if(_exists(_div($dEmail)))
+    {	
+       var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=300);
+      
+      //Click on delete icon near by member name
+      _click(_link("/Delete/", _near(_div($dEmail))));
+
+       //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+    }
+	else
+	{
+	_log("Member do not exist");
+	}
+	$sMemberLastName=$dName;
+	//Click on + icon
+	_wait(6000,_isVisible(_link($icon_plus, _near(_heading2($txt_All)))));
+
+	//Click on + icon
+	_click(_link($icon_plus, _near(_heading2($txt_All))));
+
+	//Enter Member first name
+	_setValue(_textbox($txt_FirstName),$sMemberFirstName);
+
+	//Enter Member last name
+    _setValue(_textbox($txt_LastName), $sMemberLastName);
+
+	//Enter member title
+    _setValue(_textbox($txt_Title),$sMemberTitle);
+
+	//select location
+    _setSelected(_select($txt_MemberLocation),$sMemberLocation);
+
+	//Enter zip code
+    _setValue(_textbox($txt_MemberZipCode),$sMemberZipCode);
+
+	//Enter member email
+    _setValue(_textbox($txt_MemberEmail), $dEmail);
+
+	//Click on create button
+    _click(_submit($btn_MemberCreate));
+	_wait(2000);
+
+	//Validation 1: Domain admin should be able to add an user successfully.	
+    _assertVisible(_heading2("Congratulations! Member has been created."));   
+
+	_log("Congratulations! Member has been created."+" "+$dEmail);
+	//Click on close button
+	_wait(10000,_isVisible(_button($btn_MemberClose)));
+	//Click on close 
+    _click(_button($btn_MemberClose));
+
+	_wait(2000);
+
+	//Click on My Profile
+	_click(_link($lnk_MyProfile));
+
+	//Click on contacts
+	_click(_link($lnk_SContacts, _near(_link($lnk_MyProfile))));
+
+	//Click on + icon to add contact
+	_click(_link($icon_PlusAddGroup));
+
+	//Set created user in text box
+	_setValue(_textbox($txt_GName), $sMemberFirstName+" "+$sMemberLastName);
+
+    //Click on Apply button
+    _click(_button($btn_Apply));
+
+    //Click on check box
+    _click(_checkbox($chk_Box_ON, _near(_strong($sMemberFirstName+" "+$sMemberLastName))));
+
+    //Click on save button
+    _click(_button($btn_GSave));
+
+	_wait(2000);
+
+    //search for added contact in search box
+    _setValue(_textbox(5),  $sMemberFirstName+" "+$sMemberLastName);
+
+	//Click on email id
+	_click(_link($dEmail));
+
+	_wait(2000);
+
+    //Click on delete button
+    _click(_link($icon_Profile_DeleteIcon));
+
+	//Click on Yes on Block Confirmation Pop up
+     _click(_button($btn_YesToBlockAdmin));   
+
+	//Log out from app
+     logOut();
+}
+
+
+
+/*
+Function Name 				:   verifyDACanEditGroups
+TestCaseId				  	:   TC_Gen2_DomAdmin_C42505
+Module				    	:	Groups
+SubModule	   			  	:	User Groups
+Section						:	Edit
+Author 	 	    			:	Divya
+Created Date 	 	 		:   1st May 2016
+Description		   	   		:  	Domain admin can edit  a ' User Groups' successfully.
+Input						:	$sURL,$sDomainName1,$sDomainName1_Password, $sOrgNameToDelete
+*/ 
+
+
+function verifyDACanEditGroups($sURL,$sDomainName1,$sDomainName1_Password,$lnk_UserGroup,$sUserGroupNameToEdit,
+                               $sUserGroupNameToEdit1)
+{
+//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+	//Check exitsance of group 
+    if(_exists(_link($sUserGroupNameToEdit)))
+    {         
+	
+	  //Click user group to edit
+	  _click(_link($sUserGroupNameToEdit));	
+	
+      //Click on edit button
+      _click(_italic($btn_EditUserGroup));
+      
+      //clear the data
+      _setValue(_textbox($txt_Title), "");
+      
+	  _wait(2000);
+      //Edit title
+      _setValue(_textbox($txt_Title), $sUserGroupNameToEdit1);
+      
+      //Click on save button
+      _click(_submit($btn_GSave));
+    }
+	else
+    {
+      _log("group not existing to edit");
+    }
+	//Log out from app
+    logOut();   
+}
+
+
+
+/*
+Function Name 				:   verifyDACanDeleteGroups
+TestCaseId				  	:   TC_Gen2_DomAdmin_C42516
+Module				    	:	Groups
+SubModule	   			  	:	User Groups
+Section						:	Edit
+Author 	 	    			:	Divya
+Created Date 	 	 		:   1st May 2016
+Description		   	   		:  	Domain admin can delete  a ' User Groups' successfully.
+Input						:	$sURL,$sDomainName1,$sDomainName1_Password,$lnk_UserGroup,$sUserGroupNameToDelete
+*/ 
+
+function verifyDACanDeleteGroups($sURL,$sDomainName1,$sDomainName1_Password,$lnk_UserGroup,$sUserGroupNameToDelete)
+{
+//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+	//Check exitsance of group 
+    if(_exists(_link($sUserGroupNameToDelete)))
+    {         
+	 //Click on group name
+     _click(_link($sUserGroupNameToDelete));
+	
+      //Click on delete button
+      _click($btn_DeleteUG);         
+      
+		//Click on Yes button
+      _click(_button($btn_YesForDeleteMBN));
+    }
+	else
+    {
+      _log("Group is not existing to delete");
+    }
+	//Log out from app
+    logOut();   
+}
+
+
+
+/*
+Function Name 				: 	verifyDACanDeleteAddedContact
+TestCaseId				  	:   TC_Gen2_DomAdmin_C42521
+Module				    	:	Groups
+SubModule	   			  	:	User Groups
+Section						:	Edit
+Author 	 	    			:  	Divya
+Created Date 	 	 		:  	13 June 2016
+Description		   	   		:  	This method is used to Verify that Domain admin should be able to delete  'Contacts' successfully.
+*/
+function verifyDACanDeleteAddedContact()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on User Management link
+	_wait(10000,_isVisible(_link($lnk_UserManagement)));
+	
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	_wait(2000);	
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId),$dEmail);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Check existance of member 
+    if(_exists(_div($dEmail)))
+    {	
+       var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=300);
+      
+      //Click on delete icon near by member name
+      _click(_link("/Delete/", _near(_div($dEmail))));
+
+       //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+    }
+	else
+	{
+	_log("Member do not exist");
+	}
+	$sMemberLastName=$sEmail2;
+	//Click on + icon
+	_wait(6000,_isVisible(_link($icon_plus, _near(_heading2($txt_All)))));
+
+	//Click on + icon
+	_click(_link($icon_plus, _near(_heading2($txt_All))));
+
+	//Enter Member first name
+	_setValue(_textbox($txt_FirstName),$sMemberFirstName);
+
+	//Enter Member last name
+    _setValue(_textbox($txt_LastName), $sMemberLastName);
+
+	//Enter member title
+    _setValue(_textbox($txt_Title),$sMemberTitle);
+
+	//select location
+    _setSelected(_select($txt_MemberLocation),$sMemberLocation);
+
+	//Enter zip code
+    _setValue(_textbox($txt_MemberZipCode),$sMemberZipCode);
+
+	//Enter member email
+    _setValue(_textbox($txt_MemberEmail), $dEmail);
+	
+	//Enter phone number	
+	_setValue(_textbox($txt_PhoneNumber), $iPhoneNumber);
+
+	//Click on create button
+    _click(_submit($btn_MemberCreate));
+	_wait(2000);
+
+	//Validation 1: Domain admin should be able to add an user successfully.	
+    _assertVisible(_heading2("Congratulations! Member has been created."));   
+
+	_log("Congratulations! Member has been created."+" "+$dEmail);
+	//Click on close button
+	_wait(10000,_isVisible(_button($btn_MemberClose)));
+	//Click on close 
+    _click(_button($btn_MemberClose));
+
+	_wait(2000);
+
+	//Click on My Profile
+	_click(_link($lnk_MyProfile));
+
+	//Click on contacts
+	_click(_link($lnk_SContacts, _near(_link($lnk_MyProfile))));
+
+	//Click on + icon to add contact
+	_click(_link($icon_PlusAddGroup));
+
+	//Set created user in text box
+	_setValue(_textbox($txt_GName), $sMemberFirstName+" "+$sMemberLastName);
+
+    //Click on Apply button
+    _click(_button($btn_Apply));
+
+    //Click on check box
+    _click(_checkbox($chk_Box_ON, _near(_strong($sMemberFirstName+" "+$sMemberLastName))));
+
+    //Click on save button
+    _click(_button($btn_GSave));
+
+	_wait(2000);
+
+    //search for added contact in search box
+    _setValue(_textbox(5),  $sMemberFirstName+" "+$sMemberLastName);
+
+	//Click on email id
+	_click(_link($dEmail));
+
+	_wait(2000);
+
+    //Click on delete button
+    _click(_link($icon_Profile_DeleteIcon));
+
+	//Click on Yes on Block Confirmation Pop up
+     _click(_button($btn_YesToBlockAdmin));   
+
+	//Log out from app
+     logOut();
+}
+
+
+
+/*
+Function Name 				: 	createUserByDA
+TestCaseId				  	:   TC_Gen2_DomAdmin_C42522,23
+Module				    	:	User Management
+SubModule	   			  	:	All
+Section						:	Add
+Author 	 	    			:  	Divya
+Created Date 	 	 		:  	13 June 2016
+Description		   	   		:  	This method is used to create user successfully.
+*/
+function createUserByDomAdmin($sMemberFirstName,$dName)
+{
+  //Click on User Management link
+	//_wait(10000,_isVisible(_link($lnk_UserManagement)));
+	
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	_wait(2000);	
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId),$dEmail);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Check existance of member 
+    if(_exists(_div($dEmail)))
+    {	
+       var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=300);
+      
+      //Click on delete icon near by member name
+      _click(_link("/Delete/", _near(_div($dEmail))));
+
+       //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+    }
+	else
+	{
+	_log("Member do not exist");
+	}
+	$sMemberLastName=$sEmail2;
+	//Click on + icon
+	_wait(6000,_isVisible(_link($icon_plus, _near(_heading2($txt_All)))));
+
+	//Click on + icon
+	_click(_link($icon_plus, _near(_heading2($txt_All))));
+
+	//Enter Member first name
+	_setValue(_textbox($txt_FirstName),$sMemberFirstName);
+
+	//Enter Member last name
+    _setValue(_textbox($txt_LastName), $sMemberLastName);
+
+	//Enter member title
+    _setValue(_textbox($txt_Title),$sMemberTitle);
+
+	//select location
+    _setSelected(_select($txt_MemberLocation),$sMemberLocation);
+
+	//Enter zip code
+    _setValue(_textbox($txt_MemberZipCode),$sMemberZipCode);
+
+	//Enter member email
+    _setValue(_textbox($txt_MemberEmail), $dEmail);
+	
+	//Enter phone number	
+	_setValue(_textbox($txt_PhoneNumber), $iPhoneNumber);
+
+	//Click on create button
+    _click(_submit($btn_MemberCreate));
+	_wait(2000);
+	
+	//Click on close 
+    _click(_button($btn_MemberClose));
+
+}
+
+
+
+/*
+Function Name 				: 	verifyDACanAssignMembersToBecomeDA
+TestCaseId				  	:   TC_Gen2_DomAdmin_C42522,23
+Module				    	:	User Management
+SubModule	   			  	:	All
+Section						:	Add
+Author 	 	    			:  	Divya
+Created Date 	 	 		:  	13 June 2016
+Description		   	   		:  	This method is used to Verify that Domain admin can promot any user  as domain admin displayed under domain admin list.
+*/
+function verifyDACanAssignMembersToBecomeDA($sMemberFirstName,$dName)
+{	
+	//Click on User roles
+	_click(_link($lnk_UR));
+
+	//Click on Domain Admin Link
+	_click(_link($lnk_DomainAdminUnderUR, _near(_link($lnk_UR))));
+
+    //Click on Admins
+    _click(_link($lnk_Admins));
+
+	//Click on + to assign members
+	_click(_link($lnk_AssignMemebrs));
+
+	//Set created user in text box
+	_setValue(_textbox($txt_GName), $sMemberFirstName+" "+$dName);
+
+    //Click on Apply button
+    _click(_button($btn_Apply));
+
+    //Click on check box
+    _click(_checkbox($chk_Box_ON, _near(_strong($sMemberFirstName+" "+$dName))));
+
+    //Click on save button
+    _click(_button($btn_GSave));
+
+	_assertVisible(_div($sMemberAssignListMsg));
+}
+
+
+/*
+Function Name 				: 	verifyDACanUnassignUserFromDAdminRole
+TestCaseId				  	:   TC_Gen2_DomAdmin_C42523
+Module				    	:	User Management
+SubModule	   			  	:	All
+Section						:	Add
+Author 	 	    			:  	Divya
+Created Date 	 	 		:  	13 June 2016
+Description		   	   		:  	This method is used to Verify that Domain admin can depromot any user  as domain admin displayed under domain admin list.
+*/
+function verifyDACanUnassignUserFromDAdminRole($sMemberFirstName,$dName)
+{
+	var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=500);
+
+    if(_isVisible(_div($sMemberFirstName+" "+$dName)))
+    {
+        //Click on unassign member
+        _click(_link($lnk_GUnassign, _near(_div($sMemberFirstName+" "+$dName))));
+
+         //Click on Yes on Block Confirmation Pop up
+         _click(_button($btn_YesToBlockAdmin)); 
+
+      _assertVisible(_div($sMemberAssignListMsg));
+    }
+    else
+    {
+      _log("User name not found in list");
+    }
+}
+
+
+/*
+Function Name 				: createOrgUnderUserRolesOrgAdmin
+TestCaseId				  	:   TC_Gen2_DomAdmin_C42527
+Module				    	:	Organisation
+SubModule	   			  	:	All
+Section						:	Add
+Author 	 	    			:  Divya
+Created Date 	 	 		:  13 June 2016
+Description		   	   		:  This method is used to Verify that Domain admin can depromot any user  as domain admin displayed under domain admin list.
+*/
+function createOrgUnderUserRolesOrgAdmin($sMemberFirstName,$dName)
+{
+  //Enter org name
+    _setValue(_textbox($txt_GName), $sNewOrgName2+$sDF);
+
+	//Enter org type
+    _setValue(_textbox($txt_OrgType), $sNewOrgType);
+
+	//Select desired country 
+    _setSelected(_select($drp_dwn_OrgLocationId), $sNewOrgLocation);
+
+	//Enter Zip code
+    _setValue(_textbox($txt_MemberZipCode), $sNewOrgZipCode);
+
+	//Click on Submit button
+    _click(_submit($btn_Next));
+
+	//Set created user in text box
+	_setValue(_textbox($txt_MNameToSearch), $sMemberFirstName+" "+$dName);
+
+    //Click on Apply button
+    _click(_button($btn_Apply));
+
+    //Click on check box
+    _click(_checkbox($chk_Box_ON, _near(_strong($sMemberFirstName+" "+$dName))));
+
+	//click on create button to create new organisation
+    _click(_submit($btn_MemberCreate));
+
+   //Click on close button
+    _click(_button($btn_MemberClose));
+  
+}
+
+
+
+
+
+/*
+Function Name 				: verifyDACanpromoteUserASOAUnderUR
+TestCaseId				  	:   TC_Gen2_DomAdmin_C42527
+Module				    	:	Organisation
+SubModule	   			  	:	All
+Section						:	Add
+Author 	 	    			:  Divya
+Created Date 	 	 		:  13 June 2016
+Description		   	   		:  This method is used to Verify that Domain admin can promot any user as org admin displayed under domain admin list.
+*/
+function verifyDACanpromoteUserASOAUnderUR($sMemberFirstName,$dName)
+{
+  
+  //Scroll downwards
+	_call(_div("sub-sidebar-content-inner").scrollTop=5000); 
+
+	if(_isVisible(_link($sNewOrgName2+$sDF)))
+    {
+      //Click on created organisation
+      _click(_link($sNewOrgName2+$sDF));
+      
+      //Click on Admins
+    _click(_link($lnk_Admins));
+      
+      //Click on + to assign members
+	_click(_link($lnk_AssignMemebrs));
+
+	//Set created user in text box
+	_setValue(_textbox($txt_GName), $sMemberFirstName+" "+$dName);
+
+    //Click on Apply button
+    _click(_button($btn_Apply));
+
+    //Click on check box
+    _click(_checkbox($chk_Box_ON, _near(_strong($sMemberFirstName+" "+$dName))));
+
+    //Click on save button
+    _click(_button($btn_GSave));
+    }
+    else
+    {
+      _log("Created organisation is not found");
+    }
+}
+/*
+Function Name 				: verifyDACanDepromoteOrgMember
+TestCaseId				  	:   TC_Gen2_DomAdmin_C42527
+Module				    	:	Organisation
+SubModule	   			  	:	All
+Section						:	Add
+Author 	 	    			:  Divya
+Created Date 	 	 		:  13 June 2016
+Description		   	   		:  This method is used to Verify that Domain admin can depromot any user from org admin role displayed under domain admin list.
+*/
+function verifyDACanDepromoteOrgMember($sMemberFirstName,$dName)
+{
+  
+  if(_isVisible(_link($sNewOrgName2+$sDF)))
+    {
+      //Click on created organisation
+      _click(_link($sNewOrgName2+$sDF));
+      
+      //Click on Admins
+    _click(_link($lnk_Admins));
+      
+      var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=300);
+      
+      //Clik on Unassign near created org member
+      _click(_link($lnk_GUnassign, _near(_div($sMemberFirstName+" "+$dName))));
+      
+      //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+      
+    }
+else
+    {
+      _log("Created organisation is not found");
+    }
+
+}
+
+
+
+
+/*
+Function Name 			:   verifyDomainCreatedGroupIsNotVisibleToOrgMembers
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is Verify that user groups  created by domain admin is visible other domain admins
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sOrgAdminName1,$sOrgAdminPassword1
+*/
+function verifyDomainCreatedGroupIsNotVisibleToOrgMembers($sURL,$sDomainName1,$sDomainName1_Password,
+                              $sOrgAdminName1,$sOrgAdminPassword1 )
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sGroupTitle));
+          
+      //Click on delete button  
+		_click($btn_DeleteUG);
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+		 _wait(2000);
+	}
+
+	//Click on + icon
+	_click(_link($icon_PlusAddGroup));
+	_wait(2000);
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sGroupTitle);
+
+	//Enter Description
+	_setValue(_textarea(0),$sGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+
+ 	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);		
+	
+	//Click on Contact groups
+	_click(_link($lnk_ContactGroup));
+
+	//Verify whether report name is visible to other Organistion members/Employees/Admin
+	if(_isVisible(_link($sGroupTitle)))
+	{
+      _log("Group is visible to other Organistion members/Employees/Admin");
+	}
+	else
+    {
+      _log("Group is not visible to other Organistion members/Employees/Admin.Hence Success ...");
+	}
+
+    //Log out from app
+	logOut();
+  
+} 
+
+
+/*
+Function Name 			:   verifyDomainCreatedPolicyGroupIsVisibleToOtherDomainAdmin
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is Verify that policy groups  created by domain admin is visible other domain admins
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sDomainName2,$sDomainName2_Password
+*/
+
+function verifyDomainCreatedPolicyGroupIsVisibleToOtherDomainAdmin($sURL,$sDomainName1,$sDomainName1_Password
+                                                                  ,$sDomainName2,$sDomainName2_Password)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Policy groups
+	_click(_link($lnk_PG));
+
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sPolicyGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sPolicyGroupTitle));
+          
+      //Click on delete button  
+		_click($btn_DeleteUG);
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+
+	//click on + icon
+	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_PolicyHeader))));
+
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sPolicyGroupTitle);
+
+	//Enter description
+	_setValue(_textarea(0),$sPolicyGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+
+ 	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName2,$sDomainName2_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Policy groups
+	_click(_link($lnk_PG));
+
+	//Verify created policy group is visible to domain admin
+	if(_exists(_link($sPolicyGroupTitle)))
+	{
+      _log("Created policy group is visible to domain admin");
+	}
+	else
+    {
+      _log("Created policy group is not visible to domain admin");
+	}
+
+	//Log out from app
+	logOut();
+}
+
+
+/*
+Function Name 			:   verifyDomainCreatedPolicyGroupIsNotVisibleToOrgMembers
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is Verity that policy  groups created by  domain admin is not  visible to other 'organization  admins' 
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sOrgAdminName1,$sOrgAdminPassword1
+*/
+
+function verifyDomainCreatedPolicyGroupIsNotVisibleToOrgMembers($sURL,$sDomainName1,$sDomainName1_Password
+                                                                  ,$sOrgAdminName1,$sOrgAdminPassword1)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Policy groups
+	_click(_link($lnk_PG));
+
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sPolicyGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sPolicyGroupTitle));
+          
+      //Click on delete button  
+		_click($btn_DeleteUG);
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+
+	//click on + icon
+	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_PolicyHeader))));
+
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sPolicyGroupTitle);
+
+	//Enter description
+	_setValue(_textarea(0),$sPolicyGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+
+ 	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);
+
+	_click(_div($sOrgNameToClick));
+	
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+	
+	//Click on Groups link
+	_click(_link($lnk_PG));
+
+	//Verify created policy group is visible to Organisation Members\Employees\Users
+	if(_exists(_link($sPolicyGroupTitle)))
+	{
+      _log("Created policy group is visible to Organisation Members\Employees\Users");
+	}
+	else
+    {
+      _log("Created policy group is not visible to Organisation Members\Employees\Users");
+	}
+
+	//Log out from app
+	logOut();
+}
+
+
+/*
+Function Name 			:   verifyDomainCreatedContactGroupIsNotVisibleToOtherDomain
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is to Verify that contact groups  created by domain admin is not visible other domain admins
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sDomainName2,$sDomainName2_Password
+*/
+
+function verifyDomainCreatedContactGroupIsNotVisibleToOtherDomain($sURL,$sDomainName1,$sDomainName1_Password,
+                                                               $sDomainName2,$sDomainName2_Password  )
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Contact groups
+	_click(_link($lnk_ContactGroup));
+
+	//Verify whether group already exists, If yes means delete it.
+	if(_exists(_link($sContactGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sContactGroupTitle));
+          
+      //Click on delete button  
+		_click($btn_DeleteUG);
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+
+	//click on + icon
+	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_CGHeader))));
+
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sContactGroupTitle);
+
+	//Enter description
+	_setValue(_textarea(0),$sContactGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+
+ 	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDN2,$sDN2_Password);
+	
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Contact groups
+	_click(_link($lnk_ContactGroup));
+
+	//Verify created contact group is visible to Organisation Members\Employees\Users
+	if(_exists(_link($sContactGroupTitle)))
+	{
+      _log("Created contact group is visible to other Domain admin");
+	}
+	else
+    {
+      _log("Created contact group is visible to other Domain admin");
+	}
+	//Log out from app
+	logOut();
+  
+}
+
+/*
+Function Name 			:   verifyDomainCreatedContactGroupIsNotVisibleToOtherOrgMembers
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is to Verify that contact groups  created by domain admin is not visible other domain admins
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password, $sOrgAdminName1,$sOrgAdminPassword1
+*/
+function verifyDomainCreatedContactGroupIsNotVisibleToOtherOrgMembers($sURL,$sDomainName1,$sDomainName1_Password,             
+                                                 $sOrgAdminName1,$sOrgAdminPassword1  )
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	//Call method to create Contact group
+	createContactGroup($sContactGroupTitle);
+	
+	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDN2,$sDN2_Password);	
+
+	//Click on Groups link
+	_click(_link($lnk_ContactGroup));
+
+	//Verify created policy group is visible to Organisation Members\Employees\Users\Admin
+	if(_exists(_link($sContactGroupTitle)))
+	{
+      _log("Created contact group is visible to Organisation Members\Employees\Users\Admin");
+	}
+	else
+    {
+      _log("Created contact group is visible to Organisation Members\Employees\Users\Admin");
+	}
+	//Log out from app
+	logOut();
+  
+}
+
+
+/*
+Function Name 			:   createContactGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin can add  a ' Contact Groups' .
+*/
+function createContactGroup($sContactGroupTitle)
+{
+	_wait(2000);
+	
+	//Click on Groups link
+	_click(_link($lnk_MyProfile));
+
+	//Click on Contact groups
+	_click(_link($lnk_ContactGroup));
+	
+	_wait(3000);
+	
+	//Verify whether group already exists, If yes means delete it.
+	if(_exists(_link($sContactGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sContactGroupTitle));
+          
+      //Click on delete button  
+		_click(_italic($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+		 
+		 _wait(2000);
+	}
+	else
+	{
+	_log("Group not existing");
+	}
+	//click on + icon
+	_click(_link($icon_PlusAddGroup));
+	
+	_wait(2000);
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sContactGroupTitle);
+
+	//Enter description
+	_setValue(_textarea(0),$sContactGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+	
+	/*
+	//Select first two members by clicking on check box
+	_click(_checkbox("on[1]"));
+	 $Contactmembername1=_getText(_strong(0, _near(_checkbox("on[1]"))));	
+	*/
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+	
+	_call(_div($div_VerticalScrollBar).scrollTop=2000); 
+	
+	//Validate existance of created group
+    _assertEqual($sContactGroupTitle, _getText(_link($sContactGroupTitle)));
+ 	
+}
+
+
+function verifyDomainAdminCanCreateOrgWithMembers( $sNewOrgName)
+{
+	//Call method to login to site with valid credentials
+	//loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	createUserByDomainAdmin($sMemberFirstName,$dName2,$dEmail);
+	_wait(4000);
+	
+	//Click on Organisation link
+	_click(_link($lnk_Organisation));
+
+	//Click on All Organisation sub link
+	_click(_link($lnk_AllOrg, _near(_link($lnk_Organisation))));
+	
+	_wait(2000);
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_ONameTosearch), $sNewOrgName);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Verify existance of org-if yes then delete it 
+	if(_isVisible(_div($sNewOrgName)))
+       {
+         //Click on delete icon
+       _click(_italic($btn_DeleteAllUserOption, _near(_div($sNewOrgName))));
+         
+          //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+       }
+	   else{
+	   _log("Org name is not existing before");
+	   }
+
+	//Click on + icon to create new organisation
+	_click(_link($icon_PlusOrg, _near(_heading2($txt_AllOrg))));
+
+	//Enter org name
+    _setValue(_textbox($txt_GName), $sNewOrgName);
+
+	//Enter org type
+    _setValue(_textbox($txt_OrgType), $sNewOrgType);
+
+	//Select desired country 
+    _setSelected(_select($drp_dwn_OrgLocationId), $sNewOrgLocation);
+
+	//Enter Zip code
+    _setValue(_textbox($txt_MemberZipCode), $sNewOrgZipCode);
+
+	//Click on Submit button
+    _click(_submit($btn_Submit));
+	
+	_setValue(_textbox($txt_OrgSearchName), $sMemberFirstName+" "+$dName2);
+	
+	_click(_button($btn_Apply));
+	//Select contacts by clicking on check boxs near by contact names
+	_click(_checkbox($chkbox_OnStatus, _near(_strong($sMemberFirstName+" "+$dName2))));
+	
+	//Select contacts by clicking on check boxs near by contact names	
+	//_click(_checkbox($sChkBx_ON, _near(_strong($sOrgAdminNameToselect))));
+
+	//click on create button to create new organisation
+    _click(_submit($btn_MemberCreate));
+
+   //Click on close button
+    _click(_button($btn_MemberClose));
+	
+	_wait(1000);
+
+	//Click on user roles link
+    _click(_link($lnk_UR));
+
+	//Click on Organization Admin
+    _click(_link($lnk_OA));
+
+	//Validate Newly created organization should be  displayed on the 'User Roles' module	
+    _assertEqual($sNewOrgName, _getText(_link($sNewOrgName)));
+	
+	//Click on User roles link
+	_click(_link($lnk_UserRoles1));
+	
+	_click(_link($lnk_OrgAdmin1));
+	
+	_call(_div($div_VerticalScrollBar).scrollTop=2000); 
+	
+	if(_isVisible(_link($sNewOrgName)))
+	{
+	_click(_link($sNewOrgName));
+	
+	_click(_link($lnk_Admins));
+	
+	_click(_link($lnk_AssignMemebrs ));
+	
+	//_click(_checkbox($sChkBx_ON, _near(_strong($sOrgAdminNameToselect))));
+	//Select contacts by clicking on check boxs near by contact names
+	_click(_checkbox($chkbox_OnStatus, _near(_strong($sMemberFirstName+" "+$dName2))));
+	
+	}
+	else
+	{
+	_log("Organisation name do not exist");
+	}
+	
+	
+	
+	//Log out from app
+      logOut();
+}
+
+function createUserByDomainAdmin($sMemberFirstName,$dName,$dEmail)
+{
+  //Click on User Management link
+	//_wait(10000,_isVisible(_link($lnk_UserManagement)));
+	
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	_wait(2000);	
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId),$dEmail);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Check existance of member 
+    if(_exists(_div($dEmail)))
+    {	
+       var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=300);
+      
+      //Click on delete icon near by member name
+      _click(_link("/Delete/", _near(_div($dEmail))));
+
+       //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+    }
+	else
+	{
+	_log("Member do not exist");
+	}
+	
+	//Click on + icon
+	_wait(6000,_isVisible(_link($icon_plus, _near(_heading2($txt_All)))));
+
+	//Click on + icon
+	_click(_link($icon_plus, _near(_heading2($txt_All))));
+
+	//Enter Member first name
+	_setValue(_textbox($txt_FirstName),$sMemberFirstName);
+
+	//Enter Member last name
+    _setValue(_textbox($txt_LastName), $dName);
+
+	//Enter member title
+    _setValue(_textbox($txt_Title),$sMemberTitle);
+
+	//select location
+    _setSelected(_select($txt_MemberLocation),$sMemberLocation);
+
+	//Enter zip code
+    _setValue(_textbox($txt_MemberZipCode),$sMemberZipCode);
+
+	//Enter member email
+    _setValue(_textbox($txt_MemberEmail), $dEmail);
+	
+	//Enter phone number	
+	_setValue(_textbox($txt_PhoneNumber), $iPhoneNumber);
+
+	//Click on create button
+    _click(_submit($btn_MemberCreate));
+	_wait(2000);
+	
+	//Click on close 
+    _click(_button($btn_MemberClose));
+
+}
+
+
+
+/*
+Function Name 			:   verifyDomainCreatedPolicyGroupIsNotVisibleToOrgM
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is Verity that policy  groups created by  domain admin is not  visible to other 'organization  admins' 
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sOrgAdminName1,$sOrgAdminPassword1
+*/
+
+function verifyDomainCreatedPolicyGroupIsNotVisibleToOrgM($sURL,$sDomainName1,$sDomainName1_Password,
+                                                                   $sOrgMember1,$sOrgMemPwd1)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Policy groups
+	_click(_link($lnk_PG));
+
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sPolicyGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sPolicyGroupTitle));
+          
+      //Click on delete button  
+		_click($btn_DeleteUG);
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+
+	//click on + icon
+	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_PolicyHeader))));
+
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sPolicyGroupTitle);
+
+	//Enter description
+	_setValue(_textarea(0),$sPolicyGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+
+ 	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL, $sOrgMember1,$sOrgMemPwd1);
+
+			//Click on Groups link
+	_click(_link($lnk_ContactGroup));
+
+	//Verify created policy group is visible to Organisation Members\Employees\Users
+	if(_exists(_link($sPolicyGroupTitle)))
+	{
+      _log("Created policy group is visible to Organisation Members\Employees\Users");
+	}
+	else
+    {
+      _log("Created policy group is not visible to Organisation Members\Employees\Users");
+	}
+
+	//Log out from app
+	logOut();
+}

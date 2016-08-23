@@ -1,0 +1,8 @@
+_include("./Base/Keyword.sah");
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+//Log out from app
+    logOut();
+

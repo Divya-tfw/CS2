@@ -1,0 +1,7 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Verify Domain admin should be able to add  an 'organizations' successfully and Newly created organization should be  
+//displayed on the 'User Roles' module
+ verifyDomainAdminCanCreateOrg($sNewOrgName2);
+
+

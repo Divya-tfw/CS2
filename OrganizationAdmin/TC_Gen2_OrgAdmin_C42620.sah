@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can delete a 'Contact Groups''
+   verifyThatOrgAdminCanDeleteAContactGroups()
+

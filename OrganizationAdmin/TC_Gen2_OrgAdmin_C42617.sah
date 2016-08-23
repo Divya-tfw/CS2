@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can delete an 'User ' into the domain
+	verifyThatOrgAdminCandeleteAnUserIntoTheDomain($sMember_FirstName,$sMember_LastName,$sMember_Title,$sMember_Location,$sMember_ZipCode);
+

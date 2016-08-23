@@ -1,0 +1,7 @@
+_include("../Base/IncludeFiles.sah");
+
+//verify Organization member should be able to add  'Contacts' successfully.
+verifyOMAddContacts($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMContactSearchValue,
+                    $sContactName1ToSelect,$sContactName2ToSelect);
+
+

@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Verify that Reports created by domain admin is visible to other organization member
+verifyDomainCreatedReportIsVisibleToAnotherOrgMember($sDomainName1,$sDomainName1_Password,
+                                                     $sMemberName1,$sMemberPassword1);

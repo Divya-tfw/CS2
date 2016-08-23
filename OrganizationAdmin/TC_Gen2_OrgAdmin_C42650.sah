@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can assign more members to the  existing  Contact Groups
+	verifyThatOrgAdminCanAssignMoreMembersToExistingContactGroups
+      ($sGroups_ContactGrpTitle, $sDescription );
+

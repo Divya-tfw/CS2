@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Verify Domain admin can create policy set and assign members as well as add group name 
+verifyDomainAdminCanCreatePolicySetwithMembersAndGroups();
+

@@ -1,0 +1,7 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can unassign members from the Contact Groups
+	verifyThatOrgAdminCanUnassignMembersFromTheContactGroups
+      ($sGroups_ContactGrpTitle, $sDescription )
+      
+

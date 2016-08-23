@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Verify that Policy created by domain admin is not visible to other organization member
+verifyDomainCreatedPolicyIsNotVisibleToOrgMember($sURL,$sDomainName1,$sDomainName1_Password,
+            $sPolicyName,$sPolicyExpiryDate, $sPolicyDescription,$sMemberName1,$sMemberPassword1);

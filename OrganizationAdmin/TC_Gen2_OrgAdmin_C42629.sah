@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+//Verify that one Organization admin cannot promote same organization's  member as an org admin for the same organization
+  verifyThatOrgAdminCannotPromoteSameOrganizationsMemberAsAnOrgAdminForTheSameOrganization();
+
+

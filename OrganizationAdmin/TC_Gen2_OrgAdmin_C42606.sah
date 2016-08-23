@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can include policy members by selecting members individually from the member list while creating a policy.
+	verifyThatOrgaAdminCanIncludePolicyMembersBySelectingMembersIndividuallyFromTheMemberListWhileCreatingAPolicy
+      ($sPolicyName_OrgAdmin, $sPolicyDescription_OrgAdmin);
+

@@ -1,0 +1,4 @@
+_include("../Base/Keyword.sah");
+
+	//Verify Domain admin should be able to access the all modules
+	verifyDomainAdminCanAccessAllModules($sStage_URL,$sDomainName1,$sDomainName1_Password);

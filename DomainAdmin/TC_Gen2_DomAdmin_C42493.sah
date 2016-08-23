@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Members unassigned for the user group is removed from the Policy group.
+verifyDACanUnassignMembersInGroup($sURL,$sDomainName1,$sDomainName1_Password,$lnk_PG,$sPolicyGroupTitle);

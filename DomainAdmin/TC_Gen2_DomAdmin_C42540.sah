@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");	
+
+//App should not allow blocked employee/user to login and error message should display as "Account has been blocked by administrator" 
+verifyMemberCantLoginWhenDomainAdminHasBlocked($sURL,$sDomainName1,$sDomainName1_Password,
+                                     $sBlockMember1,$sBlockMember1Pwd );
+

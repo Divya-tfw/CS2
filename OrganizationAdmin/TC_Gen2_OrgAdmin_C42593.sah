@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that members included for the Policy Groups is displayed under Policy Groups
+	verifyThatMembersIncludedForThePolicyGroupsIsDisplayedUnderPolicyGroups
+      ($sGroups_PolicyGrpTitle, $sDescription);
+

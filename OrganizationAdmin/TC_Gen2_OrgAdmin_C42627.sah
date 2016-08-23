@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can not assign a Employee/user to an organization(sub domain)
+	verifyThatOrgAdminCannotAssignAEmployeeOrUserToAnOrganization_subDomain();
+
+  

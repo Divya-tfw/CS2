@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that organization admin can block himself
+  verifyThatOrgAdminCanBlockHimself();
+
+

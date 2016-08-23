@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+//Verify that members included for the User groups is displayed under User groups
+   verifyThatMembersIncludedForTheUsergroupsIsDisplayedUnderUserGroups
+     ($sGroups_UserGrpTitle, $sGroups_Description);

@@ -1,0 +1,8 @@
+_include("../Base/IncludeFiles.sah");	
+
+
+//Verify Employee/User created by domain admin is not  visible  to any organization
+verifyDACreatedMemberNotVisibileToANotherOA();
+
+
+

@@ -1,0 +1,7 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Verify that user groups  created by domain admin is visible other domain admins
+verifyDomainCreatedGroupIsVisibleToAnotherDomain($sURL,$sDomainName1,$sDomainName1_Password,
+                               $sDomainName2,$sDomainName2_Password );
+
+

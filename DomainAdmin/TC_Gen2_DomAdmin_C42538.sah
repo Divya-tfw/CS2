@@ -1,0 +1,8 @@
+_include("../Base/IncludeFiles.sah");	
+
+//App should not allow blocked domain admin  to login and error message should display as
+//"Account has been blocked by administrator"  
+//when trying to login.
+verifyErrorMessagewhenDomainAdminIsBlocked
+  ($sURL,$sDomainName1,$sDomainName1_Password,$sBlockDomainAdmin,$sBlockDomainAdminPassword);
+

@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Members included for the organization must be listed  under 'Member' tab for the organization created by domain admin.
+verifyMembersRIncludedWhileCreatingOrg();
+
+

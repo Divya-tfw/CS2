@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");	
+
+//verify App should not allow domain admin  to create duplicate MBN  with same country and same MBN type.
+verifyCannotCreateDuplicatedMBN($sURL,$sDomainName1,$sDomainName1_Password,$drp_dwn_CountryId,
+                                         $iMBNValue,$drp_dwn_MBN_VoiceOnly,$radio_MBNAssignToMember4);
+

@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Contact groups created by  Organization admin is not  visible to other 'Organization  admins'
+	verifyThatContactGroupsCreatedByOrgAdminIsNotVisibleToOtherOrganizationsOrgAdmins
+      ($sGroups_ContactGrpTitle, $sDescription );
+

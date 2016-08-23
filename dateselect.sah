@@ -1,0 +1,14 @@
+_click(_link(83));
+_setValue(_textbox("Title"), "ATY");
+_setValue(_textarea("Description"), "ATY");
+_click(_submit("Next"));
+_check(_checkbox("2"));
+_click(_button("Next"));
+_click(_span("09[1]"));
+_click(_span("09[1]"));
+_click(_submit("Add Report"));
+
+
+/****Working one **/
+_click(_textbox("To:"));
+_click(_span("16", _near(_strong("/Jun 2016/"))));

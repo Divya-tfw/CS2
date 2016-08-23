@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");	
+
+
+//Verify that Reports created by domain admin is visible to other domain admins
+verifyDomainCreatedReportIsVisibleToAnotherDomainAdmin();
+

@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");	
+
+// Verify that Organization admin can add 'MBN' with 'Voice and Messaging '
+	verifyThatOrgAdminCanAddMBNwithVoiceAndMessaging
+      ($sMBNCountry_OrgAdmin, $sMBNnumber_VandM_OrgAdmin, $sMBNType_VM_OrgAdmin, $sMBNProvider_OrgAdmin, $sMBNnotes_OrgAdmin);
+

@@ -1,0 +1,20 @@
+_include("../Base/IncludeFiles.sah");	
+
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//wait till link User Management link is visible
+	_wait(10000,_isVisible(_link($lnk_UserManagement)));
+	
+	//Click on User Management link
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMActive, _under(_link($lnk_UserManagement))));
+
+	//Domain admin should not be able to  promote any employee/user directly as  an organization admin
+	_assertNotVisible(_link($lnk_AssignMemebrs));
+
+	// Log out from app
+	 logOut();	

@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Method to create MBN with given type
+createMBNWithGivenType($iMBNValue,$drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly,$radio_MBNAssignToMember1);

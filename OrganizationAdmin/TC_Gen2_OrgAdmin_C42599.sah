@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can add 'MBN' with 'Messaging only'
+	verifyThatOrgAdminCanAddMBNwithMessagingOnly
+      ($sMBNCountry_OrgAdmin,$sMBNnumber_MO_OrgAdmin,$sMBNType_MO_OrgAdmin,$sMBNProvider_OrgAdmin,$sMBNnotes_OrgAdmin);
+

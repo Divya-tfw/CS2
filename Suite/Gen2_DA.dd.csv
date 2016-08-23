@@ -1,0 +1,237 @@
+#script,tags,URL,Test Case id,Automation_Id,Expected Results,Argument 1
+../DomainAdmin/TC_Gen2_DomAdmin_C42472.sah,"Domain_Admin,All,Gen2_DomAdmin_C42472,User_Management,All_Users,Add,Demo",http://sahitest.com/demo/training/login.htm,C42472,Gen2_DomAdmin_C42472,"1. Domain admin should be able to add an user successfully.
+2. User name along with details entered on step 4 should be displayed on the table consisting on pending members
+3. Added user should receive a email from 'SecureLine Support' contains email initiation link
+
+4. Added  user must be displayed under 'pending' section of user management page.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42473.sah,"Domain_Admin,All,Gen2_DomAdmin_C42473,Organisation,Add,Demo",http://sahitest.com/demo/training/login.htm,C42473,Gen2_DomAdmin_C42473,"1. Domain admin should be able to add  an 'organizations' successfully.
+
+2. Newly added organization should be displayed on the last frame table
+
+3. Newly created organization should be  displayed on the module  'User Roles> Organization admin'.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42474.sah,"Domain_Admin,All,Gen2_DomAdmin_C42474,Organisation,Add,Demo",http://sahitest.com/demo/training/login.htm,C42474,Gen2_DomAdmin_C42474,Members included for the organization must be listed  under 'Members' tab for the organization created by domain admin.,
+../DomainAdmin/TC_Gen2_DomAdmin_C42475.sah,"Domain_Admin,All,Gen2_DomAdmin_C42475,Groups,User_Group,Add,Demo",http://sahitest.com/demo/training/login.htm,C42475,Gen2_DomAdmin_C42475,"1. Domain admin can add  a 'User Groups' successfully.
+
+2. Newly added 'User Groups' should be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42475.sah,"Domain_Admin,All,Gen2_DomAdmin_C42475,Groups,User_Group,Add,Demo",http://sahitest.com/demo/training/login.htm,C42475,Gen2_DomAdmin_C42475,"1. Domain admin can add  a 'User Groups' successfully.
+
+2. Newly added 'User Groups' should be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42477.sah,"Domain_Admin,All,Gen2_DomAdmin_C42477,Groups,Policy_Group,Add,Demo",http://sahitest.com/demo/training/login.htm,C42477,Gen2_DomAdmin_C42477,"1. Domain admin should be able to add  a 'Policy Groups' successfully.
+
+2. Newly added 'Policy Groups' should be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42477.sah,"Domain_Admin,All,Gen2_DomAdmin_C42477,Groups,Policy_Group,Add,Demo",http://sahitest.com/demo/training/login.htm,C42477,Gen2_DomAdmin_C42477,"1. Domain admin should be able to add  a 'Policy Groups' successfully.
+
+2. Newly added 'Policy Groups' should be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42479.sah,"Domain_Admin,All,Gen2_DomAdmin_C42479,Groups,Contact_Group,Add",http://sahitest.com/demo/training/login.htm,C42479,Gen2_DomAdmin_C42479,"1. Domain admin should be able to add  a 'Contact Groups' successfully.
+
+2. Newly added 'Contact Groups' should be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42480.sah,"Domain_Admin,All,Gen2_DomAdmin_C42480,MBN,Add",http://sahitest.com/demo/training/login.htm,C42480,Gen2_DomAdmin_C42480,Members included for the 'Contact  Groups' should be displayed under 'Contact  Groups'.,
+../DomainAdmin/TC_Gen2_DomAdmin_C42483.sah,"Domain_Admin,All,Gen2_DomAdmin_C42483,MBN,Add",http://sahitest.com/demo/training/login.htm,C42483,Gen2_DomAdmin_C42483,"1. Domain admin should be able to add  'MBN' with 'Voice only' type successfully.
+
+2. Newly added 'MBN' should be displayed on the last frame along with all the details entered.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42484.sah,"Domain_Admin,All,Gen2_DomAdmin_C42484,MBN,Add",http://sahitest.com/demo/training/login.htm,C42484,Gen2_DomAdmin_C42484,"1. Domain admin should be able to add  'MBN' with 'Message only' type successfully.
+
+2. Newly added 'MBN' should be displayed on the last frame along with all the details entered.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42485.sah,"Domain_Admin,All,Gen2_DomAdmin_C42485,MBN,Add",http://sahitest.com/demo/training/login.htm,C42485,Gen2_DomAdmin_C42485,"1. Domain admin should be able to add  'MBN' with 'Voice and Messaging ' type successfully.
+
+2. Newly added 'MBN' should be displayed on the last frame along with all the details entered.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42487.sah,"Domain_Admin,All,Gen2_DomAdmin_C42487,MBN,Add",http://sahitest.com/demo/training/login.htm,C42487,Gen2_DomAdmin_C42487,"1. App should not allow domain admin  to create duplicate MBN  with same country and same MBN type.
+
+2. An 'ERROR-Duplicate MBN value' popup should be displayed.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42489.sah,"Domain_Admin,All,Gen2_DomAdmin_C42489,MBN,Unassign",http://sahitest.com/demo/training/login.htm,C42489,Gen2_DomAdmin_C42489,"1. Domain admin should be able to  unassign the Employee/User who has associated with MBN 
+
+2. Unassigned Member should not be displayed under 'Assigned To' tab",
+../DomainAdmin/TC_Gen2_DomAdmin_C42490.sah,"Domain_Admin,All,Gen2_DomAdmin_C42490,Policies,Policy_sets",http://sahitest.com/demo/training/login.htm,C42490,Gen2_DomAdmin_C42490,"1. Domain admin should be able to  include policy members by selecting a 'Policy Groups'  while creating a policy.
+
+2. Domain admin should be able to add  'Policy' successfully.
+
+3. Newly added policy should be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42491.sah,"Domain_Admin,All,Gen2_DomAdmin_C42491,Add",http://sahitest.com/demo/training/login.htm,C42491,Gen2_DomAdmin_C42491,"1. Domain admin should be able  include policy members by selecting members individually from the member list
+
+2. Domain admin should be able to add  'Policy' successfully.
+
+3. Newly added policy should be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42493.sah,"Domain_Admin,All,Gen2_DomAdmin_C42493,Groups,Policy_Group,Unassign",http://sahitest.com/demo/training/login.htm,C42493,Gen2_DomAdmin_C42493,"1. Members unassigned for the 'Policy Groups' is   removed from the 'Policy  Groups'.
+2. Changes made on the 'Policy Groups' should be reflected on the mapped the policy",
+../DomainAdmin/TC_Gen2_DomAdmin_C42494.sah,"Domain_Admin,All,Gen2_DomAdmin_C42494,Groups,Contact_Group,Unassign",http://sahitest.com/demo/training/login.htm,C42494,Gen2_DomAdmin_C42494,Members unassigned for the 'User Groups' should be  removed from the 'User Groups'.,
+../DomainAdmin/TC_Gen2_DomAdmin_C42495.sah,"Domain_Admin,All,Gen2_DomAdmin_C42495,Groups,Contact_Group,Unassign",http://sahitest.com/demo/training/login.htm,C42495,Gen2_DomAdmin_C42495,Members unassigned for the 'Contact Groups' should be  removed from the 'Contact  Groups',
+../DomainAdmin/TC_Gen2_DomAdmin_C42497.sah,"Domain_Admin,All,Gen2_DomAdmin_C42497,Groups,Policy_Group,Unassign",http://sahitest.com/demo/training/login.htm,C42497,Gen2_DomAdmin_C42497,"1. Domain admin should be able to assign more members to the existing  'Policy  Groups'
+
+2. Newly assigned members should be displayed under the 'Policy  Groups'  in last frame's table",
+../DomainAdmin/TC_Gen2_DomAdmin_C42498.sah,"Domain_Admin,All,Gen2_DomAdmin_C42498,Groups,User_Group,Assign",http://sahitest.com/demo/training/login.htm,C42498,Gen2_DomAdmin_C42498,"1. Domain admin should be able to assign more members to the  existing 'User Groups'
+
+2. Newly assigned members should be displayed under the 'User   Groups' in last frame's table",
+../DomainAdmin/TC_Gen2_DomAdmin_C42499.sah,"Domain_Admin,All,Gen2_DomAdmin_C42499,Groups,Contact_Group,Unassign",http://sahitest.com/demo/training/login.htm,C42499,Gen2_DomAdmin_C42499,"1. Domain admin should be able to assign more members to the   existing 'Contact Groups' 
+
+2. Newly assigned members should be displayed under the  'Contact Groups'   in last frame's table",
+../DomainAdmin/TC_Gen2_DomAdmin_C42499.sah,"Domain_Admin,All,Gen2_DomAdmin_C42499,Groups,Contact_Group,Unassign",http://sahitest.com/demo/training/login.htm,C42499,Gen2_DomAdmin_C42499,"1. Domain admin should be able to add  'Custom Reports' successfully.
+
+2. Newly added 'Custom Reports' should be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42502.sah,"Domain_Admin,All,Gen2_DomAdmin_C42502,Contacts,Add",http://sahitest.com/demo/training/login.htm,C42502,Gen2_DomAdmin_C42502,"1. Domain admin should be able to add  'Contacts' successfully .
+
+2. Newly added 'Contacts' should be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42503.sah,"Domain_Admin,All,Gen2_DomAdmin_C42503,Organisation,Edit",http://sahitest.com/demo/training/login.htm,C42503,Gen2_DomAdmin_C42503,"1. Domain admin should be able to edit an user successfully.
+2. Edited user details should be displayed to the edited member when he login. 
+3. Edited user details should be displayed in the entire application .Eg., Contacts, Conversation etc., ",
+../DomainAdmin/TC_Gen2_DomAdmin_C42504.sah,"Domain_Admin,All,Gen2_DomAdmin_C42504,User_Management,All,Edit",http://sahitest.com/demo/training/login.htm,C42504,Gen2_DomAdmin_C42504,"1. Domain admin should be able to edit  an 'organizations' successfully.
+
+2. Updated organization should be reflected on the respective Organization admin and the associated organization members.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42505.sah,"Domain_Admin,All,Gen2_DomAdmin_C42505,Groups,User_Group,Edit",http://sahitest.com/demo/training/login.htm,C42505,Gen2_DomAdmin_C42505,Domain admin can edit  a 'User Groups' successfully.,
+../DomainAdmin/TC_Gen2_DomAdmin_C42506.sah,"Domain_Admin,All,Gen2_DomAdmin_C42506,Groups,Policy_Group,Edit",http://sahitest.com/demo/training/login.htm,C42506,Gen2_DomAdmin_C42506,Domain admin should be able to edit  a 'Policy Groups' successfully.,
+../DomainAdmin/TC_Gen2_DomAdmin_C42507.sah,"Domain_Admin,All,Gen2_DomAdmin_C42507,Groups,Policy_Group,Edit",http://sahitest.com/demo/training/login.htm,C42507,Gen2_DomAdmin_C42507,Domain admin should be able to edit  a 'Contact Groups' successfully.,
+../DomainAdmin/TC_Gen2_DomAdmin_C42509.sah,"Domain_Admin,All,Gen2_DomAdmin_C42509,MBN,Edit",http://sahitest.com/demo/training/login.htm,C42509,Gen2_DomAdmin_C42509,Domain admin should be able to edit  'MBN',
+../DomainAdmin/TC_Gen2_DomAdmin_C42510.sah,"Domain_Admin,All,Gen2_DomAdmin_C42510,Policy,Policy_Set",http://sahitest.com/demo/training/login.htm,C42510,Gen2_DomAdmin_C42510,Domain admin should be able to edit  'Policy' successfully.,
+../DomainAdmin/TC_Gen2_DomAdmin_C42511.sah,"Domain_Admin,All,Gen2_DomAdmin_C42511",http://sahitest.com/demo/training/login.htm,C42511,Gen2_DomAdmin_C42511,Domain admin should be able to edit  'Custom Reports' successfully and changes made on the report should get reflected.,
+../DomainAdmin/TC_Gen2_DomAdmin_C42512.sah,"Domain_Admin,All,Gen2_DomAdmin_C42512",http://sahitest.com/demo/training/login.htm,C42512,Gen2_DomAdmin_C42512,"1. Domain admin should be able to delete an user successfully.
+2. App should not allow the deleted user to login.
+3. The deleted member should be removed from 'User Management' page of Domain admin",
+../DomainAdmin/TC_Gen2_DomAdmin_C42513.sah,"Domain_Admin,All,Gen2_DomAdmin_C42513",http://sahitest.com/demo/training/login.htm,C42513,Gen2_DomAdmin_C42513,"1. Domain admin should be able to delete  an 'Organizations' successfully.
+
+2. Members associated to the deleted organization should be removed and organization admin should not have access to the deleted organization (Organization should be removed from respective organization admin profile pop up located at the top right of the page 'you are signed in as ' section.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42514.sah,"Domain_Admin,All,Gen2_DomAdmin_C42514",http://sahitest.com/demo/training/login.htm,C42514,Gen2_DomAdmin_C42514,"1. Domain admin can delete  a 'User Groups' successfully.
+
+2. Deleted 'User Groups' should not be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42515.sah,"Domain_Admin,All,Gen2_DomAdmin_C42515",http://sahitest.com/demo/training/login.htm,C42515,Gen2_DomAdmin_C42515,"1. Domain admin should be able to delete  a 'Policy Groups' successfully. 
+
+2. Deleted 'Policy Groups' should not be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42516.sah,"Domain_Admin,All,Gen2_DomAdmin_C42516",http://sahitest.com/demo/training/login.htm,C42516,Gen2_DomAdmin_C42516,"1. Domain admin should be able to delete  a 'Contact Groups' successfully.
+
+2. Deleted 'Contact Groups' should not be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42518.sah,"Domain_Admin,All,Gen2_DomAdmin_C42518",http://sahitest.com/demo/training/login.htm,C42518,Gen2_DomAdmin_C42518,"1. Domain admin should be able to delete  'MBN'.
+
+2. Deleted MBN should not be displayed from the MBN list
+
+3. MBN associated to the member should be removed automatically.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42519.sah,"Domain_Admin,All,Gen2_DomAdmin_C42519",http://sahitest.com/demo/training/login.htm,C42519,Gen2_DomAdmin_C42519,"1. Domain admin should be able to delete  'Policy' successfully.
+
+2. Policy associated  with the device is unassigned automatically.
+
+3. Deleted 'Policy' should not be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42520.sah,"Domain_Admin,All,Gen2_DomAdmin_C42520",http://sahitest.com/demo/training/login.htm,C42520,Gen2_DomAdmin_C42520,"1. Domain admin should be able to delete  'Custom Reports' successfully.
+ 
+2. Deleted 'Custom Reports' should not be displayed in the mid frame.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42521.sah,"Domain_Admin,All,Gen2_DomAdmin_C42521",http://sahitest.com/demo/training/login.htm,C42521,Gen2_DomAdmin_C42521,"1. Domain admin should be able to delete  'Contacts' successfully.
+
+2. Deleted 'Contact' should not be displayed from the contact list",
+../DomainAdmin/TC_Gen2_DomAdmin_C42522.sah,"Domain_Admin,All,Gen2_DomAdmin_C42522",http://sahitest.com/demo/training/login.htm,C42522,Gen2_DomAdmin_C42522,"1. Member should be promoted as domain admin and displayed under domain admin list.
+
+2. Confirmation pop up 'Assignment updated' should be displayed.
+
+3. 'Domain admin' should  be displayed under 'You are signed in as' section in profile  located on top right corner of the page when domain admin login.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42522.sah,"Domain_Admin,All,Gen2_DomAdmin_C42522",http://sahitest.com/demo/training/login.htm,C42522,Gen2_DomAdmin_C42522,"1. Member should be promoted as domain admin and displayed under domain admin list.
+
+2. Confirmation pop up 'Assignment updated' should be displayed.
+
+3. 'Domain admin' should  be displayed under 'You are signed in as' section in profile  located on top right corner of the page when domain admin login.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42524.sah,"Domain_Admin,All,Gen2_DomAdmin_C42524",http://sahitest.com/demo/training/login.htm,C42524,Gen2_DomAdmin_C42524,"1. The assigned member should be listed under the respective organization's member list.
+
+2. Assigned organization name should be displayed under 'You are signed in as' section in profile  located on top right corner of the page  when member login",
+../DomainAdmin/TC_Gen2_DomAdmin_C42526.sah,"Domain_Admin,All,Gen2_DomAdmin_C42526",http://sahitest.com/demo/training/login.htm,C42526,Gen2_DomAdmin_C42526,Domain admin should not be able to  promote any Employee/User directly as  an organization admin,
+../DomainAdmin/TC_Gen2_DomAdmin_C42527.sah,"Domain_Admin,All,Gen2_DomAdmin_C42527",http://sahitest.com/demo/training/login.htm,C42527,Gen2_DomAdmin_C42527,"1. Domain admin should be able to  depromote any organization admin to an organization member
+
+2. Depromoted organization admin  should be removed from the  an organization admin  list.
+
+3. 'Organization name ' should  be displayed without any prefix under 'You are signed in as' section in profile located on top right corner of the page when domain admin login.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42538.sah,"Domain_Admin,All,Gen2_DomAdmin_C42538,User_Management,Active,Block",http://sahitest.com/demo/training/login.htm,C42538,Gen2_DomAdmin_C42538,"1. Lock icon should be toggled to unlock icon.
+
+2. Already logged in Case:
+App should not allow blocked domain admin to access further  when  blocked domain admin has already  been logged in. App throws an error message ""Account has been blocked by administrator"" 
+
+3. Not logged in Case:
+App should not allow blocked domain admin  to login and error message should display as ""Account has been blocked by administrator""  when trying to login.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42539.sah,"Domain_Admin,All,Gen2_DomAdmin_C42539,User_Management,All,Block",http://sahitest.com/demo/training/login.htm,C42539,Gen2_DomAdmin_C42539,"1. Unlock icon should be toggled to lock icon.
+
+2. Already logged in Case:
+App should  allow unblocked domain admin to access further when unblocked domain admin has already  been logged in.
+
+3. Not logged in Case:
+App should  allow unblocked domain admin to login.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42540.sah,"Domain_Admin,All,Gen2_DomAdmin_C42540,User_Management,All",http://sahitest.com/demo/training/login.htm,C42540,Gen2_DomAdmin_C42540,"1. Lock icon should be toggled to unlock icon.
+
+2. Already logged in Case:
+App should not allow blocked Employee/User  to access further  when  Employee/User has already  been logged in. ""Account has been blocked by administrator"" 
+
+3. Not logged in Case:
+App should not allow blocked Employee/User to login and error message should display as ""Account has been blocked by administrator""",
+../DomainAdmin/TC_Gen2_DomAdmin_C42541.sah,"Domain_Admin,All,Gen2_DomAdmin_C42541,User_Management,All",http://sahitest.com/demo/training/login.htm,C42541,Gen2_DomAdmin_C42541,"1. Unlock icon should be toggled to lock icon.
+
+2. Already logged in Case:
+App should  allow unblocked Employee/User  to access further when unblocked Employee/User  has already  been logged in.
+
+3. Not logged in Case:
+App should  allow unblocked Employee/User to login.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42542.sah,"Domain_Admin,All,Gen2_DomAdmin_C42542",http://sahitest.com/demo/training/login.htm,C42542,Gen2_DomAdmin_C42542,"1. Deleted member should not be displayed in the organization.
+2. Deleted member should not be listed in user management
+3. App should not allow deleted member to login.
+4.App should not allow deleted member to re-register by using the credentials used for previous registration",
+../DomainAdmin/TC_Gen2_DomAdmin_C42543.sah,"Domain_Admin,All,Gen2_DomAdmin_C42543",http://sahitest.com/demo/training/login.htm,C42543,Gen2_DomAdmin_C42543,"1. Deleted organization admin should not be displayed in the following page:
+Users roles>organization admin>respective organization admin>users.
+2. Deleted organization admin  should not be listed in user management
+3. App should not allow deleted organization admin  to login.
+4.App should not allow deleted organization admin  to re-register by using the credentials used for previous registration",
+../DomainAdmin/TC_Gen2_DomAdmin_C42544.sah,"Domain_Admin,All,Gen2_DomAdmin_C42544",http://sahitest.com/demo/training/login.htm,C42544,Gen2_DomAdmin_C42544,"1. Domain admin should be able to update his profile.
+
+2. Changes made on profile page should be reflects on contact page for himself and other equivalent role.
+
+3. Profile updated by domain admin should be visible to all other domain admins under user management page.
+
+4. Profile updated by domain admin should not be visible
+roles other than domain admin such as  organization admin, organization member and Employee/User.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42544.sah,"Domain_Admin,All,Gen2_DomAdmin_C42544",http://sahitest.com/demo/training/login.htm,C42544,Gen2_DomAdmin_C42544,"1. Domain admin should be able to update his profile.
+
+2. Changes made on profile page should be reflects on contact page for himself and other equivalent role.
+
+3. Profile updated by domain admin should be visible to all other domain admins under user management page.
+
+4. Profile updated by domain admin should not be visible
+roles other than domain admin such as  organization admin, organization member and Employee/User.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42544.sah,"Domain_Admin,All,Gen2_DomAdmin_C42544",http://sahitest.com/demo/training/login.htm,C42544,Gen2_DomAdmin_C42544,"1. Domain admin should be able to update his profile.
+
+2. Changes made on profile page should be reflects on contact page for himself and other equivalent role.
+
+3. Profile updated by domain admin should be visible to all other domain admins under user management page.
+
+4. Profile updated by domain admin should not be visible
+roles other than domain admin such as  organization admin, organization member and Employee/User.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42547.sah,"Domain_Admin,All,Gen2_DomAdmin_C42547",http://sahitest.com/demo/training/login.htm,C42547,Gen2_DomAdmin_C42547,Domain admin should be able to  export custom report,
+../DomainAdmin/TC_Gen2_DomAdmin_C42548.sah,"Domain_Admin,All,Gen2_DomAdmin_C42548",http://sahitest.com/demo/training/login.htm,C42548,Gen2_DomAdmin_C42548,Domain admin should be able to export System Report,
+../DomainAdmin/TC_Gen2_DomAdmin_C42549.sah,"Domain_Admin,All,Gen2_DomAdmin_C42549",http://sahitest.com/demo/training/login.htm,C42549,Gen2_DomAdmin_C42549,organization created by  domain admin should be visible to other 'domain admins',
+../DomainAdmin/TC_Gen2_DomAdmin_C42549.sah,"Domain_Admin,All,Gen2_DomAdmin_C42549",http://sahitest.com/demo/training/login.htm,C42549,Gen2_DomAdmin_C42549,organization created by  domain admin should be visible to other 'domain admins',
+../DomainAdmin/TC_Gen2_DomAdmin_C42551.sah,"Domain_Admin,All,Gen2_DomAdmin_C42551",http://sahitest.com/demo/training/login.htm,C42551,Gen2_DomAdmin_C42551,Organization created by  domain admin should not be visible to other 'organization member',
+../DomainAdmin/TC_Gen2_DomAdmin_C42552.sah,"Domain_Admin,All,Gen2_DomAdmin_C42552",http://sahitest.com/demo/training/login.htm,C42552,Gen2_DomAdmin_C42552,Organization created by  domain admin should not be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42553.sah,"Domain_Admin,All,Gen2_DomAdmin_C42553",http://sahitest.com/demo/training/login.htm,C42553,Gen2_DomAdmin_C42553,Employee/User created by domain admin should be visible other domain admins,
+../DomainAdmin/TC_Gen2_DomAdmin_C42554.sah,"Domain_Admin,All,Gen2_DomAdmin_C42554",http://sahitest.com/demo/training/login.htm,C42554,Gen2_DomAdmin_C42554,Employee/User created by domain admin should  not  visible  to any organization admin until member is exclusively assigned to that organization by domain admin,
+../DomainAdmin/TC_Gen2_DomAdmin_C42555.sah,"Domain_Admin,All,Gen2_DomAdmin_C42555",http://sahitest.com/demo/training/login.htm,C42555,Gen2_DomAdmin_C42555,Employee/User created by domain admin should not be visible other organization member,
+../DomainAdmin/TC_Gen2_DomAdmin_C42556.sah,"Domain_Admin,All,Gen2_DomAdmin_C42556",http://sahitest.com/demo/training/login.htm,C42556,Gen2_DomAdmin_C42556,Employee/User  created by domain admin is not  visible  to  other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42557.sah,"Domain_Admin,All,Gen2_DomAdmin_C42557,Groups,User_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42557,Gen2_DomAdmin_C42557,'User Groups'  created by domain admin should be visible other domain admins,
+../DomainAdmin/TC_Gen2_DomAdmin_C42557.sah,"Domain_Admin,All,Gen2_DomAdmin_C42557,Groups,User_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42557,Gen2_DomAdmin_C42557,'User Groups'  created by domain admin should be visible other domain admins,
+../DomainAdmin/TC_Gen2_DomAdmin_C42559.sah,"Domain_Admin,All,Gen2_DomAdmin_C42559,Groups,User_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42559,Gen2_DomAdmin_C42559,'User Groups' created by  domain admin should  not  visible to other organization member,
+../DomainAdmin/TC_Gen2_DomAdmin_C42560.sah,"Domain_Admin,All,Gen2_DomAdmin_C42560,Groups,User_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42560,Gen2_DomAdmin_C42560,'User Groups' created by  domain admin should  not  visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42560.sah,"Domain_Admin,All,Gen2_DomAdmin_C42560,Groups,User_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42560,Gen2_DomAdmin_C42560,'User Groups' created by  domain admin should  not  visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42560.sah,"Domain_Admin,All,Gen2_DomAdmin_C42560,Groups,User_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42560,Gen2_DomAdmin_C42560,'User Groups' created by  domain admin should  not  visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42563.sah,"Domain_Admin,All,Gen2_DomAdmin_C42563,Groups,Policy_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42563,Gen2_DomAdmin_C42563,'Policy  Groups' created by  domain admin should not  visible to other organization member,
+../DomainAdmin/TC_Gen2_DomAdmin_C42564.sah,"Domain_Admin,All,Gen2_DomAdmin_C42564,Groups,Policy_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42564,Gen2_DomAdmin_C42564,'Policy  Groups' created by  domain admin should  not  visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42569.sah,"Domain_Admin,All,Gen2_DomAdmin_C42569,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42569,Gen2_DomAdmin_C42569,'Contact Groups'  created by domain admin should not be visible other domain admins,
+../DomainAdmin/TC_Gen2_DomAdmin_C42569.sah,"Domain_Admin,All,Gen2_DomAdmin_C42569,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42569,Gen2_DomAdmin_C42569,'Contact Groups'  created by domain admin should not be visible other domain admins,
+../DomainAdmin/TC_Gen2_DomAdmin_C42571.sah,"Domain_Admin,All,Gen2_DomAdmin_C42571,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42571,Gen2_DomAdmin_C42571,'Contact Groups'  created by  domain admin should  not  visible to other organization member,
+../DomainAdmin/TC_Gen2_DomAdmin_C42572.sah,"Domain_Admin,All,Gen2_DomAdmin_C42572,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42572,Gen2_DomAdmin_C42572,'Contact Groups'  created by  domain admin should  not  visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42577.sah,"Domain_Admin,All,Gen2_DomAdmin_C42577,Policy,Policy_Set,Policy_Visibility",http://sahitest.com/demo/training/login.htm,C42577,Gen2_DomAdmin_C42577,Policy created by domain admin should be visible to other domain admins,
+../DomainAdmin/TC_Gen2_DomAdmin_C42572.sah,"Domain_Admin,All,Gen2_DomAdmin_C42572,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42572,Gen2_DomAdmin_C42572,'Contact Groups'  created by  domain admin should  not  visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42572.sah,"Domain_Admin,All,Gen2_DomAdmin_C42572,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42572,Gen2_DomAdmin_C42572,'Contact Groups'  created by  domain admin should  not  visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42572.sah,"Domain_Admin,All,Gen2_DomAdmin_C42572,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42572,Gen2_DomAdmin_C42572,'Contact Groups'  created by  domain admin should  not  visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42577.sah,"Domain_Admin,All,Gen2_DomAdmin_C42577,Policy,Policy_Set,Policy_Visibility",http://sahitest.com/demo/training/login.htm,C42577,Gen2_DomAdmin_C42577,Policy created by domain admin should be visible to other domain admins,
+../DomainAdmin/TC_Gen2_DomAdmin_C42578.sah,"Domain_Admin,All,Gen2_DomAdmin_C42578,Policy,Policy_Set,Policy_Visibility",http://sahitest.com/demo/training/login.htm,C42578,Gen2_DomAdmin_C42578,Policy created by domain admin should not be visible to other organization admin,
+../DomainAdmin/TC_Gen2_DomAdmin_C42579.sah,"Domain_Admin,All,Gen2_DomAdmin_C42579,Policy,Policy_Set,Policy_Visibility",http://sahitest.com/demo/training/login.htm,C42579,Gen2_DomAdmin_C42579,Policy created by domain admin should not be visible to other organization member,
+../DomainAdmin/TC_Gen2_DomAdmin_C42580.sah,"Domain_Admin,All,Gen2_DomAdmin_C42580,Policy,Policy_Set,Policy_Visibility",http://sahitest.com/demo/training/login.htm,C42580,Gen2_DomAdmin_C42580,Policy created by domain admin should not be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42581.sah,"Domain_Admin,All,Gen2_DomAdmin_C42581,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42581,Gen2_DomAdmin_C42581,Reports created by domain admin should be visible to other domain admins,
+../DomainAdmin/TC_Gen2_DomAdmin_C42582.sah,"Domain_Admin,All,Gen2_DomAdmin_C42582,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42582,Gen2_DomAdmin_C42582,Reports created by domain admin should be visible to other organization admin,
+../DomainAdmin/TC_Gen2_DomAdmin_C42583.sah,"Domain_Admin,All,Gen2_DomAdmin_C42583,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42583,Gen2_DomAdmin_C42583,Reports created by domain admin should be visible to other organization member,
+../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',

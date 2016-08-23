@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that User groups created by  Organization admin is not  visible to other Organization member
+	verifyThatUserGroupsCreatedByOrgAdminIsNotVisibleToOtherOrgMember($sGroups_UserGrpTitle, $sGroups_Description)
+

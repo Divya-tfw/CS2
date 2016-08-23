@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Employee/User created by domain admin should be visible other domain admins
+verifyDACreatedMemberVisibileToANotherDA();
+
+

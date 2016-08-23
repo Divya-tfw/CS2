@@ -1,0 +1,7 @@
+_include("../Base/IncludeFiles.sah");	
+
+
+//Call method to Verify that MBN created by domain admin is  not visible to other 'employee/user' 
+verifyMBNCreatedByDomainAdminIsNotVisibleToOrgMember
+($sURL,$sDomainName1,$sDomainName1_Password,$sMemberName2,$sMemberPassword2, $iMBNValue ,
+ $drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly);

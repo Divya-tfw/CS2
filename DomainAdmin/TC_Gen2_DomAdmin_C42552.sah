@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//organization created by  domain admin should not be visible to other 'employee/user' 
+visibilityOfOrgCreatedByOM($sNewOrgNameForVisiblity,$sEmp1, $sEmp1Pwd);

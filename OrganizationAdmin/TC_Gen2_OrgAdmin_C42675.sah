@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that MBN created by Organization admin is not visible to other Other Employee Or User
+	verifythatMBNCreatedByOrgAdminIsNotVisibleToOtherOtherEmployeeOrUser($sMBNCountry_OrgAdmin, $sMBNnumber_VO_OrgAdmin, $sMBNType_VO_OrgAdmin, $sMBNProvider_OrgAdmin, $sMBNnotes_OrgAdmin);
+

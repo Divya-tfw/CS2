@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Domain admin can add  a ' User Groups' successfully.
+verifyDomainAdminCanAddUserGroup();

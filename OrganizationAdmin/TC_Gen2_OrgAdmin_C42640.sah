@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that organization admin can edit his profile
+	verifyThatOrgAdminCanEditHisProfile($sProfile_ProfileTitle);

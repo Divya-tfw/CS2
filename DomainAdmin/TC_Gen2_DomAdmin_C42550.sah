@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Call method to create org
+	verifyDomainAdminCanCreateOrgWithMembers( $sNewOrgNameForVisiblity);
+	

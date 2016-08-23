@@ -1,0 +1,7 @@
+_include("../Base/IncludeFiles.sah");
+
+
+// verify Organization member should be able to edit  'Custom Reports' successfully and changes made on the report should get reflected
+verifyOMCanEditReport($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMEditReportName);
+
+

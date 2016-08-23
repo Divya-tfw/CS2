@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that organization admin can unblock  organization member who is associated to the respective organization
+	verifyThatOneOrgAdminCanUnblockOrgMemberWhoIsAssociatedToTheRespectiveOrganization($sDomainName5);
+

@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can unassign members from the User groups
+	verifyThatOrgAdminCanUnassignMembersFromTheUserGroups
+      ($sGroups_UserGrpTitle, $sGroups_Description)
+

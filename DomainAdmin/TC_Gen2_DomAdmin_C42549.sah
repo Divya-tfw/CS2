@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");	
+
+
+//organization created by  domain admin should be visible to other 'domain admins' 
+visibilityOfOrgCreatedByDA($sNewOrgNameForVisiblity);
+

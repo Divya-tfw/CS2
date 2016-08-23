@@ -1,0 +1,75 @@
+_include("./Base/Keyword.sah");
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on All link under User management
+  	_click(_link($lnk_UserManagement));
+	
+	//Click on import link 
+	_click(_link($lnk_UMImport, _near(_link($lnk_UserManagement))));
+
+	var $sUserCountBeforeImport=_getText(_span("navi-count ng-binding[8]"));
+	_log($sUserCountBeforeImport);
+
+	//Call method to Click on choose button & select specfic file from given path
+	setFileUpload(_file($btn_FileChoseForImport),$sImportContactsFilePath);
+
+	//Select following drop down value
+    _setSelected(_select($drp_dwn_ConflictAction), $sSkipDuplicatesDropDownVal);
+
+	//Click on Import button
+    _click(_submit($btn_ImportFile));
+
+	_wait(4000);
+
+	//Click on Proceed button	
+	_click(_submit($btn_Proceed));
+
+	_wait(3000);
+
+	//If no of failes records is zero then upload successfull else failure
+    if(_getText(_cell($txt_verifyAccountInfo, _near(_cell($txt_FailedRecords))))==0)
+    {
+      _log("File upload is successfull");
+      _click(_button($btn_Back));
+      	_windowAction($txt_Refresh);
+      _wait(3000);
+      	var $sUserCountAfterImport=_getText(_span("navi-count ng-binding[8]"));
+		_log($sUserCountAfterImport);
+      if($sUserCountAfterImport==$sUserCountBeforeImport)
+      {
+        _log("Import is not successfull");
+      }
+      else
+      {
+              _log("Import is successfull");
+      }
+    }
+    else
+    {
+      _log("File upload is not successfull");		
+		_click(_button($btn_Back));
+		_click(_button($btn_Back));
+      _click(_submit($btn_CancelImport));   
+     }
+
+	_wait(5000);
+
+	//Log out from app
+    logOut();
+
+
+	function setFileUpload($file1,$path)
+    {
+    _focusWindow();
+    _wait(1000);
+    _focus($file1);
+    _wait(1000);
+    _typeKeyCodeNative(java.awt.event.KeyEvent.VK_SPACE);
+    _wait(1000);
+    _typeNative($path);
+    _wait(1000);
+    _typeKeyCodeNative(java.awt.event.KeyEvent.VK_ENTER);
+    _wait(1000);
+    }

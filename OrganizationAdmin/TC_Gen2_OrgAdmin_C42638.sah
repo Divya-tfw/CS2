@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+// Verify that organization admin can block an organization member who is associated to the respective organization
+	verifyThatOrganizationAdminCanBlockAnOrgAdminMemberWhoIsAssociatedToRespectiveOrg
+      ($sDomainName2);

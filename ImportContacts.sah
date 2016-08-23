@@ -1,0 +1,118 @@
+_include("./Base/IncludeFiles.sah");	
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on All link under User management
+  	_click(_link($lnk_UserManagement));
+
+	//Click on All users link
+	_click(_link("ng-binding[15]"));
+	
+	_wait(2000);	
+
+	readContentsOfCSV();
+
+	//Click on import link 
+	_click(_link($lnk_UMImport, _near(_link($lnk_UserManagement))));
+
+	//Call method to Click on choose button & select specfic file from given path
+	setFileUpload(_file($btn_FileChoseForImport),$sImportContactsFilePath);
+
+	//Select following drop down value
+    _setSelected(_select($drp_dwn_ConflictAction), $sSkipDuplicatesDropDownVal);
+
+	//Click on Import button
+    _click(_submit($btn_ImportFile));
+
+	_wait(4000);
+
+	//Click on Proceed button	
+	_click(_submit($btn_Proceed));
+
+	_wait(3000);
+
+	//If no of failes records is zero then upload successfull else failure
+    if(_getText(_cell($txt_verifyAccountInfo, _near(_cell($txt_FailedRecords))))==0)
+    {
+      _log("File upload is successfull");
+      _click(_button($btn_Back));
+      
+      _wait(3000);
+      	
+    
+    }
+    else
+    {
+      _log("File upload is not successfull");		
+		_click(_button($btn_Back));
+		_click(_button($btn_Back));
+      _click(_submit($btn_CancelImport));   
+     }
+
+	
+
+	
+//Log out from app
+    logOut();
+
+
+function readContentsOfCSV()
+{
+		var $sContactsInfo = _readCSVFile("./Data/Contacts.csv");
+		var $csvLength = $sContactsInfo.length;
+		_log($csvLength);
+
+		for(var $i=0;$i<$csvLength;$i++)
+		{
+		var $sEmail= $sContactsInfo[$i][2]; // returns Ram
+		_log($sEmail );
+			
+			//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId),$sEmail );
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Check existance of member 
+    if(_exists(_div($sEmail )))
+    {	
+       var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=300);
+      
+      //Click on delete icon near by member name
+      _click(_link("/Delete/", _near(_div($sEmail ))));
+
+       //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+		
+		_click(_reset("RESET"));
+		
+		_click(_div($btn_SearchMembers));
+    }
+	else
+	{
+	_log("Member do not exist");
+	}
+			
+			
+		}
+
+	}
+
+	function setFileUpload($file1,$path)
+    {
+    _focusWindow();
+    _wait(1000);
+    _focus($file1);
+    _wait(1000);
+    _typeKeyCodeNative(java.awt.event.KeyEvent.VK_SPACE);
+    _wait(1000);
+    _typeNative($path);
+    _wait(1000);
+    _typeKeyCodeNative(java.awt.event.KeyEvent.VK_ENTER);
+    _wait(1000);
+    }

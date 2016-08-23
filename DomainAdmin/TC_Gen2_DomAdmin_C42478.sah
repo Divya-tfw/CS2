@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+	//Members included for the contact  group should be displayed under contact  group.
+	verifyExistanceofMembersAddedWhileCreatingPolicyGroup();

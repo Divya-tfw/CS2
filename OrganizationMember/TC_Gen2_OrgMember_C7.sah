@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+
+//verify Organization member should be able to edit  a 'Contact Groups' successfully.
+verifyOMCanEditCcontactGroups($sURL,$sOrgMember1, $sOrgMemPwd1,$sOMGroupTitleToEdit);

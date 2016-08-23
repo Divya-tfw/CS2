@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can edit a 'Contact Groups''
+	verifyThatOrgAdminCanEditAContactGroups
+      ($sGroups_ContactGrpTitle, $sDescription, $sEdit_);

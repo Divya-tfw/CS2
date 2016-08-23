@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Domain admin should be able to  import new MBN using CSV file.
+importBulkMBN();

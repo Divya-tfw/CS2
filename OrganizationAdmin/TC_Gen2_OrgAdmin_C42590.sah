@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+// Verify that Organization admin can add  a ' User groups'
+	verifyThatOrgAdminCanAddaUserGroups
+      ($sGroups_UserGrpTitle, $sGroups_Description);

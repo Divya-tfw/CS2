@@ -1,0 +1,51 @@
+_include("../Base/IncludeFiles.sah");	
+
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	//Click on Reports link
+	_click(_link($lnk_Report));
+
+	//Click on Custom Report
+	_click(_link($lnk_CustomReport));
+
+
+	if(_isVisible(_link($sExportReportName+$sDF)))
+	{
+		_log("Report is visible .Hence exporting");
+		
+		//Click on export button
+		_click(_link($btn_Export));
+	}
+	else
+	{
+		_wait(2000);
+
+        //Click on plus icon to create
+        _click(_link($plusicon_Groups ));
+
+        //Enter report titel
+        _setValue(_textbox($txt_Title), $sExportReportName+$sDF);
+
+        //Enter report description
+        _setValue(_textarea($txt_UMDescription), $sExportReportName+$sDF);
+
+        //Click on next button
+        _click(_submit($btn_Next));	
+
+        //Click on next button
+        _click(_button($btn_Nxt ));	
+
+        //Click on Add report
+        _click(_submit($lnk_AddReport));
+		
+		_wait(3000);
+		
+		_click(_link($sExportReportName+$sDF));
+		
+		//Click on export button
+		_click(_link($btn_Export));
+	}	
+	
+

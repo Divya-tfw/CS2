@@ -1,0 +1,7 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Call method to Verify that MBN created by domain admin is visible to other domain admins
+verifyMBNCreatedByDomainAdminIsVisibleToOtherDomain($sURL,$sDomainName1,$sDomainName1_Password,$sDomainName2,
+                                                             $sDomainName2_Password, $iMBNValue ,$drp_dwn_MBNCountryId, $drp_dwn_MBN_VoiceOnly);
+
+

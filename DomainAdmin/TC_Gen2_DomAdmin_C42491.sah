@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Verify Domain admin can create members
+	verifyDomainAdminCanCreateMembers($dEmail3);	

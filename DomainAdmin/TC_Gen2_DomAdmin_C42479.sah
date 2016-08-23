@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Domain admin should be able to add  a 'Contact Groups' successfully.
+verifyDomainAdminCreateContactGroup();

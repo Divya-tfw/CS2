@@ -1,0 +1,49 @@
+_include("../Base/IncludeFiles.sah");	
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on All link under User management
+  	_click(_link($lnk_UserManagement));
+	
+	//Click on import link 
+	_click(_link($lnk_UMImport, _near(_link($lnk_UserManagement))));
+
+	
+	//Call method to Click on choose button & select specfic file from given path
+	setFileUpload(_file($btn_FileChoseForImport),$sImportContactsFilePath);
+
+	//Select following drop down value
+    _setSelected(_select($drp_dwn_ConflictAction), $sSkipDuplicatesDropDownVal);
+
+	//Click on Import button
+    _click(_submit($btn_ImportFile));
+
+	_wait(4000);
+
+	//Click on Proceed button	
+	_click(_submit($btn_Proceed));
+
+	_wait(3000);
+
+	//If no of failes records is zero then upload successfull else failure
+    if(_getText(_cell($txt_verifyAccountInfo, _near(_cell($txt_FailedRecords))))==0)
+    {
+      _log("File upload is successfull");
+      _click(_button($btn_Back));
+      	_windowAction("refresh");     
+      	   
+    }
+    else
+    {
+      _log("File upload is not successfull");
+      _click(_submit($btn_CancelImport));   
+     }
+
+	_wait(5000);
+
+	//Log out from app
+    logOut();
+
+
+	

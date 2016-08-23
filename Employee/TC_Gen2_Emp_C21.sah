@@ -1,0 +1,7 @@
+_include("../Base/IncludeFiles.sah");
+
+//verify Contacts created by Organization member should not visible to domain admins
+ verifyOMAddedContactsVisiblity($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMContactSearchValue,
+                    $sContactName1ToSelect,$sContactName2ToSelect,$sDomainOption,$sDomainName1, $sDomainName1_Password);
+
+

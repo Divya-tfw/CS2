@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");	
+
+//App should  allow unblocked employee/user to login.
+ verifyMemberCanLoginWhenDomainAdminHasUnBlocked
+   ($sURL,$sDomainName1,$sDomainName1_Password,$sBlockMember1,$sBlockMember1Pwd);
+        

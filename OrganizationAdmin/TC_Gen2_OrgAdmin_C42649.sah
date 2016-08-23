@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can assign more members to the  existing  User groups
+	verifyThatOrgAdminCanAssignMoreMembersToExistingUserGroups
+      ($sGroups_UserGrpTitle, $sGroups_Description);

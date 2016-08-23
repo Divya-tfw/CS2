@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+//Verify that Organization member can add  a 'Contact Groups'
+verifyOMCanAddContactgroup($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMCGGroupTitle);
+
+

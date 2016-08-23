@@ -1,0 +1,16 @@
+#script,tags,URL,Test Case id,Automation_Id,Expected Results,Argument 1,Argument 2,Argument 3,Argument 4,Argument 5,Argument 6,Argument 7
+../DomainAdmin/TC_Gen2_DomAdmin_C42472.sah,"Domain_Admin,All,Gen2_DomAdmin_C42472,User_Management,All_Users,Add,Demo",http://sahitest.com/demo/training/login.htm,C42472,Gen2_DomAdmin_C42472,"1. Domain admin should be able to add an user successfully.
+2. User name along with details entered on step 4 should be displayed on the table consisting on pending members
+3. Added user should receive a email from 'SecureLine Support' contains email initiation link
+
+4. Added  user must be displayed under 'pending' section of user management page.",,,,,,,
+../DomainAdmin/TC_Gen2_DomAdmin_C42473.sah,"Domain_Admin,All,Gen2_DomAdmin_C42473,Organisation,Add,Demo",http://sahitest.com/demo/training/login.htm,C42473,Gen2_DomAdmin_C42473,"1. Domain admin should be able to add  an 'organizations' successfully.
+
+2. Newly added organization should be displayed on the last frame table
+
+3. Newly created organization should be  displayed on the module  'User Roles> Organization admin'.",,,,,,,
+../DomainAdmin/TC_Gen2_DomAdmin_C42474.sah,"Domain_Admin,All,Gen2_DomAdmin_C42474,Organisation,Add,Demo",http://sahitest.com/demo/training/login.htm,C42474,Gen2_DomAdmin_C42474,Members included for the organization must be listed  under 'Members' tab for the organization created by domain admin.,,,,,,,
+../DomainAdmin/TC_Gen2_DomAdmin_C42475.sah,"Domain_Admin,All,Gen2_DomAdmin_C42475,Groups,User_Group,Add,Demo",http://sahitest.com/demo/training/login.htm,C42475,Gen2_DomAdmin_C42475,"1. Domain admin can add  a 'User Groups' successfully.
+
+2. Newly added 'User Groups' should be displayed in the mid frame.",,,,,,,
+../DomainAdmin/TC_Gen2_DomAdmin_C42476.sah,"Domain_Admin,All,Gen2_DomAdmin_C42476,Groups,User_Group,Add,Demo",http://sahitest.com/demo/training/login.htm,C42476,Gen2_DomAdmin_C42476,Members included for the 'User Groups' should be displayed under 'User Groups'.,,,,,,,

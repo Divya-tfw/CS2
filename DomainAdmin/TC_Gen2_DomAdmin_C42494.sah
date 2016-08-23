@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Members unassigned for the user group is removed from the user group.
+verifyDACanUnassignMembersInGroup($sURL,$sDomainName1,$sDomainName1_Password,$lnk_UserGroup,$sGroupTitle);
+

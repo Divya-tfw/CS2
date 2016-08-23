@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Contacts created by Organization admin  is not visible to other 'employee/user'
+	verifyThatContactsCreatedByOrgAdminIsNotVisibleToOtherEmployeeOrUser($sGroups_ContactGrpTitle, $sDescription);
+

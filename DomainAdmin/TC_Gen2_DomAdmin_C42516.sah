@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Domain admin can delete  a ' CONTACT Groups' successfully.
+verifyDACanDeleteGroups($sURL,$sDomainName1,$sDomainName1_Password,$lnk_ContactGroup,$sContactGroupNameToDelete);

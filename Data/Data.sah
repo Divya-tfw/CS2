@@ -1,0 +1,392 @@
+/*****************************************************************************
+FileName				:Data.sah
+Description				:This file contains all the data used across the framework
+AuthorName	 	 	  :Divya Raju.R
+DateOfCreation		  :1/27/2016
+DateOfModification   :1/27/2016
+******************************************************************************/
+//Landing page
+$sHomePage="Home";
+
+//Login Page
+$sDomainName1="testtfw3@gmail.com";
+$sDomainName1_Password="Salaryview1!";
+
+
+$sDN2="testtfw3+727@gmail.com";
+$sDN2_Password="Salaryview1!";
+
+$sDN3="Balaji.Ramachandran@celltrust.com";
+$sDN3_Pwd="Salaryview1!";
+
+$sDomainName2="testtfw3+727@gmail.com";
+$sDomainName2_Password="Salaryview1!";
+
+$sBlockDomainAdmin="testtfw2@gmail.com";
+$sBlockDomainAdminPassword="1234567890";
+
+$sOrgAdminName1="testtfw3+3@gmail.com";
+$sOrgAdminPassword1="8105854236";
+
+$sOrgAdminName2="testtfw2+1@gmail.com";
+$sOrgAdminPassword2="1234567890";
+
+
+$sMemberName1="testtfw123@gmail.com";
+$sMemberPassword1="Salaryview1!";
+
+$sMemberName2="testtfw3+89@gmail.com";
+$sMemberPassword2="Salaryview1!";
+
+$sBlockMember1="testtfw2+2@gmail.com";
+$sBlockMember1Pwd="1234567890";
+$sOMGroupTitleToEdit="Test123";
+$sOMEditReportName="Test123";
+$sOMGroupTitleToDelete="Test456";
+$sOrgMember1="testtfw3+89@gmail.com";
+ $sOrgMemPwd1="Salaryview1!";
+$sOMDeleteReportName="QA"; 
+ $sEmp1="testtfw3+4@gmail.com";
+ $sEmp1Pwd="8105854236";
+ 
+ $sEmployee_account1="testtfw3+4@gmail.com";
+ $sEmployee_pwd1="8105854236";
+$sInvalidUN="prashanthprakash52@gmail.com";
+$sOMContactSearchValue="HI";
+$sOrgNameToClick="Auto_Org727";
+$sLoginPage="Portal Login";
+$sUN1="ms.samarth03@gmail.com";
+$sPwd1="ct@gen2";
+$sRegisterAsCompany="Registration as Company";
+$sRegisterAsUser="Registration as User";
+$sError="Error";
+$sInvalidUserError="User not found.";
+$sInvalidPasswordError="Login failed.";
+$sInvalidPassword="ct@gen3";
+$sUserNameBlank="";
+$sPasswordBlank="";
+$sEmailIdError="Email is Required!";
+$sPasswordIdError="Password is Required!";
+$sChkBx_ON="on";
+
+//Forgot Pwd
+$sForgotPwd="Forgot Password";
+$sEmailNotFound="Email not found.";
+
+//Home Page
+$sRequestIcon="Requests";
+$sMessagesIcon="Messages";
+$sNotificationIcon="Notifications";
+$sChatIcon="Conversations";
+$sCompanyName="Thought Frameworks";
+
+//Chat icon
+$sAllMessagesdpvalue="All Messages";
+$sSecureLinedpvalue="SecureLine";
+$sStandardSMSspvalue="Standard SMS";
+$sBroadcastdpvalue="BroadCast";
+$sUrgentdpvalue="Urgent";
+
+//Registartion as user
+$sFN="Auto";
+$sLN="TestUser";
+$sREmail="tfw.testuser42@gmail.com";
+$sRPwd="auto123";
+$sRLocationId="India";
+$sRZipCode="560076";
+$sAccesskey="celltrust";
+$sCongratesMsg="Congratulations! Your account has been created.";
+$sverifyRFN="First Name:";
+$sverifyRLN="Last Name:";
+$sverifyREmail="Email:";
+$sRDefaultLocationId="Location";
+$sREmailInvalid="tfw.testuser5@gmail.com";
+$sRPwdInvalid="auto123";
+
+//Register as Comp
+$sRCompanyName= "Test Comp";
+$sRIndustry="Industry";
+$sRIndustryType="Private";
+$sRNumberOfEmp= "1";
+$sRCompRevenue="Revenue";
+$sRCompZipCode="560076";
+$sRDuplicateUserError="Duplicate user name.";
+$sCompFN="TF";
+$sCompLN= "w";
+$sCompId="tfw.testuser17@gmail.com";
+$sRCompPwd="123456";
+$sCompRegistrationSuccessMsg="Congratulations! Your account has been created.";
+$sAccountingDrpdwnValue="Accounting";
+$sAnimationDrpdwnValue="Animation";
+$sNonProfitDrpdwnValue="Non-Profit";
+$sPrivateDrpdwnValue="Private";
+$sPublicDrpdwnValue="Public";
+$sMunicipalDrpdwnValue="Municipal";
+$sEducationalInstitutionDrpdwnValue="Educational Institution";
+$sTypeDrpdwnValue="Type";
+$sRegisterComplink="Register as Company";
+$sRegisterUserlink="Register as User";
+
+//Policy
+$sPName="Name* :";
+$sPPolicyStatus="form-title-lab[15]";
+$sPDescription="form-title-lab[12]";
+$sPDateCreated="form-title-lab[16]";
+$sPolicyMember="Policy Members:";
+$sPCreatedBy="Created By:";
+$sPolicyExpired="Policy Expires:";
+$sPLastModified="Last Modified:";
+$sPModifiedBy="Modified By:";
+$sPPolicyName="Policy Name[1]";
+$sPSDescription="Description[1]";
+$sPPolicyValue="Policy Value[1]";
+$sPInclude="Include[1]";
+$sPLock="Lock[1]";
+//Device-Advance Search
+$sRegisteredFromDate="Dec-20-2015";
+$sRegisteredFromTo= "Jan-21-2016";
+$sP2PExpiryFromDate="Dec-20-2015";
+$sP2PExpiryToDate= "Jan-21-2016";
+$sOS="OS";
+$sDeviceStatus="Status";
+
+//Groups
+
+$sUsergroupDropDown="UserGroups";
+$sUsergroupToSearch="Cell Trust";
+
+//User Management
+$sUMFirstNameSearchInput="Kevin";
+$sAllUMNameToVerify="Kevin Moshir";
+$sAllUNNameToClickForMessage="Kevin Moshir";
+$sUMSortInputCharacter="A[1]";
+$sUMFN="Auto";
+$sUMLN="Test";
+$sUMEmail="testtfw@gmail.com";
+$sUMCountry="India";
+$sUMUser_ZipCode="560076";
+$sUMUserRole= "All Users";
+$sUserNameB4Edit="Aravinda Chundi";
+$sUserFNToEdit="Aravinda";
+$sUserNameAfterEdit="Aravinda Chundi123";
+
+/****************************************Domain Admin**********************************************************/
+
+/****MBN Management***/
+$drp_dwn_MBNCountryId="India";
+$iMBNValue="+568974232";
+$iMBNValue2="+568974233";
+$iMBNValue3="+568974234";
+$drp_dwn_MBN_VoiceOnly="Voice Only";
+$sdrpdwnMBNMessageOnly="Messaging Only";
+$sdrpdwnMBN_VoiceAndMessage="Voice & Messaging";
+$sDuplicatedMBNErrorMsg="Duplicated MBN";
+$sMBNOwnerChangedMessage="MBN owner successfully updated.";
+$sMBNValueToEdit="568974233";
+$sMBNValueToDelete="895623147";
+$sVendorTypeD="D";
+
+
+
+
+/****Policy **********/
+$sPolicyName="Auto_Test1";
+$sPolicyExpiryDate="Oct-30-2016";
+$sPolicyDescription="Test Policy";
+$sPolicySetDeletedSM="Policy successfully removed.";
+$sPolicyNameToDelete="Test";
+$sPolicyNameToEdit="Auto_Test1";
+
+
+/******Reports*******/
+$sReportName="Auto_Test1";
+$sMessageReportType="Message";
+$sToDate="Oct-24-2016";
+$sToDate1="Oct-24-2016";
+
+/*****Contacts*******/
+$sContactName1="Auto Test2";
+$sContactName2="Auto Test24";
+
+/******Groups*********/
+//User groups
+
+$sGroupTitle="Auto_Test3";
+$sUserGroupNameToUnassign="Anantha N";
+$sGMAssignedMsg="Assignment list successfully updated.";
+
+//Policy Groups
+$sPolicyGroupTitle="Auto_Test1";
+
+//Contact Groups
+$sContactGroupTitle="Auto_Test2";
+$sGroupTitle1="Auto_Test6";
+
+$sPolicyGroupNameToEdit="Auto_Test";
+$sUserGroupNameToEdit="Auto_Test3";
+$sContactGroupNameToEdit="Auto_Test2";
+
+$sPolicyGroupNameToDelete="ed";
+$sUserGroupNameToDelete="sdavgs";
+$sContactGroupNameToDelete="Auto_Test2";
+
+$sPolicyGroupTitle1="Auto_Test7";
+$sContactGroupTitle1="Auto_Test8";
+
+
+/*****User management*********/
+$sBlockedErrorMessage="Account has been blocked by administrator";
+$sDomainAdminNameToBlock="Auto User";
+$sDomainAdminNameToUnBlock="Auto User";
+$sMemeberNameToBlock="Auto User";
+$sMemeberNameToUnBlock="Auto User";
+$sMemberNameToCreate="Auto Test28";
+$sMemberFirstName="Auto";
+$sMemberLastName="Test";
+$sMemberTitle="QA";
+$sMemberLocation="India";
+$sMemberZipCode="560007";
+$sMemberEmail="testtfw+10@gmail.com";
+$sNewOrgName="Auto_Test";
+$sNewOrgType="QA";
+$sNewOrgLocation="India";
+$sNewOrgZipCode="560078";
+$sMemberToEdit="Auto Test28";
+$sMemberLastNameToeditValue="Test28 Edited";
+$sUpdatedMemberSuccessMessage="Member has been updated.";
+$sMFNToSearch= "Auto";
+$sONameToSearch="Auto_Test2";
+$sMemberAssignListMsg="Assignment list successfully updated.";
+
+/************Organisation*****************/
+$sOrgCreatedSuccessMessage="Organization has been created.";
+$sNewOrgName1="Auto_Test2";
+$sOrgNameSearch="Auto";
+$sOrgEditedSuccessMessage="Organization has been updated.";
+$sOrgDeletedSM="Organization deleted.";
+$sOrgNameToDelete="Auro_Test3";
+$sOrgNameToChangeRole="/Auto_Test_Org1/";
+
+/**********Contacts***********************/
+$sContactNameSearch="Auto";
+$sOrgNameToEdit="Auto_Test2";
+$sDomainAdminContact1="on[2]";
+$sDomainAdminContact2="on[3]";
+$sOAContact1="on[4]";
+$sOAContact2="on[5]";
+$sOAMember11="on[6]";
+$sOAMember12="on[7]";
+$sOAMember21="on[8]";
+$sOAMember22="on[9]";
+$sDARole="DA";
+$sOrgRole="Organisation";
+$sMemberRole="Member";
+/******************************************************************************ORGANISATION ADMIN*********************************************************************/
+
+$sDomainName3 = "Nagaraj.Shivpooje@celltrust.com"; //"Snagaraj444+4@gmail.com";
+$sDomainName4 ="testtfw@gmail.com";
+
+//Policy 
+$sPolicyName_OrgAdmin ="Auto_TestPolicy111";
+$sPolicyExpiryDate_OrgAdmin ="Oct-30-2016";
+$sPolicyDescription_OrgAdmin ="Test description";
+
+//Group
+$sGroups_UserGroupEditTitle = "tst";
+$sGroups_UserGrpTitle = "Automation_TestUserGroup";
+$sGroups_Description = "Test_AutomationDescription";
+$sGroups_PolicyGrpTitle = "Automation_TestPolicyGroup";
+$sDescription = "TestAutomationDescription";
+$sGroups_ContactGrpTitle = "Automation_TestContactGroup";
+$sGroups_ContactGrpToDelete = "Auto_Test";
+$sEdit_ = "AutomationTester";
+$sOrgAdminNameToSelect="/ Auto/";
+
+
+// MBN
+$sMBNCountry_OrgAdmin = "India";
+	// MBN numbers
+$sMBNnumber_VO_OrgAdmin = "7771117770";  // voice
+$sMBNnumber_MO_OrgAdmin = "3339996666"; // msg
+$sMBNnumber_VandM_OrgAdmin = "2211221122"; // voice and Msg
+   // MBN type
+$sMBNType_VO_OrgAdmin = "Voice Only";
+$sMBNType_MO_OrgAdmin = "Messaging Only";
+$sMBNType_VM_OrgAdmin = "Voice & Messaging";
+$sMBNProvider_OrgAdmin = "D";
+$sMBNnotes_OrgAdmin = "test Note";
+$sMBNEdit_notes_OrgAdmin = "Edited Note";
+
+// Reports
+$sCustomReport_Title = "TestCustomReport_Automation";
+$sCustomReport_Description = "Test_AutomationDescription";
+$sFromDate_CustmReport = "02 May 2016";
+$sTODate_CustmReport =  "12 May 2016";
+
+// Member
+$sEdit_Titl = "AutomationTester";
+// Profile Page
+$sProfile_ProfileTitle = "QA test Engg";
+
+//Policy 
+$sPolicyName_OrgAdmin ="Auto_TestPolicy111";
+$sPolicyExpiryDate_OrgAdmin ="Apr-22-2017";
+$sPolicyDescription_OrgAdmin ="Test description";
+
+//Group
+$sGroups_UserGroupEditTitle = "tst";
+$sGroups_UserGrpTitle = "Automation_TestUserGroup";
+$sGroups_Description = "Test_AutomationDescription";
+$sGroups_PolicyGrpTitle = "Automation_TestPolicyGroup";
+$sDescription = "TestAutomationDescription";
+$sGroups_ContactGrpTitle = "Automation_TestContactGroup";
+$sEdit_ = "AutomationTester";
+
+// MBN
+$sMBNCountry_OrgAdmin = "India";
+	// MBN numbers
+$sMBNnumber_VO_OrgAdmin = "7771117770";  // voice
+$sMBNnumber_MO_OrgAdmin = "3339996666"; // msg
+$sMBNnumber_VandM_OrgAdmin = "2211221122"; // voice and Msg
+   // MBN type
+$sMBNType_VO_OrgAdmin = "Voice Only";
+$sMBNType_MO_OrgAdmin = "Messaging Only";
+$sMBNType_VM_OrgAdmin = "Voice & Messaging";
+$sMBNProvider_OrgAdmin = "D";
+$sMBNnotes_OrgAdmin = "test Note";
+$sMBNEdit_notes_OrgAdmin = "Edited Note";
+
+// Reports
+$sCustomReport_Title = "TestCustomReport_Automation";
+$sCustomReport_Description = "Test_AutomationDescription";
+$sFromDate_CustmReport = "02 May 2016";
+$sTODate_CustmReport =  "12 May 2016";
+
+// Member
+$sEdit_Titl = "AutomationTester";
+
+$sDomainName4_Password ="auto@789";
+$sDomainName3_Password ="auto@123";
+
+
+/*****************************************8/8/2016********************************************************************/
+
+$Mem1="Auto_Test";
+$sPolicy_oa="TestPolicy";
+$sContactlastNameToAddinList="Test";
+$iPhoneNumber="81052966584";
+$sNewOrgName2="Auto_Org";
+$sReportNameToEdit="Auto_Test1";
+$sUMUserToDelete="Auto";
+$sReportNameTodelete="Auto_RND";
+$sProfileUpdatedSucessMsg="Member has been updated.";
+$sEditTitleValue="QA123";
+$sImportContactsFilePath="D:\\Auto_Tools\\Sv6.3\\userdata\\CS2\\Data\\Contacts.csv";
+$sSkipDuplicatesDropDownVal="Skip duplicates";
+$sImportMBNFilePath="D:\\Auto_Tools\\Sv6.3\\userdata\\CS2\\Data\\MBN.csv";
+$sDrpDwn_bulkImport="Skip MBNs with errors";
+$sExportReportName="Auto_Report";
+$sNewOrgNameForVisiblity="Auto_Org";
+$sNewOrgNameForVisiblityOA="Auto_ORG_By_DA";
+$sNewOrgNameForVisiblityOM="Auto_ORG_OM";
+$sOrgAdminNameToselect="Auto_Org727";

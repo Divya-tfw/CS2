@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+//  Verify that Organization admin can edit  'Policy'
+	verifyThatOrgAdminCanEditPolicy
+      ($sPolicyName_OrgAdmin, $sPolicyDescription_OrgAdmin, $sPolicyDescription_edit_OrgAdmin)
+

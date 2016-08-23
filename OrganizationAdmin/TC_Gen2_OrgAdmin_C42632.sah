@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can add a new organization member within the same organization
+	verifyThatOrgAdminCanAddANewOrgMemberWithinTheSameOrganization($sMember_FirstName,$sMember_LastName,$sMember_Title,$sMember_Location,$sMember_ZipCode);
+

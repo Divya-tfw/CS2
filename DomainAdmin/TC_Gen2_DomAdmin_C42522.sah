@@ -1,0 +1,14 @@
+_include("../Base/IncludeFiles.sah");	
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Create user to assign them as DA
+	createUserByDomAdmin($sMemberFirstName,$sEmail2);
+
+	//Verify that Domain admin can promot any user  as domain admin displayed under domain admin list.
+	verifyDACanAssignMembersToBecomeDA($sMemberFirstName,$sEmail2);
+
+	//Log out from app
+    logOut();
+

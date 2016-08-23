@@ -1,0 +1,42 @@
+_include("../Base/IncludeFiles.sah");	
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+  	//Create user to assign them as DA
+	createUserByDomAdmin($sMemberFirstName,$sEmail2);	
+
+	//Click on User roles
+	_click(_link($lnk_UR));
+
+	//Click on Organisation admin
+	_click(_link($lnk_OA, _near(_link($lnk_UserRoles))));
+
+	//Click on add button
+	_click(_button($btn_AddOrgInUR));
+
+	//Click on org option
+	_click(_link($option_Organisation));
+
+	createOrgUnderUserRolesOrgAdmin($sMemberFirstName,$sEmail2);
+
+	_wait(3000);
+
+	//Click on Domain Admin Link
+	_click(_link($lnk_DomainAdminUnderUR, _near(_link($lnk_UR))));
+
+	//Click on Organisation admin
+	_click(_link($lnk_OA, _near(_link($lnk_UserRoles))));
+
+	//Call method to promote create user as Org admin
+	verifyDACanpromoteUserASOAUnderUR($sMemberFirstName,$sEmail2);
+
+	_wait(2000);
+
+	//Domain admin should be able to  depromote any organization admin to an organization member
+	verifyDACanDepromoteOrgMember($sMemberFirstName,$sEmail2);
+	
+	//Log out from app
+    logOut();
+
+

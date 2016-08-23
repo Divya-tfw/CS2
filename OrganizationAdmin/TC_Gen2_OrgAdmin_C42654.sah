@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Employee/User created by Organization admin  is not visible other Organization member
+	verifyThatEmployeeOrUserCreatedByOrgAdminIsNotVisibleToOtherOrgMember($sMember_Email,$sMember_FirstName,$sMember_LastName,$sMember_Title,$sMember_Location,$sMember_ZipCode);
+

@@ -1,0 +1,29 @@
+
+
+//Call method to Click on choose button & select specfic file from given path
+	setFileUpload(_file("csvFile"),"D:\\Auto_Tools\\Sv6.3\\userdata\\CS2\\Data\\MBN.csv");
+
+function setFileUpload($file1,$path)
+    {
+    _focusWindow();
+    _wait(1000);
+    _focus($file1);
+    _wait(1000);
+    _typeKeyCodeNative(java.awt.event.KeyEvent.VK_SPACE);
+    _wait(1000);
+    _typeNative($path);
+    _wait(1000);
+    _typeKeyCodeNative(java.awt.event.KeyEvent.VK_ENTER);
+    _wait(1000);
+    }
+/*
+var $sContactsInfo = _readCSVFile("./Data/Contacts.csv");
+var $csvLength = $userinfo.length;
+_log($csvLength);
+
+for(var $i=0;$i<$csvLength;$i++)
+{
+var $sEmail= $userinfo[$i][2]; // returns Ram
+_log($sEmail );
+}*/
+

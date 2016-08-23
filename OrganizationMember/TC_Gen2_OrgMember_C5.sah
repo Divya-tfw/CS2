@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");
+
+//method is used to Verify existance of links in home page
+verifyExistanceOfLinksInOrganisationMemberInHomePage($sURL,  $sOrgMember1, $sOrgMemPwd1);

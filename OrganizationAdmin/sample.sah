@@ -1,0 +1,13 @@
+_include("../Base/Keyword.sah");
+
+var $now = new Date();
+var $y = $now.getFullYear();
+var $m = $now.getMonth()+1;
+var $d = $now.getDate();
+var $h = $now.getHours();
+var $min = $now.getMinutes();
+var $s = $now.getSeconds();
+//var $email_qa_ =$Mem1+$d+$m+$y+"."+$h+$min+$s+"@gmail.com";
+_log($email_qa_)
+var $nw_policy = $sPolicy_oa+$d+$m+$y+$h+$min+$s;
+_log($nw_policy);

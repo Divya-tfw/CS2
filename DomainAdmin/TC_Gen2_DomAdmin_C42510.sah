@@ -1,0 +1,19 @@
+_include("../Base/IncludeFiles.sah");	
+
+var $now = new Date();
+var $nYear = $now.getFullYear();
+var $nMonth = $now.getMonth()+1;
+var $nDate = $now.getDate();
+var $nHour = $now.getHours();
+var $nMin = $now.getMinutes();
+var $nSec = $now.getSeconds();
+var $sTimeStamp1=$nYear+$nMonth+$nDate+$nHour+$nMin+$nSec;
+$sPolicyNameToEdit=$sPolicyNameToEdit+$sTimeStamp1;
+
+//Verify Domain admin can edit  policy set  
+verifyDACanEditPolicySet($sURL,$sDomainName1,$sDomainName1_Password,$sPolicyNameToEdit,
+                                 $txt_Scroll_Content);
+
+
+
+

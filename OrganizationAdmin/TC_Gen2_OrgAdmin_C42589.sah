@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can add an 'User ' into the respective organization
+	verifyThatOneOrgAdminCanAddAnUserIntoTheRespectiveOrganization
+      ($sMember_FirstName,$sMember_LastName,$sMember_Title,$sMember_Location,$sMember_ZipCode);
+

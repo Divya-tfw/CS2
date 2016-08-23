@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Domain admin should be able to delete  'Policy' successfully.
+verifyDACanDeletePolicyName($sURL,$sDomainName1,$sDomainName1_Password,$sPolicyNameToDelete);

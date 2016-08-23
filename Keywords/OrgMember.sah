@@ -1,0 +1,963 @@
+_include("../Base/IncludeFiles.sah");	
+
+
+/*
+Function Name 			:  verifyExistanceOfLinksInOrganisationMemberInHomePage
+Author 	 	   		    :  Divya
+TestCaseId				:  TC_Gen2_OrgMember_C1
+Module					:	Home
+SubModule				:	Home
+Section					:	Access level
+Created Date 	      	:  07 June 2016
+Description		      	:  This method is used to Verify existance of links in home page
+Input			       	:  $sURL, $sOrgMem1, $sOrgMem1Pwd
+
+*/
+function verifyExistanceOfLinksInOrganisationMemberInHomePage($sURL, $sOrgMem1, $sOrgMem1Pwd)
+{
+
+	//Call method to login to site with valid credentials
+  	loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+
+	//Verify existance of following links 
+    _assertExists(_link($lnk_MDashboard));
+    _assertExists(_link($lnk_MyProfile));
+    _assertExists(_link($lnk_MContacts));
+    _assertExists(_link($lnk_ContactGroups));
+    _assertExists(_link($lnk_MAddressBook));
+    _assertExists(_link($lnk_MMBN));
+    _assertExists(_link($lnk_Devices));
+    _assertExists(_link($lnk_MPolicies));
+    _assertExists(_link($lnk_Report));
+
+	// Log out from app
+     logOut();
+}
+
+/*
+Function Name 		 		:   verifyOMCanAddContactgroup
+Author 	 	    		 	:	Divya
+TestCaseId					:  	TC_Gen2_OrgMember_C2
+Module						:	Groups
+SubModule					:	Contact Groups
+Section						:	Add
+Created Date 	 	  		:   7th June 2016
+Description		   	   		:   This method is to Verify that Organization member can add  a 'Contact Groups'
+Input					  	:   $sURL, $sOrgMem1, $sOrgMem1Pwd,$sGroupTitle
+*/
+
+function verifyOMCanAddContactgroup($sURL, $sOrgMem1, $sOrgMem1Pwd,$sGroupTitle)
+{
+	//Call method to login to site with valid credentials
+ 	loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+
+	//Method to create contact group
+	createContactGroupAsOM($sGroupTitle);	
+
+	// Log out from app
+    logOut();
+  
+}
+
+/*
+Function Name 		    	:   createContactGroupAsOM
+TestCaseId					:  	TC_Gen2_OrgMember_C2
+Module						:	Groups
+SubModule					:	Contact Groups
+Section						:	Add
+Author 	 	    			:	Divya
+Created Date 	 	    	:   7th June 2016
+Description		   	   		:   This method is to create contact group by organisation member
+Input						:   $sGroupTitle
+*/
+function createContactGroupAsOM($sGroupTitle)
+{
+ 	//Click on Contact Groups link
+    _click(_link($lnk_ContactGroups));
+
+	//Check existance of group & delete it ,if existing
+	if(_isVisible(_link($sGroupTitle)))
+   	{
+   			_log("Group is existing already .Hence deleting it & recreating it again");
+
+      		//Click on delete button
+			_click(_italic($btn_OMDeleteReport));
+
+            //Click on Yes button in pop up
+            _click(_button($btn_YesForDeleteMBN));
+   	}
+	else
+    {
+      		_log("Group is not existing already .Hence creating it ");
+    }
+      
+	  _wait(3000);
+		//Click on + icon
+       _click(_link($plusIcon_Contacts, _near(_heading2($txt_HeaderContact))));
+
+	   _wait(3000);
+        //Enter Title
+        _setValue(_textbox($txt_Title), $sGroupTitle);       
+
+        //Enter description
+        _setValue(_textarea(0), $sGroupTitle);
+
+        //Click on next button
+        _click(_submit($btn_Submit));		
+
+		//Click on submit button
+		_click(_submit($btn_Addgroup));
+		
+  		//Validate existance of created group
+		_assertVisible(_link($sGroupTitle));
+}
+
+
+
+
+/*
+Function Name 		    		:   verifyOMCanAddReport
+TestCaseId						:  	TC_Gen2_OrgMember_C3
+Module							:	Reports
+SubModule						:	Reports
+Section							:	Add
+Author 	 	    				:	Divya
+Created Date 	 	     		:   10th June 2016
+Description		   	   	   		:   This method is to verify Organization member should be able to add  'Custom Reports' successfully.
+Input					     	:   $sURL, $sOrgMember1, $sOrgMemPwd1,$sOMReportName
+									
+*/
+
+function verifyOMCanAddReport($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMReportName)
+{
+	//Call method to login to site with valid credentials
+    loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+
+	//Click on reports link
+    _click(_link($lnk_OMReports));
+
+	//Check existance of report , if exists then delete it
+    if(_isVisible(_link($sOMReportName)))
+    {
+      //Click on report 
+      _click(_link($sOMReportName));
+      
+      //Click on delete button
+      _click(_italic($btn_OMDeleteReport));
+      
+      //click on yes on pop up      
+    _click(_button($btn_Yes));
+    }
+	_wait(3000);
+
+	//Click on plus icon to create
+	_click(_link($plusicon_Groups ));
+	
+	_wait(2000);
+	
+	//Enter report title
+    _setValue(_textbox($txt_Title), $sOMReportName);
+	
+	//Enter report description
+    _setValue(_textarea($txt_UMDescription), $sOMReportName);
+
+	//Click on next button
+    _click(_submit($btn_Next));
+
+	//Select Message option
+    _click(_checkbox($chckbx_ReportType, _in(_div($sOMReportType1Toselect))));
+
+	//Select Message Id option
+    _click(_checkbox($chckbx_ReportType, _in(_div($sOMReportType2Toselect))));
+
+	//Click on next button
+    _click(_button($btn_Nxt ));
+
+	//Click on date filter 
+    _click(_textbox($txtbox_TO));
+/*
+	//Select repesctive date from calender
+    _click(_span($sOMDateforReport, _near(_strong($sOMYearForReport))));
+
+	//Click on To Date filter 
+    _click(_textbox($txtbox_TO_1));
+
+	//Select repesctive date from calender
+    _click(_span($sOMDateforReport, _near(_strong($sOMYearForReport))));*/
+
+	//Click on Add report
+    _click(_submit($lnk_AddReport));
+
+	//Verify existance of created report
+    _assertEqual($sOMReportName, _getText(_link($sOMReportName)));
+
+	// Log out from app
+    logOut();
+}
+
+
+/*
+Function Name 					: 	createUser_Under_AllUserSection
+TestCaseId						:  	TC_Gen2_OrgMember_C4
+Module							:	Contacts
+SubModule						:	Contacts
+Section							:	Add
+Author 	 	    				:  	Divya
+Created Date 	 	 			:  	13 June 2016
+Description		   	   			:	This method is used to Verify that DA can create users
+Input					  		:  	$sMemberFirstName,$sMemberLastName,$sMemberEmail
+*/
+function createUser_Under_AllUserSection($sMemberFirstName,$sMemberLastName,$dEmail1)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on User Management link
+	_wait(10000,_isVisible(_link($lnk_UserManagement)));
+	
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	_wait(2000);
+	//$sMemberEmail=$dEmail;
+	//$sMemberLastName=$dName;
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId), $dEmail1);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Check existance of member 
+    if(_exists(_div($dEmail1)))
+    {	
+       var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=300);
+      
+      //Click on delete icon near by member name
+      _click(_link($btn_UMDelete, _near(_div($dEmail1))));
+
+       //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+    }
+	else
+	{
+	_log("Member do not exist");
+	}
+	//Click on + icon
+	_wait(6000,_isVisible(_link($icon_plus, _near(_heading2($txt_All)))));
+	_click(_link($icon_plus, _near(_heading2($txt_All))));
+
+	//Enter Member first name
+	_setValue(_textbox($txt_FirstName),$sMemberFirstName);
+
+	//Enter Member last name
+    _setValue(_textbox($txt_LastName), $sMemberLastName);
+
+	//Enter member title
+    _setValue(_textbox($txt_Title),$sMemberTitle);
+
+	//select location
+    _setSelected(_select($txt_MemberLocation),$sMemberLocation);
+
+	//Enter zip code
+    _setValue(_textbox($txt_MemberZipCode),$sMemberZipCode);
+
+	//Enter member email
+    _setValue(_textbox($txt_MemberEmail), $dEmail1);
+	
+	//Enter phone number
+	_setValue(_textbox($txt_PhoneNumber), $iPhoneNumber);
+
+	//Click on create button
+    _click(_submit($btn_MemberCreate));
+	_wait(2000);
+	//Validation 1: Domain admin should be able to add an user successfully.
+	
+    _assertVisible(_heading2("Congratulations! Member has been created."));   
+
+	_log("Congratulations! Member has been created."+" "+$sMemberEmail);
+	//Click on close button
+	_wait(10000,_isVisible(_button($btn_MemberClose)));
+    _click(_button($btn_MemberClose));
+	
+	// Log out from app
+      logOut();
+}
+/*
+Function Name 					: 	verifyOMAddContacts
+TestCaseId						:  	TC_Gen2_OrgMember_C4
+Module							:	Contacts
+SubModule						:	Contacts
+Section							:	Add
+Created Date 	 	     		:   8th June 2016
+Description		   	   	   		:   This method is to verify Organization member should be able to add  'Contacts' successfully.
+Input					     	:   sURL, $sOrgMem1, $sOrgMem1Pwd,$sOMContactSearchValue
+*/
+function verifyOMAddContacts($sURL, $sOrgMember1, $sOrgMemPwd1,$sContactName1ToSelect,$sContactName2ToSelect)
+{
+	
+	createUser_Under_AllUserSection($sMemberFirstName+$sTimeStamp1,$sContactlastNameToAddinList,$dEmail1);
+	createUser_Under_AllUserSection($sMemberFirstName+$sTimeStamp2,$sContactlastNameToAddinList,$dEmail2);
+	
+	$sContactName1ToSelect=$sMemberFirstName+$sTimeStamp1+" "+$sContactlastNameToAddinList;
+	$sContactName2ToSelect=$sMemberFirstName+$sTimeStamp2+" "+$sContactlastNameToAddinList;
+	
+	//Call method to login to site with valid credentials
+ 	loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+
+	//Click on contacts link
+    _click(_link($lnk_MContacts));
+
+	//Click on + icon to add contacts
+    _click(_link($icon_PlusAddGroup));
+	
+	addContactOM($sContactName1ToSelect);
+	addContactOM($sContactName2ToSelect);
+	
+	//Click on Add members
+    _click(_button($btn_GSave));
+
+	_wait(2000);
+	//verify success message
+    //_assertExists(_div($sOMContactListUpdateMessage));
+
+	// Log out from app
+    logOut();
+	
+}
+/*
+Function Name 					: 	addContactOM
+TestCaseId						:  	TC_Gen2_OrgMember_C4
+Module							:	Contacts
+SubModule						:	Contacts
+Section							:	Add
+Created Date 	 	     		:   8th June 2016
+Description		   	   	   		:   This method is to verify Organization member should be able to add  'Contacts' successfully.
+Input					     	:   sURL, $sOrgMem1, $sOrgMem1Pwd,$sOMContactSearchValue
+*/
+function addContactOM($sContactName1ToSelect)
+{
+	//Search for contacts with name auto
+    _setValue(_textbox($txt_GName),$sContactName1ToSelect);
+  
+  	//Click on Apply button
+    _click(_button($btn_Apply));
+
+  if(_isVisible(_strong($sContactName1ToSelect)) )
+  {
+	//Check if all check boxes are checked.If yes means uncheck & recheck it
+    if (_checkbox($chkbox_OnStatus, _near(_strong($sContactName1ToSelect))).checked == true  )
+    {  
+        _click(_checkbox($chkbox_OnStatus, _near(_strong($sContactName1ToSelect))));     
+        _click(_checkbox($chkbox_OnStatus, _near(_strong($sContactName1ToSelect))));
+        
+    }
+	//Else only check it 
+    else
+    {
+        _click(_checkbox($chkbox_OnStatus, _near(_strong($sContactName1ToSelect))));
+        
+	}
+	}
+	
+
+}
+
+
+
+
+
+ /*
+Function Name 		    		:   verifyOMAddedContactsVisiblity
+TestCaseId						:  	TC_Gen2_OrgMember_C21
+Module							:	Contacts
+SubModule						:	Contacts
+Section							:	Add
+Author 	 	    				:	Divya
+Created Date 	 	     		:   8th June 2016
+Description		   	   	   		:   This method is to verify Contacts created by Organization member should not visible to domain admins
+Input					     	:   $sURL, $sOrgMember1, $sOrgMemPwd1,$sOMContactSearchValue,
+									$sContactName1ToSelect,$sContactName2ToSelect,$sDomainName1, $sDomainName1_Password
+*/
+
+function verifyOMAddedContactsVisiblity($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMContactSearchValue,
+                    $sContactName1ToSelect,$sContactName2ToSelect,$sDomainOption,$sDomainName1, $sDomainName1_Password)
+{
+
+//verify Organization member should be able to add  'Contacts' successfully.
+	verifyOMAddContacts($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMContactSearchValue,
+                    $sContactName1ToSelect,$sContactName2ToSelect);
+
+if(_areEqual($sDomainOption,"DomainAdmin"))
+    {
+	_log("selected option is Domain admin");
+	
+      	//Call method to login to site with valid credentials
+        loginToSite($sURL, $sDomainName1, $sDomainName1_Password);
+
+        //Click on My profile link
+        _click(_link($lnk_MyProfile));
+
+        //Click on Contacts link
+        _click(_link($lnk_ContactsUnderShortCuts));
+		
+		_wait(2000);
+
+      if(_isVisible(_strong($sContactName1ToSelect)) || _isVisible(_strong($sContactName2ToSelect)) )
+      {
+        _log("Contact added as organisation member is not visible as Domain Admin.");
+      }
+      else
+      {
+        _log("Contact added as organisation member is visible as Domain Admin.");
+      }
+      // Log out from app
+        logOut();
+		
+    }
+
+
+    else   if(_areEqual($sOMOrgAdmin,"OrganisationAdmin"))
+    {
+	_log("selected option is organisation admin");
+	
+ 		//Call method to login to site with valid credentials
+  		loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);
+			
+  		//Change role to organisation admin
+		_click(_div($sOrgAdminNameToselect));
+			
+		//Click on My profile link
+        _click(_link($lnk_MyProfile));
+
+        //Click on Contacts link
+        _click(_link($lnk_ContactsUnderShortCuts));
+
+      if(_isVisible(_strong($sContactName1ToSelect)) || _exists(_strong($sContactName2ToSelect)) )
+      {
+        _log("Contact added as organisation member is not visible as Domain Admin.");
+      }
+      else
+      {
+        _log("Contact added as organisation member is visible as Domain Admin.");
+		}
+     
+      // Log out from app
+        logOut();
+		
+		
+	}
+
+else if((_areEqual($sOMEmp,"Employee"))||(_areEqual($sOMoption,"Organisation_Member") ))
+    {
+	_log("selected option is employee or other organisation member");
+	
+	
+ 		//Call method to login to site with valid credentials
+  		loginToSite($sURL,$sEmployee_account,$sEmployee_pwd);
+      
+       //Click on contacts link
+   		 _click(_link($lnk_MContacts));
+      
+      if(_exists(_strong($sContactName1ToSelect)) || _exists(_strong($sContactName2ToSelect)) )
+      {
+		_log("Contact added as organisation member is displayed ..");
+      }
+      else
+      {
+        _log("Contact added as organisation member is not displayed ..");
+      }
+	
+      // Log out from app
+	      logOut();
+		  
+    }
+  
+}
+
+
+
+/*
+Function Name 		    		:   verifyOMCanDeleteContactGroup
+TestCaseId						:  	TC_Gen2_OrgMember_C9
+Module							:	Contact groups
+SubModule						:	Contact groups
+Section							:	Delete
+Author 	 	    				:	Divya
+Created Date 	 	     		:   8th June 2016
+Description		   	   	   		:   This method is to verify Organization member should be able to delete  a 'Contact Groups' successfully
+									and and confirmation message "Group Deleted" should be displayed
+Input					     	:   $sURL, $sOrgMem1, $sOrgMem1Pwd,$sOMGroupTitleToDelete
+*/
+
+function verifyOMCanDeleteContactGroups($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMGroupTitleToDelete)
+{
+	//Call method to login to site with valid credentials
+ 	loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+
+	//Click on Contact Groups link
+    _click(_link($lnk_ContactGroups));
+
+	//Check existance of group & delete it ,if existing
+	if(_isVisible(_link($sOMGroupTitleToDelete)))
+   	{
+   			_log("Group is existing .Hence deleting it");
+
+      		//Click on delete button
+			_click($btn_DeleteCGs);
+
+            //Click on Yes button in pop up
+            _click(_button($btn_YesForDeleteMBN));
+   	}
+	else 
+    {
+      _log("Group not existing to delete.Hence adding new one & deleting it.");
+		
+		//Method to create contact group
+		createContactGroupAsOM($sOMGroupTitleToDelete);	
+		
+		_wait(3000);
+		
+		//Click on delete button
+		_click($btn_DeleteCGs);
+
+         //Click on Yes button in pop up
+        _click(_button($btn_YesForDeleteMBN));		
+		
+    }
+	// Log out from app
+    logOut();
+}
+
+
+/*
+Function Name 		    		:   verifyOMCanDeleteReport
+TestCaseId						:  	TC_Gen2_OrgMember_C10
+Module							:	Reports
+SubModule						:	Reports
+Section							:	Delete
+Author 	 	    				:	Divya
+Created Date 	 	     		:   10th June 2016
+Description		   	   	   		:   This method is to verify Organization member should be able to delete  'Reports' successfully.
+Input					     	:   $sURL, $sOrgMember1, $sOrgMemPwd1,$sOMDeleteReportName									
+*/
+
+function verifyOMCanDeleteReports($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMDeleteReportName)
+{
+	//Call method to login to site with valid credentials
+    loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+
+	//Click on reports link
+    _click(_link($lnk_OMReports));
+
+	//Check existance of report , if exists then delete it
+    if(_isVisible(_link($sOMDeleteReportName)))
+    {
+      //Click on report 
+      _click(_link($sOMDeleteReportName));
+      
+      //Click on delete button
+      _click(_italic($btn_OMDeleteReport));
+      
+      //click on yes on pop up      
+    _click(_button($btn_Yes));
+    }
+	
+    else
+    {	
+      _wait(2000);
+
+        //Click on plus icon to create
+        _click(_link($plusicon_Groups ));
+
+        //Enter report titel
+        _setValue(_textbox($txt_Title), $sOMDeleteReportName);
+
+        //Enter report description
+        _setValue(_textarea($txt_UMDescription), $sOMDeleteReportName);
+
+        //Click on next button
+        _click(_submit($btn_Next));	
+
+        //Click on next button
+        _click(_button($btn_Nxt ));	
+
+        //Click on Add report
+        _click(_submit($lnk_AddReport));
+      
+       //Click on report 
+      _click(_link($sOMDeleteReportName));
+      
+      //Click on delete button
+      _click(_italic($btn_OMDeleteReport));
+      
+      //click on yes on pop up      
+    _click(_button($btn_Yes));
+    }
+
+	// Log out from app
+    logOut();
+}
+
+/*
+Function Name 		    		:   verifyOMCanDeleteContacts
+TestCaseId						:  	TC_Gen2_OrgMember_C11
+Module							:	Contacts
+SubModule						:	Contacts
+Section							:	Delete
+Author 	 	    				:	Divya
+Created Date 	 	     		:   8th June 2016
+Description		   	   	   		:   This method is to verify Organization member should be able to delete  'Contacts' successfully.
+Input					     	:   $sURL, $sOrgMember1, $sOrgMemPwd1,$sContactNameToDelete
+*/
+ function verifyOMCanDeleteContacts($sURL, $sOrgMember1, $sOrgMemPwd1,$sContactNameToDelete)
+ {
+ 	//Call method to login to site with valid credentials
+    loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+
+	//Click on contacts link
+    _click(_link($lnk_MContacts));
+
+   _setValue(_textbox(4), $sContactNameToDelete);
+
+   if(_exists(_link($sContactNameToDelete)))
+   {    
+	 //Click on contact
+	 _click(_link($sContactNameToDelete));	
+	
+     //Click on delete button
+     _click(_link($icon_Profile_DeleteIcon));
+     
+     //Click on Yes button
+     _click(_button($btn_YesForDeleteMBN));
+	   
+	   // Log out from app
+    logOut();
+   }
+   else
+   {
+     _log("Contact name is not existing to delete");
+	 
+	 // Log out from app
+     logOut();	    
+	   
+	 verifyOMAddContacts($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMContactSearchValue,
+						 $sContactName1ToSelect,$sContactName2ToSelect);
+	   
+	 //Call method to login to site with valid credentials
+	 loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+	   
+	 $sContactNameToDelete= $sContactName1ToSelect;
+	   //Click on contacts link
+    _click(_link($lnk_MContacts));
+	   
+	  _setValue(_textbox(4), $sContactNameToDelete);
+	 
+	 //Click on contact
+	  _click(_link($sContactNameToDelete+"[1]"));	
+	
+	 
+     //Click on delete button
+     _click(_link($icon_Profile_DeleteIcon));
+     
+     //Click on Yes button
+     _click(_button($btn_YesForDeleteMBN));
+	   
+	   // Log out from app
+    logOut();
+   }
+ }
+ 
+ 
+ /*
+Function Name 		    		:   verifyOMCanEditCcontactGroups
+TestCaseId						:  	TC_Gen2_OrgMember_C7
+Module							:	Groups
+SubModule						:	Contact Groups
+Section							:	Edit
+Author 	 	    				:	Divya
+Created Date 	 	     		:   8th June 2016
+Description		   	   	   		:   This method is to verify Organization member should be able to edit  a 'Contact Groups' successfully.
+Input					     	:   $sURL, $sOrgMem1, $sOrgMem1Pwd,$sOMGroupTitleToEdit
+*/
+function verifyOMCanEditCcontactGroups($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMGroupTitleToEdit)
+{
+	//Call method to login to site with valid credentials
+ 	loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+
+	//Click on Contact Groups link
+    _click(_link($lnk_ContactGroups));
+
+	//Check existance of group & delete it ,if existing
+	if(_isVisible(_link($sOMGroupTitleToEdit)))
+   	{
+   			_log("Group is existing .Hence editing it");
+			
+			//Click on contact group to edit		
+			_click(_link($sOMGroupTitleToEdit));	
+			
+      		//Click on edit button
+			_click(_link($btn_CGEdit));
+      
+      		//Clear title
+      		 _setValue(_textarea(0), "");
+      
+     	 	//Enter title
+       		 _setValue(_textarea(0), $sOMGroupTitleToEdit);
+      
+      		//Click on save button
+      		_click(_submit($btn_GSave));
+   	}
+
+	else 
+    {
+			_log("Group not existing to edit.Hence creating & editing");
+			//Method to create contact group
+			createContactGroupAsOM($sOMGroupTitleToEdit);	
+			
+			_wait(2000);
+	
+			//Click on contact group to edit		
+			_click(_link($sOMGroupTitleToEdit));
+			
+			//Click on edit button
+			_click(_link($btn_CGEdit));
+      
+      		//Clear title
+      		 _setValue(_textarea(0), "");
+      
+     	 	//Enter title
+       		 _setValue(_textarea(0), $sOMGroupTitleToEdit);
+      
+      		//Click on save button
+      		_click(_submit($btn_GSave));
+    }
+	// Log out from app
+    logOut();
+}
+
+
+/*
+Function Name 		    		:   verifyOMCanEditReport
+TestCaseId						:  	TC_Gen2_OrgMember_C8
+Module							:	Reports
+SubModule						:	Contact Groups
+Section							:	Edit
+Author 	 	    				:	Divya
+Created Date 	 	     		:   10th June 2016
+Description		   	   	   		:   This method is to verify Organization member should be able to edit  'Custom Reports'
+										successfully and changes made on the report should get reflected
+Input					     	:   $sURL, $sOrgMember1, $sOrgMemPwd1,$sOMEditReportName
+									
+*/
+function verifyOMCanEditReports($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMEditReportName)
+{
+	//Call method to login to site with valid credentials
+    loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+
+	//Click on reports link
+    _click(_link($lnk_OMReports));
+
+	//Check existance of report , if exists then delete it
+    if(_isVisible(_link($sOMEditReportName)))
+    {
+      //Click on report 
+      _click(_link($sOMEditReportName));
+      
+      //Click on edit button
+      _click(_link($btn_CGEdit));
+      
+      //Enter report title
+    _setValue(_textbox($txt_Title), "");
+	
+         //Enter report title
+    _setValue(_textbox($txt_Title), $sOMEditReportName);
+      
+	//Enter report description
+    _setValue(_textarea($txt_UMDescription), $sOMEditReportName);
+
+	//Click on next button
+    _click(_submit($btn_Next));	
+
+	//Click on next button
+    _click(_button($btn_Nxt ));	
+
+	//Click on edit report
+   _click(_submit($btn_OMEditReport));      
+    }
+  else
+  {
+    _log("Given report do not exists...Hence creating it to edit");
+	
+	//Click on plus icon to create
+	_click(_link($plusicon_Groups ));
+	
+	_wait(2000);
+	
+	//Enter report title
+    _setValue(_textbox($txt_Title), $sOMEditReportName);
+	
+	//Enter report description
+    _setValue(_textarea($txt_UMDescription), $sOMEditReportName);
+
+	//Click on next button
+    _click(_submit($btn_Next));
+
+	//Select Message option
+    _click(_checkbox($chckbx_ReportType, _in(_div($sOMReportType1Toselect))));
+
+	//Select Message Id option
+    _click(_checkbox($chckbx_ReportType, _in(_div($sOMReportType2Toselect))));
+
+	//Click on next button
+    _click(_button($btn_Nxt ));
+
+	//Click on date filter 
+    _click(_textbox($txtbox_TO));
+/*
+	//Select repesctive date from calender
+    _click(_span($sOMDateforReport, _near(_strong($sOMYearForReport))));
+
+	//Click on To Date filter 
+    _click(_textbox($txtbox_TO_1));
+
+	//Select repesctive date from calender
+    _click(_span($sOMDateforReport, _near(_strong($sOMYearForReport))));*/
+
+	//Click on Add report
+    _click(_submit($lnk_AddReport));
+	
+	_wait(2000);
+	
+	//Click on report 
+      _click(_link($sOMEditReportName));
+	  
+	  //Click on edit button
+      _click(_link($btn_CGEdit));
+      
+      //Enter report title
+    _setValue(_textbox($txt_Title), "");
+	
+         //Enter report title
+    _setValue(_textbox($txt_Title), $sOMEditReportName);
+      
+	//Enter report description
+    _setValue(_textarea($txt_UMDescription), $sOMEditReportName);
+
+	//Click on next button
+    _click(_submit($btn_Next));	
+
+	//Click on next button
+    _click(_button($btn_Nxt ));	
+
+	//Click on edit report
+   _click(_submit($btn_OMEditReport));      
+
+  }
+
+	// Log out from app
+    logOut();
+}
+
+/*
+Function Name 		    		:   verifyVisiblityOfCreatedContactGroup
+Author 	 	    				:	 Divya
+Created Date 	 	     		:   8th June 2016
+Description		   	   	   		:   This method is to verify Contact groups  created by Organization member should not visible domain admins
+Input					     	:   $sURL, $sOrgMem1, $sOrgMem1Pwd,$sDomainName1, $sDomainName1_Password,$sGroupTitle
+									,$sDomainOption
+*/
+
+function verifyVisiblityOfCreatedContactGroup($sURL,  $sOrgMember1, $sOrgMemPwd1,$sOMCGGroupTitle1,$sDomainOption)
+{
+	//Call method to login to site with valid credentials
+ 	loginToSite($sURL,  $sOrgMember1, $sOrgMemPwd1);
+
+	//create contact group by organisation member
+	createContactGroupAsOM($sOMCGGroupTitle1);	
+	
+	// Log out from app
+    logOut();
+
+
+    if($sDomainOption=="DomainAdmin")
+    {
+      	//Call method to login to site with valid credentials
+        loginToSite($sURL, $sDomainName1, $sDomainName1_Password);
+
+        //Click on Groups link
+        _click(_link($lnk_Groups));
+
+        //Click on Contact groups
+        _click(_link($lnk_ContactGroup));
+
+        //Verify whether group already exists, If yes means delete it.
+        if(_isVisible(_link($sOMCGGroupTitle1)))
+        {
+         _log("Contact Group is existing.Failure");
+        }
+        else
+        {
+          _log("Contact groups  created by Organization member should not visible domain admins");
+        }
+
+      	// Log out from app
+        logOut();
+    }
+    else if($sDomainOption=="OrganisationAdmin")
+    {
+ 		//Call method to login to site with valid credentials
+  		loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);
+			
+  		//Change role to organisation admin
+		_click(_div($sOrgAdminNameToselect));
+			
+		// Click on Groups
+		 _click(_link($lnk_Groups));
+			
+		// Click on Contact Groups
+		_click(_link($lnk_ContactGroups));
+		
+  		// Check for the Contact is present in the list
+		 if(_isVisible(_link($sOMCGGroupTitle1)))
+			{
+           		 _log("Contact groups created by  Organization member  is  visible to organization  admins ");   
+     		}
+			else
+              {                      
+                 _log("Contact groups created by  Organization member  is not  visible to organization  admins ");                      	
+              }
+  		// Log out from app
+	      logOut();
+	}
+
+	 else if(($sDomainOption=="Employee")||($sDomainOption=="Organisation_Member") )
+    {
+ 		//Call method to login to site with valid credentials
+  		loginToSite($sURL,$sEmployee_account,$sEmployee_pwd);
+      
+        //Click on Contact Groups link
+      _click(_link($lnk_ContactGroups));
+
+        //Check existance of group & delete it ,if existing
+        if(_isVisible(_link($sOMCGGroupTitle1)))
+        {
+                _log("Group is existing ...");              
+        }
+        else
+        {
+                _log("Contact  groups created by  Organization member  should not  visible to employee/user. ");
+        }
+      // Log out from app
+	      logOut();
+    }
+
+}

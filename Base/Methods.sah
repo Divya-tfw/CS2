@@ -1,0 +1,6392 @@
+_include("Config.sah");
+_include("OR.sah");
+_include("../Data/Data.sah");
+
+/**********************************************************************************************************
+FileName				:Keyword.sah
+Description				:This file contains all the keywords used to interact with GUI Objects across the framework 
+AuthorName	 	 	  :Divya Raju.R
+DateOfCreation		  :1/27/2016
+DateOfModification   :1/27/2016
+***********************************************************************************************************/
+var $Contactmembername1;
+var $Contactmembername2;
+var $sOptionSelected;
+var $now = new Date();
+var $nYear = $now.getFullYear();
+var $nMonth = $now.getMonth()+1;
+var $nDate = $now.getDate();
+var $nHour = $now.getHours();
+var $nMin = $now.getMinutes();
+var $nSec = $now.getSeconds();
+var $sTimeStamp1=$nYear+""+$nMonth+""+$nDate+""+$nHour+""+$nMin+""+$nSec;
+
+$sPolicyNameToEdit=$sPolicyNameToEdit+""+$sTimeStamp1;
+
+var $now = new Date();
+var $y = $now.getFullYear();
+var $m = $now.getMonth()+1;
+var $d = $now.getDate();
+var $h = $now.getHours();
+var $min = $now.getMinutes();
+var $s = $now.getSeconds();
+var $email_qa_ =$Mem1+$d+""+$m+""+$y+"."+$h+""+$min+""+$s+"@gmail.com";
+var $dName=$Mem1+$d+""+$m+""+$y+"."+$h+""+$min+""+$s;
+
+var $dName1=$Mem1+$d+""+$m+""+$y+"."+$h+""+$min+""+$s;
+
+var $dName2=$d+""+$m+""+$y+$h+""+$min+""+$s;
+var $dName3=$sTimeStamp1+$min+""+$s;
+
+var $dEmail=$dName+1+"@gmail.com";
+var $dEmail1=$dName+1+1+"@gmail.com";
+var $dEmail2=$dName+2+"@gmail.com";
+var $dEmail3=$dName+3+"@gmail.com";
+var $dEmail4=$dName1+4+"@gmail.com";
+var $nw_policy = $sPolicy_oa+$d+""+$m+""+$y+""+$h+""+$min+""+$s;
+var $sTimeStamp2=$d+""+$m+""+$y+$h+""+$min+""+$s+1;
+
+$sEmail2="Test"+$d+""+$m+""+$y+$h+""+$min+""+$s;
+$sContactName1ToSelect=$sMemberFirstName+$sTimeStamp1+" "+$sContactlastNameToAddinList;
+	$sContactName2ToSelect=$sMemberFirstName+$sTimeStamp2+" "+$sContactlastNameToAddinList;
+$sDF=$d+""+$m+""+$y+$h+""+$min+""+$s;	
+	
+/*
+Function Name 		:   loginToSite
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to login to site with valid credentials
+*/
+function loginToSite($sURL,$sUserName,$sPassword)
+{
+		
+		//Sets readyStates of an XMLHttpRequest (XHR) Sahi should wait for
+		_setXHRReadyStatesToWaitFor("2,3");
+		
+		//Navigate to url of the application
+		_navigateTo($sURL);
+		
+		_wait(5000);
+		
+		//Maximise browser
+		_windowAction("maximize");		
+	
+		_wait(10000,_isVisible(_textbox($txt_Email)));
+		
+		//Enter user name
+		_setValue(_textbox($txt_Email), $sUserName);
+
+		//Enter password
+		_setValue(_password($txt_Password),$sPassword );		
+
+		//Click on signin button
+		_click(_submit($btn_SignIn));	
+		
+		_wait(4000);
+		
+		if(_exists(_submit($btn_AcceptToContinue)))
+		{
+		 _log("Accept button is found ");
+		 
+		_click(_submit($btn_AcceptToContinue));         
+          _wait(10000);
+		}
+  
+		  else
+		  {
+			_log("Accept button not found ");
+			_wait(1000);
+		  }
+			
+}
+
+/*
+Function Name 		:   logOut
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to log out of the application
+*/
+function logOut()
+{
+	//Click on user
+	_click(_span($span_User));
+
+	//Click on Log out button
+	_click(_link($lnk_LogOut));
+}
+
+
+ /*
+Function Name 			:   verifyDomainAdminCanCreateMembers
+Author 	 	    		:	Divya
+Created Date 	 	 	:   25th April 2016
+Description		   	   	:   Verify Domain admin can create members
+*/
+function verifyDomainAdminCanCreateMembers()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on User Management link
+	_wait(10000,_isVisible(_link($lnk_UserManagement)));
+	
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	_wait(2000);
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId), $dEmail);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Check existance of member 
+    if(_exists(_div($dEmail)))
+    {	
+       var $el=_div($div_ScrollLeft);        
+	   _call($el.scrollLeft=300);
+      
+      //Click on delete icon near by member name
+      _click(_link($btn_UMDelete, _near(_div($dEmail))));
+
+       //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+    }
+	else
+	{
+	_log("Member do not exist");
+	}
+	//Click on + icon
+	_wait(6000,_isVisible(_link($icon_plus, _near(_heading2($txt_All)))));
+	_click(_link($icon_plus, _near(_heading2($txt_All))));
+
+	//Enter Member first name
+	_setValue(_textbox($txt_FirstName),$sMemberFirstName);
+
+	//Enter Member last name
+    _setValue(_textbox($txt_LastName), $sMemberLastName);
+
+	//Enter member title
+    _setValue(_textbox($txt_Title),$sMemberTitle);
+
+	//select location
+    _setSelected(_select($txt_MemberLocation),$sMemberLocation);
+
+	//Enter zip code
+    _setValue(_textbox($txt_MemberZipCode),$sMemberZipCode);
+
+	//Enter member email
+    _setValue(_textbox($txt_MemberEmail), $dEmail);
+	
+	//Enter phone number
+	_setValue(_textbox($txt_PhoneNumber), $iPhoneNumber);	
+
+	//Click on create button
+    _click(_submit($btn_MemberCreate));
+	
+	_wait(2000);
+	//Validation 1: Domain admin should be able to add an user successfully.
+	
+    _assertVisible(_heading2("Congratulations! Member has been created."));   
+
+	//Click on close button
+	_wait(10000,_isVisible(_button($btn_MemberClose)));
+    _click(_button($btn_MemberClose));
+	
+	//Validation 2: Details entered while creating should be displayed    
+    _assertEqual($dEmail, _getText(_div($dEmail)));
+	_assertEqual($sMemberLocation, _getText(_div("/India/")));
+	
+	_wait(2000);
+	
+	//Click on Pending link under User management
+	_click(_link("/Pending/"));
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId), $dEmail);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	_wait(2000);
+	
+	//Validate 3: existance of member in table
+    if(_exists(_div($dEmail)))
+    {	
+      _log("Created member exists in User management Pending section..");
+    }
+
+	else
+	{
+	 _log("Created member do not exists in User management Pending section..");	
+    }
+
+	//Log out from app
+      logOut();
+}
+
+/*
+Function Name 			:   verifyDomainAdminCanCreateOrg
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Verify Domain admin should be able to add  an 'organizations' successfully and Newly created organization should be  
+							displayed on the 'User Roles' module
+*/
+
+function verifyDomainAdminCanCreateOrg()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Organisation link
+	_click(_link($lnk_Organisation));
+
+	//Click on All Organisation sub link
+	_click(_link($lnk_AllOrg, _near(_link($lnk_Organisation))));
+	
+	_wait(2000);
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_ONameTosearch), $sNewOrgName);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Verify existance of org-if yes then delete it 
+	if(_isVisible(_div($sNewOrgName)))
+       {
+         //Click on delete icon
+       _click(_italic($btn_DeleteAllUserOption, _near(_div($sNewOrgName))));
+         
+          //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+       }
+	   else{
+	   _log("Org name is not existing before");
+	   }
+
+	//Click on + icon to create new organisation
+	_click(_link($icon_PlusOrg, _near(_heading2($txt_AllOrg))));
+
+	//Enter org name
+    _setValue(_textbox($txt_GName), $sNewOrgName);
+
+	//Enter org type
+    _setValue(_textbox($txt_OrgType), $sNewOrgType);
+
+	//Select desired country 
+    _setSelected(_select($drp_dwn_OrgLocationId), $sNewOrgLocation);
+
+	//Enter Zip code
+    _setValue(_textbox($txt_MemberZipCode), $sNewOrgZipCode);
+
+	//Click on Submit button
+    _click(_submit($btn_Submit));
+
+	//click on create button to create new organisation
+    _click(_submit($btn_MemberCreate));
+
+   //Click on close button
+    _click(_button($btn_MemberClose));
+	
+	_wait(1000);
+
+	//Validate that Domain admin should be able to add  an 'organizations' successfully. 
+	_assertEqual($sOrgCreatedSuccessMessage, _getText(_div($sOrgCreatedSuccessMessage)));
+
+	//Click on user roles link
+    _click(_link($lnk_UR));
+
+	//Click on Organization Admin
+    _click(_link($lnk_OA));
+
+	//Validate Newly created organization should be  displayed on the 'User Roles' module	
+    _assertEqual($sNewOrgName, _getText(_link($sNewOrgName)));
+	//Log out from app
+      logOut();
+}
+
+ /*
+Function Name 			:   verifyMembersRIncludedWhileCreatingOrg
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Members included for the organization must be listed  under 'Member' tab for the organization created by domain admin.
+*/
+
+function verifyMembersRIncludedWhileCreatingOrg()
+{	
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Organisation link
+	_click(_link($lnk_Organisation));
+
+	//Click on All Organisation sub link
+	_click(_link($lnk_AllOrg, _near(_link($lnk_Organisation))));
+
+	_wait(2000);
+	
+	//Verify existance of org-if yes then delete it 
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter First name to search member name
+	_setValue(_textbox($txt_ONameTosearch), $sNewOrgName1);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	if(_exists(_div($sNewOrgName1)))
+       {
+		_log("Organisation name already exists .Hence deleting it")	;
+			
+         //Click on delete icon
+       _click(_italic($btn_DeleteAllUserOption, _near(_div($sNewOrgName1))));
+         
+          //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+       }
+	   else
+	   {
+	   _log("Organisation name do not exists .Hence creating it");
+	   }
+
+	//Click on + icon to create new organisation
+	_click(_link($icon_PlusOrg, _near(_heading2($txt_AllOrg))));
+
+	//Enter org name
+    _setValue(_textbox($txt_GName), $sNewOrgName1);
+
+	//Enter org type
+    _setValue(_textbox($txt_OrgType), $sNewOrgType);
+
+	//Select desired country 
+    _setSelected(_select($drp_dwn_OrgLocationId), $sNewOrgLocation);
+
+	//Enter Zip code
+    _setValue(_textbox($txt_MemberZipCode), $sNewOrgZipCode);
+
+	//Click on Submit button
+    _click(_submit($btn_Submit));
+	
+	//Select first two members by clicking on check box
+	_click(_checkbox("on[1]"));
+	var $mname1=_getText(_strong(0, _near(_checkbox("on[1]"))));
+	_log($mname1);
+
+	_click(_checkbox("on[2]"));
+	var $mname2=_getText(_strong("ng-binding", _near(_checkbox("on[2]"))));
+	_log($mname2);
+	//click on create button to create new organisation
+    _click(_submit($btn_MemberCreate));
+
+   //Click on close button
+    _click(_button($btn_MemberClose));
+	
+	_wait(1000);
+
+	//Validate that Domain admin should be able to add  an 'organizations' successfully. 
+	_assertEqual($sOrgCreatedSuccessMessage, _getText(_div($sOrgCreatedSuccessMessage)));
+	
+	//Validate Newly created organization should be  displayed on the Organisation table
+    _assertEqual($sNewOrgName1, _getText(_div($sNewOrgName1)));
+
+	//Click on Newly created Organisation name
+	_click(_div( $sNewOrgName1));
+
+    //Click on Company Details tab
+    _click(_link($tab_OrgCompDetails));
+
+	//Validate the details present under this tab with details entered while creating
+    _assertEqual($sNewOrgName1, _getText(_span($sNewOrgName1)));
+    _assertEqual($sNewOrgType, _getText(_span($sNewOrgType)));
+    _assertEqual($sNewOrgLocation, _getText(_span($sNewOrgLocation)));
+    _assertEqual($sNewOrgZipCode, _getText(_span($sNewOrgZipCode)));
+
+	_click(_link($tab_OrgMembers));
+	_assertExists(_div($mname1));
+	//_assertExists(_div($mname2));
+
+	//Log out from app
+      logOut();
+}
+
+/*
+Function Name 			:   verifyDomainAdminCanAddUserGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin can add  a ' User Groups' successfully.
+*/
+
+function verifyDomainAdminCanAddUserGroup()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+	_wait(2000);
+	
+	_call(_div($div_VerticalScrollBar).scrollTop=2000); 
+	
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sGroupTitle));
+          
+      //Click on delete button  
+		_click(_italic($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+	else
+	{
+	_log("Group not existing .Hence creating new one");
+	}
+
+	//Click on + icon
+	_click(_link($icon_PlusAddGroup));
+
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sGroupTitle);
+
+	//Enter Description
+	_setValue(_textarea(0),$sGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+/*
+	//Select first two members by clicking on check box 
+	_click(_checkbox("on[1]"));	
+
+	_click(_checkbox("on[2]"));	
+*/
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+	
+	_wait(2000);
+
+    //Validate existance of created group
+    _assertEqual($sGroupTitle, _getText(_link($sGroupTitle)));
+
+	//Log out from app
+      logOut();
+}
+
+
+/*
+Function Name 		:   verifyTopNavigationBar
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to verify top navigation icons on Home page
+*/
+function verifyTopNavigationBar()
+{
+		//Call method to login to site with valid credentials
+		loginToSite($sURL,$sUserName,$sPassword);
+
+		//Verify existance of  Request icon on home page
+		_assertExists(_span($lnk_RequestIcon));
+
+		//Verify existance of  Message icon on home page
+		_assertExists(_span($lnk_MessageIcon));
+
+		//Verify existance of  Notifications icon on home page
+		_assertExists(_span($lnk_NotificationIcon));
+
+		//Verify existance of  Chat icon on home page
+		_assertExists(_span($lnk_ChatIcon));
+
+		//Log out from app
+		logOut();
+
+}
+
+/*
+Function Name 		:   logOut
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to log out of the application
+*/
+function logOut()
+{
+	//Click on user
+	_click(_span($span_User));
+
+	//Click on Log out button
+	_click(_link($lnk_LogOut));
+}
+/*
+Function Name 		:   verifyRequestIcon
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to Verify 'Request' popup window on tapping 'Request' icon
+*/
+function verifyTopNavigationIconsPopUps($lnk_RequestIcon,$sRequestIcon)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sUserName,$sPassword);
+
+	//Click on given icon to open pop up
+	_click(_span($lnk_RequestIcon));
+
+	//Verify existance of popup window on tapping given icon
+	_assertExists(_heading2($sRequestIcon));
+
+	//Click on given icon to close pop up
+	_click(_span($lnk_RequestIcon));
+
+	//Log out of the application
+	logOut();  
+}
+
+
+/*
+Function Name 		:   verifyRequestIcon
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to Verify  popup window on tapping respective icons
+*/
+function verifyPopupForChatIcon($lnk_ChatIcon,$sChatIcon)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sUserName,$sPassword);
+
+	//Click on Chat icon to open pop up
+	_click(_span($lnk_ChatIcon));
+
+	//Verify existance of popup window on tapping given icon
+	_assertExists(_div($sChatIcon));
+
+	//Click on chat icon to close pop up
+	_click(_span($lnk_ChatIcon));
+
+	//Log out of the application
+	logOut();  
+}
+
+/*
+Function Name 		:   verifyContentsOfMessagePopUP
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to Verify  contents of Message Pop up
+*/
+function verifyContentsOfMessagePopUP()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sUserName,$sPassword);
+		
+	//Click on Message icon to open pop up
+	_click(_span($lnk_MessageIcon));
+
+	//Verify display of All Messages link
+	_assertExists(_link("/All messages/"));
+
+	//Verify display of Urgent Messages link
+	_assertExists(_link($lnk_Urgent_Message));
+
+	//Verify display of BroadCast Messages link
+	_assertExists(_link($lnk_BroadCastMessage));
+
+	//Verify display of Compose Messages link
+	_assertExists(_link($lnk_ComposeMessage));
+
+	//Click on Message icon to close pop up
+	_click(_span($lnk_MessageIcon));
+
+	//Log out of the application
+	logOut();  
+	  
+}
+/*
+Function Name 		:   verifyContentsOfChatsPopUP
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to Verify  contents of Chat Pop up
+*/
+function verifyContentsOfChatsPopUP()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sUserName,$sPassword);
+		
+	//Click on chat icon link
+	_click(_span($lnk_ChatIcon));
+
+	//verify display of Inbox link
+	_assertExists(_link($lnk_Inbox));
+
+	//Verify display of History tab
+	_assertExists(_link($lnk_History));
+
+	//Verify display of Contacts tab
+	_assertExists(_link($lnk_Contacts));
+
+	//Click on chat icon link
+	_click(_span($lnk_ChatIcon));
+
+	//Log out of the application
+	logOut(); 
+}
+
+/*
+Function Name 		:   verifyContentsOfChatsPopUP
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to Verify  contents of Chat Pop up
+*/
+function verifyContentsOfInboxDropDownOfChatsPopUP()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sUserName,$sPassword);
+		
+	//Click on chat icon link
+	_click(_span($lnk_ChatIcon));
+
+	//verify display of Inbox link
+	_assertExists(_link($lnk_Inbox));
+
+	_click(_select(0));
+
+	_assertEqual("All Messages", _getSelectedText(_select(0)));
+
+	//Click on chat icon link
+	_click(_span($lnk_ChatIcon));
+
+	//Log out of the application
+	logOut(); 
+}
+
+/*
+Function Name 		:   verifyFPAL
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to Verify forget password activation 
+*/
+function verifyFPAL()
+{
+	//Launch the browser & navigate to given link
+ 	 _navigateTo($sURL);
+
+	//Click on Login link
+	_click(_link($lnk_Login));
+
+	//Tap on 'Forgot Password?'
+	_click(_link($lnk_ForgetPassword));
+
+	//Enter email address
+	_setValue(_textbox($txt_EmailAddressForForgotPassword), $sUserName);
+
+	//Click on Send button
+	_click(_submit($btn_Send));
+}
+/*
+Function Name 		:   verifyFPAL
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to Verify all GUI Objects on the landing page
+*/
+function verifyObjectsOnMainPage()
+{
+//Launch the browser & navigate to given link
+	 _navigateTo($sURL);
+
+    /* Verify all GUI Objects on the page*/
+    _assertExists(_link($lnk_Home));
+    _assertExists(_link($lnk_PortalFeatures));
+    _assertExists(_link($lnk_SecureLine));
+    _assertExists(_link($lnk_Support));
+    _assertExists(_link($lnk_Login));
+    _assertExists(_link($lnk_Registration));
+    _assertExists(_heading1($txt_AppInfo));
+    _assertExists(_link($lnk_AppStore));
+    _assertExists(_link($lnk_PlayStore));
+    _assertExists(_link($lnk_WindowsMarket));
+    _assertExists(_link($lnk_BlackBerryWorld));   
+    _assertExists(_image($img_CellTrustLogo));
+
+}
+
+/*
+Function Name 		:   verifyFPAL
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to verify errors when clicked on sign with blank input
+*/
+function verifyErrorForBlankCredentials()
+{
+	//Launch the browser & navigate to given link
+	 _navigateTo($sURL);
+
+	//Click on Login link
+	_click(_link($lnk_Login));
+
+    //Verify existance of username text box
+    _assertExists(_textbox($sUserNameBlank));
+
+    //Verify existance of password text box
+    _assertExists(_password($sPasswordBlank));
+
+	//Verify Sign in button
+    _assertExists(_submit($btn_SignIn));
+
+	/*Verify the error message after clicking on Signin button with blank values*/
+
+	//Verify email id error
+	_assertExists(_span($sEmailIdError));
+
+	//Verify Password error
+	_assertExists(_span($sPasswordIdError));
+
+}
+	/*
+Function Name 		:   validLogin
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to verify successfull Login
+*/
+function validLogin()
+{
+		//Call method to login to site with valid credentials
+		loginToSite($sURL,$sUserName,$sPassword);
+	
+        //Verify display of comp name
+        _assertExists(_span($sCompanyName));
+
+          //Log out from app
+            logOut();
+}
+
+	/*
+Function Name 		:   verifyChatIconDropDownValues
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to Verify drop down values of chat icon
+*/
+
+function verifyChatIconDropDownValues()
+{
+    //Call method to login to site with valid credentials
+    loginToSite($sURL,$sUserName,$sPassword);
+
+    //Click on chat icon link
+    _click(_span($lnk_ChatIcon));
+
+    //Click on drop down
+    _click(_select(0));
+    //Verify drop down values
+    var $list = _getOptions(_select(0));
+
+		//Verify drop down values
+         _assertEqual($sAllMessagesdpvalue, $list[0]);
+        _assertEqual($sSecureLinedpvalue, $list[1]);
+        _assertEqual($sStandardSMSspvalue, $list[2]);
+        _assertEqual($sBroadcastdpvalue, $list[3]);
+        _assertEqual($sUrgentdpvalue, $list[4]);
+
+     //Click on chat icon link
+    _click(_span($lnk_ChatIcon));
+
+    //Log out of the application
+    //logOut(); 
+}
+
+	/*
+Function Name 		:   verifyLinksWhenClickedOnReg
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to verify icons when clicked on Registration page
+*/
+function verifyLinksWhenClickedOnReg()
+{
+		//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+  		//Validation existance of Individual registration link
+		_assertEqual($lnk_Individual, _getText(_link($lnk_Individual)));
+  
+  		//Validation existance of Company registration link
+		_assertEqual($lnk_Company, _getText(_link($lnk_Company)));
+}
+
+/*
+Function Name 		:   verifyLinksWhenClickedOnReg
+Author 	 	    		:	Divya
+Created Date 	 	 :   28th Jan 2016
+Description		   	   :   This method is used to verify successfull registration of user
+Input					: $sREmail,$sRPwd
+*/
+function registerAsUser($sREmail,$sRPwd)
+{
+		//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+  		//Validation existance of Individual registration link
+		_click(_link($lnk_Individual));
+	
+  		//Enter first name
+        _setValue(_textbox($txt_FirstName), $sFN);
+		
+  		//Enter last name
+        _setValue(_textbox($txt_LastName), $sLN);
+		
+  		//Enter email id	
+        _setValue(_textbox($txt_REmailId), $sREmail);
+		
+  		//Enter password
+        _setValue(_password($txt_RPwd), $sRPwd);
+		
+  		//Enter confirm password
+        _setValue(_password($txt_RCPwd), $sRPwd);
+		
+  		//Select Location
+        _setSelected(_select($drpdwn_Location), $sRLocationId);
+		
+  		//Click on drop down to close it
+        _click(_select($drpdwn_Location));
+		
+  		//Enter Zip code
+        _setValue(_textbox($txt_ZipCode), $sRZipCode);
+		
+  		//Enter access key
+        _setValue(_textbox($txt_Accesskey),$sAccesskey);
+		
+  		//Click on accept terms
+        _click(_label($txt_Label));
+		
+  		//Click on submit button
+        _click(_submit($btn_Submit));
+
+  		//Verification of entered user details
+  		//Verify Congratulations message
+        _assertExists(_heading2($sCongratesMsg));
+		
+        var $a="Check your email (";
+        var $b=") and click on the activation link.";
+        _assertExists(_span($a+$sREmail+$b));
+  		
+  		//Validate Account information
+        _assertEqual($txt_AccountInformation, _getText(_heading4($txt_AccountInformation)));
+		
+		//Validate first name
+        _assertEqual($sFN,_getText(_span($txt_verifyAccountInfo,_near(_div($sverifyRFN)))));
+		
+  		//Validate last name
+        _assertEqual($sLN,_getText(_span($txt_verifyAccountInfo,_near(_div($sverifyRLN)))));
+		
+  		//Validate email
+        _assertEqual($sREmail,_getText(_span($txt_verifyAccountInfo,_near(_div($sverifyREmail)))));
+		
+          //Click on finish button
+          _click(_submit($btn_Finish));
+}
+
+/*
+Function Name 		:   verifyLinksWhenClickedOnReg
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify error message display when registered with invalid user id
+Input					: $sREmailInvalid,$sRPwdInvalid
+*/
+function registerAsUserWithInvalidEmail($sREmailInvalid,$sRPwdInvalid)
+{
+		//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+  		//Validation existance of Individual registration link
+		_click(_link($lnk_Individual));
+	
+  		//Enter first name
+        _setValue(_textbox($txt_FirstName), $sFN);
+		
+  		//Enter last name
+        _setValue(_textbox($txt_LastName), $sLN);
+		
+  		//Enter email id	
+        _setValue(_textbox($txt_REmailId), $sREmail);
+		
+  		//Enter password
+        _setValue(_password($txt_RPwd), $sRPwd);
+		
+  		//Enter confirm password
+        _setValue(_password($txt_RCPwd), $sRPwd);
+		
+  		//Select Location
+        _setSelected(_select($drpdwn_Location), $sRLocationId);
+		
+  		//Click on drop down to close it
+        _click(_select($drpdwn_Location));
+		
+  		//Enter Zip code
+        _setValue(_textbox($txt_ZipCode), $sRZipCode);
+		
+  		//Enter access key
+        _setValue(_textbox($txt_Accesskey),$sAccesskey);
+		
+  		//Click on accept terms
+        _click(_label($txt_Label));
+  	
+  		//Click on submit button
+        _click(_submit($btn_Submit));  
+}
+
+/*
+Function Name 		:   verifyDefaultLocationIdWI
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify Location should be selected under 'Location' drop down.
+*/
+function verifyDefaultLocationIdWI()
+{
+		//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+  		//Validation existance of Individual registration link
+		_click(_link($lnk_Individual));
+
+		//Validate location id defaults to Location 
+		_assertEqual($sRDefaultLocationId, _getSelectedText(_select($drpdwn_Location)));
+  
+} 
+
+/*
+Function Name 		:   verifyClickCancelLeadsToLandingPage
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify User should be navigated to landing page upon clicking cancel
+*/
+
+function verifyClickCancelLeadsToLandingPage()
+{
+	//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+  		//Validation existance of Individual registration link
+		_click(_link($lnk_Individual));
+
+        //Click on cancel button
+        _click(_submit($btn_Cancel));
+
+      //Verify User should be navigated to landing page upon clicking cancel
+     // _assertEqual($sHomePage, _getText(_link($sHomePage)));
+}
+/*
+Function Name 		:   registerAsCompanyWithValidDetails
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify User should be navigated to landing page upon clicking cancel
+*/
+function registerAsCompanyWithValidDetails()
+{
+		//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+		//Click on Company link
+		_click(_link($lnk_Company));
+
+        //Enter company name
+        _setValue(_textbox(0),$sRCompanyName);
+
+		//Select Industry type
+		_setSelected(_select(0), $sRIndustry);
+
+		//Select Comp type
+		_setSelected(_select(1), $sRIndustryType);
+		
+		//Close drop down
+		_click(_select(1));
+
+		//Select country
+		_setSelected(_select(2), $sRLocationId);
+
+		//Select number of employees
+		_setSelected(_select(3),$sRNumberOfEmp);
+
+		//Select Revenue of comp
+		_setSelected(_select(4), $sRCompRevenue);
+
+        //Enter zip code
+        _setValue(_textbox(1), $sRCompZipCode);
+
+        //Enter access key
+        _setValue(_textbox(2), $sAccesskey);
+
+        //Click on Next button
+        _click(_submit($btn_Submit));
+
+		//Enter first name
+        _setValue(_textbox(0), $sCompFN);
+
+        //Enter last name
+        _setValue(_textbox(1),$sCompLN);
+
+        //Enter email
+        _setValue(_textbox(2), $sCompId);
+
+        //Enter pwd
+        _setValue(_password(0), $sRCompPwd);
+
+        //Enter retype pwd
+        _setValue(_password(1), $sRCompPwd);
+
+        //Enter zip code
+        _setValue(_textbox(3),  $sRCompZipCode);
+
+        //Enter access key
+        _setValue(_textbox(4), $sAccesskey);
+
+        //Click accept terms
+        _click(_label(0));
+
+        //Click on next btn
+        _click(_submit($btn_Submit));
+
+        _assertExists(_heading2($sCompRegistrationSuccessMsg));
+
+		_assertExists(_span("Check your email ("+$sCompId
+                            +") and click on the activation link."));       
+
+        //Click on finish button
+        _click(_submit($btn_Finish));
+}
+/*
+Function Name 		:   verifyDrpdwnValuesForIndustry
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify Industry drop down values in Register as Comp page
+*/
+
+
+function verifyDrpdwnValuesForIndustry()
+{
+		//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+		//Click on Company link
+		_click(_link($lnk_Company));
+
+		//Select Industry type
+		_setSelected(_select(0), $sRIndustry);
+
+       //Verify drop down values
+      var $list = _getOptions(_select(0));
+
+      //Verify drop down values
+      _assertEqual($sAccountingDrpdwnValue, $list[1]);
+      _assertEqual($sAnimationDrpdwnValue, $list[2]);
+}
+
+/*
+Function Name 		:   verifyDrpdwnValuesForIndustry
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify Industry drop down values in Register as Comp page
+*/
+
+function verifyDrpdwnValuesForIndustryType()
+  {
+		//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+		//Click on Company link
+		_click(_link($lnk_Company));
+
+		//Click on drop down
+		_click(_select(1));
+
+       	//Verify drop down values
+      	var $list = _getOptions(_select(1));
+
+        //Verify drop down values
+		_assertEqual($sTypeDrpdwnValue, $list[0]);
+        _assertEqual($sNonProfitDrpdwnValue, $list[1]);
+        _assertEqual($sPrivateDrpdwnValue, $list[2]);
+        _assertEqual($sPublicDrpdwnValue, $list[3]);
+        _assertEqual($sMunicipalDrpdwnValue, $list[4]);
+        _assertEqual($sEducationalInstitutionDrpdwnValue, $list[5]);		
+  }
+  
+/*
+Function Name 		:   verifyDrpdwnValuesForIndustry
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify Employee count drop down values in Register as Comp page
+*/
+function verifyDrpdwnValuesForEmployeesCount()
+{
+		//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+		//Click on Company link
+		_click(_link($lnk_Company));
+
+		//Click on drop down
+		_click(_select(3));
+
+       	//Verify drop down values
+      	var $list = _getOptions(_select(3));
+
+        for ($i=0;$i<$list.length;$i++)
+        {
+          _assertExists( $list[$i]);
+        }
+}
+
+/*
+Function Name 		:   verifyDrpdwnValuesForIndustry
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to Country drop down values in Register as Comp page
+*/
+
+function verifyDrpdwnValuesForCountry()
+{
+		//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+		//Click on Company link
+		_click(_link($lnk_Company));
+
+		//Click on drop down
+		_click(_select(2));
+
+       	//Verify drop down values
+      	var $list = _getOptions(_select(2));
+
+        for ($i=0;$i<$list.length;$i++)
+        {
+          _assertExists( $list[$i]);
+        }
+} 
+
+/*
+Function Name 		:   verifyDrpdwnValuesForRevenue
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to Revenue drop down values in Register as Comp page
+*/
+
+function verifyDrpdwnValuesForRevenue()
+{
+		//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+		//Click on Company link
+		_click(_link($lnk_Company));
+
+		//Click on drop down
+		_click(_select(4));
+
+       	//Verify drop down values
+      	var $list = _getOptions(_select(4));
+
+        for ($i=0;$i<$list.length;$i++)
+        {
+          _assertExists( $list[$i]);
+        }
+} 
+/*
+Function Name 		:   registerAsCompanyWithSameUN
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify duplicate user name error.
+*/
+
+function registerAsCompanyWithSameUN()
+{
+		//Navigate to url of the application
+		_navigateTo($sURL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Registration));
+
+		//Click on Company link
+		_click(_link($lnk_Company));
+
+        //Enter company name
+        _setValue(_textbox(0),$sRCompanyName);
+
+		//Select Industry type
+		_setSelected(_select(0), $sRIndustry);
+
+		//Select Comp type
+		_setSelected(_select(1), $sRIndustryType);
+		
+		//Close drop down
+		_click(_select(1));
+
+		//Select country
+		_setSelected(_select(2), $sRLocationId);
+
+		//Select number of employees
+		_setSelected(_select(3),$sRNumberOfEmp);
+
+		//Select Revenue of comp
+		_setSelected(_select(4), $sRCompRevenue);
+
+        //Enter zip code
+        _setValue(_textbox(1), $sRCompZipCode);
+
+        //Enter access key
+        _setValue(_textbox(2), $sAccesskey);
+
+        //Click on Next button
+        _click(_submit($btn_Submit));        
+        
+        //Enter first name
+        _setValue(_textbox(0), $sCompFN);
+
+        //Enter last name
+        _setValue(_textbox(1),$sCompLN);
+
+        //Enter email
+        _setValue(_textbox(2), $sCompId);
+
+        //Enter pwd
+        _setValue(_password(0), $sRCompPwd);
+
+        //Enter retype pwd
+        _setValue(_password(1), $sRCompPwd);
+
+        //Enter zip code
+        _setValue(_textbox(3),  $sRCompZipCode);
+
+        //Enter access key
+        _setValue(_textbox(4), $sAccesskey);
+
+        //Click accept terms
+        _click(_label(0));
+
+        //Click on next btn
+        _click(_submit($btn_Submit));
+
+		//Verify existance of duplicate user name error
+		_assertExists(_div($sRDuplicateUserError));
+  
+}
+
+
+/*
+Function Name 		:   verifyPolicyList
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify All 'Policies' list should be  displayed
+*/
+function verifyPolicyList($sDev_URL)
+{
+		//Navigate to url of the application
+		_navigateTo($sDev_URL);
+
+		//Maximise browser
+		_windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Login));
+
+		//Enter user name
+		_setValue(_textbox($txt_Email), $sUserName);
+
+		//Enter password
+		_setValue(_password($txt_Password),$sPassword );
+
+		//Click on signin button
+		_click(_submit($btn_SignIn));
+		
+		//Click on Policieslink
+		_click(_link($lnk_Policy));
+		
+		//Click on policy set
+		_click(_link($lnk_PolicySet));
+
+		//Check existance of All policy list
+		_assertExists(_span("/All Policies [(] [0-9][)]/"));  
+		
+		logOut(); 
+}
+
+/*
+Function Name 		:   verifyPolicySetInfo
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify All info under Policy set should be  displayed
+*/
+function verifyPolicySetInfo($sDev_URL)
+{
+
+		//Navigate to url of the application
+		_navigateTo($sDev_URL);
+
+		 //Maximise browser
+		  _windowAction($txt_WindowMaximise); 
+		  
+		//Click on Login link
+		_click(_link($lnk_Login));
+
+		//Enter user name
+		_setValue(_textbox($txt_Email), $sUserName);
+
+		//Enter password
+		_setValue(_password($txt_Password),$sPassword );
+
+		//Click on signin button
+		_click(_submit($btn_SignIn));
+		
+		//Click on Policieslink
+		_click(_link($lnk_Policy));
+		
+		//Click on policy set
+		_click(_link($lnk_PolicySet));
+
+		//Verify all info wrt Policy should be displayed
+		_assertExists(_label($sPName));
+		_assertExists(_label($sPPolicyStatus));
+        _assertExists(_label($sPDescription));
+        _assertExists(_label($sPDateCreated));
+       _assertExists(_label($sPolicyMember));
+        _assertExists(_label($sPCreatedBy));
+        _assertExists(_label($sPolicyExpired));
+        _assertExists(_label($sPLastModified));
+        _assertExists(_label($sPModifiedBy));
+		
+		//Verify info under security settings
+		_assertExists(_tableHeader($sPPolicyName));
+		_assertExists(_tableHeader($sPSDescription));
+		_assertExists(_tableHeader($sPPolicyValue));
+		_assertExists(_tableHeader($sPInclude));
+		_assertExists(_tableHeader($sPLock));
+		//Log out of app
+		//logOut(); 
+}
+
+/*
+Function Name 		:   verifyPolicySetInfo
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify sub links of devices link
+*/
+
+function verifySubLinksOfDevicesLink()
+{
+		//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);		
+
+		//Click on Devices 
+		_click(_link($lnk_MDevices));
+
+		//Verify display of All Devices link
+		_assertExists(_link($lnk_MAllDevices));
+
+		//verify display of Pending Devices
+		_assertExists(_link($lnk_MPendingDevices));
+
+		//Log out of app
+		//logOut(); 
+}
+
+
+/*
+Function Name 		:   verify_Display_Of_AllDevices_Link_When_ClickedOn_AllDevices
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify display of All devices link when clicked on All Devices sublink
+*/
+
+function verify_Display_Of_AllDevices_Link_When_ClickedOn_AllDevices()
+{
+		//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on Devices 
+		_click(_link($lnk_MDevices));
+
+		//Verify display of All Devices link
+		_assertExists(_link($lnk_MAllDevices));
+  
+  		//Verify display of All devices page
+  		_assertVisible(_div($lnk_AllDevices));
+		
+		 logOut(); 
+  
+}
+/*
+Function Name 		:   verifyOptionsUnderDeviceDropDown
+Author 	 	    		:	Divya
+Created Date 	 	 :   2nd feb 2016
+Description		   	   :   This method is used to verify drop down values under Device OS drop down
+*/
+function verifyOptionsUnderDeviceOSDropDown()
+{
+	//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on Devices 
+		_click(_link($lnk_MDevices));
+
+		//Verify display of All Devices link
+		_assertExists(_link($lnk_MAllDevices));
+
+
+		//Click on drop down
+		_click(_select(2));
+
+       	//Verify drop down values
+      	var $list = _getOptions(_select(2));
+
+       _assertEqual($drpdwn_DeviceOsVAlue, $list[0]);
+        _assertEqual($drpdwn_CountryValue, $list[1]);
+        _assertEqual($drpdwn_StatusValue, $list[2]);
+        _assertEqual($drpdwn_HandSetValue, $list[3]);
+  
+ 		 logOut(); 
+}
+/*
+Function Name 		:   verifyOptionsUnder_DeviceType_DropDown
+Author 	 	    		:	Divya
+Created Date 	 	 :   5th feb 2016
+Description		   	   :   This method is used to verify Options under DeviceType DropDown
+*/
+function verifyOptionsUnder_DeviceType_DropDown()
+{
+		//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on Devices 
+		_click(_link($lnk_MDevices));
+
+		//Verify display of All Devices link
+		_assertExists(_link($lnk_MAllDevices));
+
+		//Verify drop down values
+      	var $list = _getOptions(_select(3));
+
+       	_assertEqual($drpdwn_AllDeviceTypeVAlue, $list[0]);
+        _assertEqual($drpdwn_UnknownDeviceTypeValue, $list[1]);
+        _assertEqual($drpdwn_IOSDeviceTypeValue, $list[2]);
+        _assertEqual($drpdwn_AndroidDeviceTypeValue, $list[3]);
+  		_assertEqual($drpdwn_WindowsPhoneDeviceTypeValue, $list[4]);
+  		_assertEqual($drpdwn_BalckBerryDeviceTypeValue, $list[5]);
+
+ 		logOut(); 
+}
+/*
+Function Name 		:   verifyDisplayOf_DeviceTypeSelected
+Author 	 	    		:	Divya
+Created Date 	 	 :   5th feb 2016
+Description		   	   :   This method is used to verify display format of selected Device type
+*/
+function verifyDisplayOf_DeviceTypeSelected()
+{
+		//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on Devices 
+		_click(_link($lnk_MDevices));
+
+		//Verify display of All Devices link
+		_assertExists(_link($lnk_MAllDevices));
+
+		//Select value from Device type drop down
+		_setSelected(_select(3), $drpdwn_UnknownDeviceTypeValue);
+
+		//Verify dispay of selected value in drop down as a link
+		_assertVisible(_link($drpdwn_UnknownDeviceTypeValue));
+
+		//verify display of date in given format dd mm yyyy
+		_assertVisible(_paragraph($txt_TimeStampUnderDeviceType));
+
+		//Log out of app
+		//logOut(); 
+  
+} 
+
+/*
+Function Name 		:   verifyDifferentStatusUnderStatusDropDown
+Author 	 	    		:	Divya
+Created Date 	 	 :   5th feb 2016
+Description		   	   :   This method is used to verify diffrent status under Status drop down
+*/
+
+function verifyDifferentStatusUnderStatusDropDown()
+{
+		//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on Devices 
+		_click(_link($lnk_MDevices));
+
+		//Verify display of All Devices link
+		_assertExists(_link($lnk_MAllDevices));
+
+		//Select value Status from Device type drop down
+		_setSelected(_select(2),$drpdwn_StatusValue);
+
+		//Verify existance of Status of devices present under Status
+		_assertExists(_link($lnk_Pending));
+		_assertExists(_link($lnk_Current));
+		
+		//Log out of app
+		//logOut(); 
+
+}
+/*
+Function Name 		:   verifyDifferentStatusUnderStatusDropDown
+Author 	 	    		:	Divya
+Created Date 	 	 :   5th feb 2016
+Description		   	   :   This method is used to verify display of countries when selected country as drop down value
+*/
+
+function verifyDisplayOf_Countries_Whenselected_CountryDropDownValue()
+{
+		//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on Devices 
+		_click(_link($lnk_MDevices));
+
+		//Verify display of All Devices link
+		_assertExists(_link($lnk_MAllDevices));
+
+		//Select value Country from Device type drop down
+		_setSelected(_select(2),$drpdwn_CountryValue);
+		
+		//verify display of countries
+		_assertExists(_div($txt_DeviceOsDropDwnContents));
+		
+		_log(_getText(_div($txt_DeviceOsDropDwnContents)));
+		
+		//Log out of app
+		//logOut(); 
+}		
+
+/*
+Function Name 		:   verifyDifferentStatusUnderStatusDropDown
+Author 	 	    		:	Divya
+Created Date 	 	 :   5th feb 2016
+Description		   	   :   This method is used to verify display of Handsets when selected Hand set as drop down value
+*/
+
+function verifyDisplayOf_Handset_When_selected_HandsetDropDownValue()
+{
+		//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on Devices 
+		_click(_link($lnk_MDevices));
+
+		//Verify display of All Devices link
+		_assertExists(_link($lnk_MAllDevices));
+
+		//Select value Country from Device type drop down
+		_setSelected(_select(2),$drpdwn_HandSetValue);
+		
+		//Click to close drop down
+		_click(_select(2));
+		
+		//verify display of countries
+		_assertExists(_link($drpdwn_UnknownDeviceTypeValue));
+		
+		_log(_getText(_link($drpdwn_UnknownDeviceTypeValue)));
+		
+		//Log out of app
+		//logOut(); 
+}	
+
+/*
+Function Name 		:   verifyDisplayOfAddNewDeviceWindow
+Author 	 	    		:	Divya
+Created Date 	 	 :   5th feb 2016
+Description		   	   :   This method is used to verify display of add a new device window upon clicking on + icon
+*/
+
+function verifyDisplayOfAddNewDeviceWindow()
+{
+		//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on Devices 
+		_click(_link($lnk_MDevices));
+
+		//Verify display of All Devices link
+		_assertExists(_link($lnk_MAllDevices));		
+
+		//Click on + icon
+		_click(_link(168));
+
+		//Verify display of Add a device window
+		_assertExists(_heading4($txt_AddNewDevice));
+
+		//Close the window
+		_click(_italic($icon_CloseWindow));
+
+		//Log out of app
+		//logOut(); 		
+} 
+
+
+/*
+Function Name 		:   verifyContentsOfAdvancedSearch
+Author 	 	    		:	Divya
+Created Date 	 	 :   5th feb 2016
+Description		   	   :   This method is used to verify display contents of Advanced Search
+*/
+function verifyContentsOfAdvancedSearch()
+{
+		//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on Devices 
+		_click(_link($lnk_MDevices));
+
+		//Verify display of All Devices link
+		_assertExists(_link($lnk_MAllDevices));
+
+		//Click on Advanced Search option
+		_click(_div($div_AdvancedSearch));
+
+		//Verify that following options are displayed when clicked on Advanced Search 
+        _assertExists(_label($txt_RegisteredFrom));
+        _assertExists(_label($txt_P2PExpiryFrom));
+        _assertExists(_label($drpdwn_OS));
+        _assertExists(_label($drpdwn_DeviceStatus));
+        _assertExists(_submit($btn_Reset));
+        _assertExists(_submit($btn_Search));
+
+		//Log out of app
+		//logOut();
+  
+} 
+
+/*
+Function Name 		:   advancedSearchSearchResults
+Author 	 	    		:	Divya
+Created Date 	 	 :   5th feb 2016
+Description		   	   :   This method is used to verify display contents of Advanced Search
+*/
+
+function advancedSearchSearchResults()
+{
+//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on Devices 
+		_click(_link($lnk_MDevices));
+
+		//Verify display of All Devices link
+		_assertExists(_link($lnk_MAllDevices));	
+
+		//Click on Advanced Search option
+		_click(_div($div_AdvancedSearch));
+
+  		//Set Registred From date
+        _setValue(_textbox($txt_RegisteredFromDate), $sRegisteredFromDate);
+  
+ 		 //Set Registred To date
+        _setValue(_textbox($txt_RegisteredToDate), $sRegisteredFromTo);
+  /*
+  		//Set P2P Expiry From Date
+        _setValue(_textbox($txt_P2PExpiryFromDate), $sP2PExpiryFromDate);
+  
+  		//Set P2P Expiry To Date
+        _setValue(_textbox($txt_P2PExpiryToDate), $sP2PExpiryToDate);*/
+  
+  		//Select OS Value
+        _setSelected(_select(4),$sOS);
+  
+		//Select device status
+        _setSelected(_select(5),$sDeviceStatus);
+  
+		//Click on search button
+        _click(_submit($btn_Search));
+  
+  		//Log out of app
+		//logOut();
+
+}
+/*
+Function Name 		:   verifyExistanceOfSubGroupsUnderGroups
+Author 	 	    		:	Divya
+Created Date 	 	 :   5th feb 2016
+Description		   	   :   This method is used to verify existance of Sub groups Under Groups
+*/
+
+function verifyExistanceOfSubGroupsUnderGroups()
+{
+	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on groups
+		_click(_link("/Groups .*/"));
+		//Verify the existance of subgroups under Groups
+        _assertExists(_link("/User Groups .*/"));
+        _assertExists(_link("/Policy Groups .*/"));
+        _assertExists(_link("/Contact Groups .*/"));
+        _assertExists(_link("/Shared Groups .*/"));
+        _assertExists(_link("/All .*/"));
+
+		//Log out of app
+		logOut();	
+} 
+/*
+Function Name 		:   verifyDisplayOfContactGroupSection
+Author 	 	    		:	Divya//Login to site with valid credentials		
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify display of Contact Group section when click on Contact Group link
+*/
+
+function verifyDisplayOfContactGroupSection()
+{
+		//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on groups
+		_click(_link("/Groups .*/"));
+
+		//Click on Contact Groups link
+		_click(_link("/Contact Groups .*/"));
+
+		//Verify clicking on Contact groups link navigates Contact Group section
+		_assertExists(_heading2("/ContactGroups .*/"));
+
+		//Log out of app
+		//logOut();
+} 
+
+/*
+Function Name 		:   verifyGroupsCount
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify display of Contact Group section when click on Contact Group link
+*/
+
+function verifyGroupsCount()
+{
+    //Login to site with valid credentials
+      loginToSite($sURL,$sUN1,$sPwd1);	
+
+    //Click on groups
+    _click(_link("/Groups .*/"));
+
+    //Click on Contact Groups link
+    _click(_link("/Contact Groups .*/"));
+
+	var $expected=_getText(_link(141));
+	var $actual=_getText(_heading2(6));
+
+	if(_areEqual($expected, $actual))
+    {
+      _log("Count of groups displayed in the Mid-Frame and the count displayed near the Contact Groups in the First Frame are same");
+    }
+	else
+    {
+      _log("Count of groups displayed in the Mid-Frame and the count displayed near the Contact Groups in the First Frame are not same");
+    } 
+        
+    //Log out of app
+    //logOut();
+}
+
+/*
+Function Name 		:   addGroup
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to add new group
+*/
+
+function addGroup()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+   		 //Click on groups
+    	_click(_link("/Groups .*/"));
+
+   		 //Click on Contact Groups link
+    	_click(_link("/Contact Groups .*/"));
+
+		//Click on + icon
+        _click(_link(165));
+
+        //Enter Title
+        _setValue(_textbox($txt_Title), $sGroupTitle);
+
+        //Select type of group
+        _setSelected(_select($drp_dwn_GType), $sUsergroupDropDown);
+
+        //Enter description
+        _setValue(_textarea(0), $sGroupTitle);
+
+        //Click on next button
+        _click(_submit($btn_Submit));
+
+		//Search for name
+		_setValue(_textbox($txt_GName), $sUsergroupToSearch);
+
+		_click(_checkbox($chkbox_OnStatus, _near(_strong("Cell Trust[1]"))));
+
+		_click(_submit($btn_Addgroup));
+
+		//Log out of app
+    	//logOut();
+}
+
+/*
+Function Name 		:   verifyDisplayOfSortByIcon
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify display of Sort By icon
+*/
+function verifyDisplayOfSortByIcon()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+   		 //Click on groups
+    	_click(_link("/Groups .*/"));
+
+   		 //Click on Contact Groups link
+    	_click(_link("/Contact Groups .*/"));
+
+ 		 //Verify existance of Sort by link	
+        _assertExists(_link($lnk_SortBy));
+  
+  		//Click on Sort by Link
+        _click(_link($lnk_SortBy));  
+  		
+        _log("Links in pop up "+_getText(_list(27)));
+  
+		//Log out of app
+    	//logOut();
+}  
+
+/*
+Function Name 		:   verifyDisplayOfSortByIcon
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify sub menus under User management
+*/
+function verifySubMenus_UnderUM()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link($lnk_UserManagement));
+
+		//Check existance of sub menus under UM menu
+		_assertExists(_link("/Pending/"));
+		_assertExists(_link("/Active/"));
+		_assertExists(_link("/All/"));
+		_assertExists(_link("/Import/"));
+
+		//Log out of app
+    	//logOut();
+} 
+ /*
+Function Name 		:   verifyAllUsersSubMenu
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify page navigated to All users sub menu upon clicking on All link
+*/ 
+
+function verifyAllUsersSubMenu()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link($lnk_UserManagement));
+
+		//Click on All submenu
+		_click(_link("/All/"));
+	
+		//Verify page navigated to All users sub menu upon clicking on All link
+		_assertExists(_div($txt_AllUsers));
+
+		//Log out of app
+    	//logOut();
+  
+}   
+/*
+Function Name 		:   verifyPendingSubMenu
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify page navigated to Pending sub menu upon clicking on Pending link
+*/ 
+
+function verifyPendingSubMenu()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link($lnk_UserManagement));
+
+		//Click on All submenu
+		_click(_link("/All/"));
+	
+		//Verify page navigated to All users sub menu upon clicking on All link
+		_assertExists(_div($txt_Pending));
+
+		//Log out of app
+    	//logOut();
+  
+}   
+
+/*
+Function Name 		:   verifyActiveSubMenu
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify page navigated to Active sub menu upon clicking on Active link
+*/ 
+
+function verifyActiveSubMenu()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link($lnk_UserManagement));
+
+		//Click on All submenu
+		_click(_link("/All/"));
+	
+		//Verify page navigated to All users sub menu upon clicking on All link
+		_assertExists(_div($txt_Active));
+
+		//Log out of app
+    	//logOut();
+  
+}   
+
+/*
+Function Name 		:   verifyImportSubMenu
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify page navigated to Import sub menu upon clicking on Import link
+*/ 
+
+function verifyImportSubMenu()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link($lnk_UserManagement));
+
+		//Click on All submenu
+		_click(_link("/All/"));
+	
+		//Verify page navigated to All users sub menu upon clicking on All link
+		_assertExists(_div($txt_Import));
+
+		//Log out of app
+    	//logOut();
+  
+}   
+/*
+Function Name 		:   verifyUserAndRolesSection
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify User and roles section under User management
+*/ 
+
+function verifyUserAndRolesSection()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link($lnk_UserManagement));
+
+		//Verify existance of User & roles section under UM
+		_assertExists(_heading2($txt_UserAndRoles));
+
+		//Log out of app
+    	//logOut();
+} 
+
+/*
+Function Name 		:   listOfUsersUnderUM
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify list of users under UM
+*/ 
+
+function listOfUsersUnderUM()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link($lnk_UserManagement));
+
+		//Click on All submenu
+		_click(_link("/All/"));
+
+		//verify existance of all users under UM
+		_log(_getText(_div($txt_AllUsersSection)));
+
+		//Log out of app
+    	logOut();  
+} 
+/*
+Function Name 		:   verifyDisplayOfUserSearchWindow
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to verify Display Of User Search Window
+*/ 
+
+function verifyDisplayOfUserSearchWindow()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link($lnk_UserManagement));
+
+		//Click on All submenu
+		_click(_link("/All/"));
+
+		_click(_div($btn_UserSearch));
+
+        if(_exists(_submit($btn_Search)))
+        {
+          _log("User search window is expanded ");
+          }
+        else
+        {
+           _log("User search window is not expanded ");
+        }
+		//Log out of app
+    	logOut();  
+} 
+/*
+Function Name 		:   userSearchInUM
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to verify Display Of User while searched in User management under All submenu
+*/ 
+
+function userSearchInUM()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+
+		//Click on User search section
+		_click(_div($div_UserSearch));
+
+		//Enter first name to search	
+		_setValue(_textbox($sverifyRFN), $sUMFirstNameSearchInput);
+
+		//Click on search button
+		_click(_submit($btn_Search));
+
+		//Validate existance of name searched
+		_assertEqual($sAllUMNameToVerify, _getText(_link($sAllUMNameToVerify)));
+		//Log out of app
+    	logOut();  
+}
+
+/*
+Function Name 		:   verifyDisplayOfMessageWindowInAllUMModule
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to verify Display Of message window in All sub menu of UM 
+*/ 
+
+function verifyDisplayOfMessageWindowInAllUMModule()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+
+		//Click on message icon for a given user
+		_click(_span("/table-cell-icon-link glyphicon glyphicon-envelope/",_leftOf(_link($sAllUNNameToClickForMessage))));
+
+		//Verify display of Message window pop up
+		_assertExists(_heading2($sAllUNNameToClickForMessage, _near(_span($icon_Chat))));
+
+		//Log out of app
+    	logOut();  
+}
+
+/*
+Function Name 		:   verifyDisplayOfOptionsInPlusIcon
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify display of options in + icon under Users & roles
+*/ 
+
+function verifyDisplayOfOptionsInPlusIcon()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+
+		//Click on + icon under User & Roles
+		_click(_link(165));
+
+		//verify display of options when clicked on + icon
+		_assertExists(_link("/User/"));
+		_assertExists(_link($txt_Role));
+
+		//Log out of app
+    	logOut();  
+} 
+
+/*
+Function Name 		:   verifyDisplayOfAddNewUserpopup
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify display of Add New User Pop up
+*/ 
+
+function verifyDisplayOfAddNewUserpopup()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+
+		//Click on + icon under User & Roles
+		_click(_link(165));
+
+		//Click on User link to add new user
+		_click(_link("/User/"));
+
+		//verify display of User pop up
+		_assertExists(_heading4($txt_UMAddNewMember));
+
+		//Log out of app
+    	logOut();  
+} 
+
+
+/*
+Function Name 		:   verifyDisplayOfAddNewRolepopup
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify display of Add New Role Pop up
+*/ 
+
+function verifyDisplayOfAddNewRolepopup()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+
+		//Click on + icon under User & Roles
+		_click(_link(165));
+
+		//Click on User link to add new role
+		_click(_link($txt_Role));
+
+		//verify display of User pop up
+		_assertExists(_heading4($txt_UMAddNewRole));
+
+		//Log out of app
+    	logOut();  
+} 
+/*
+Function Name 		:   verifyDisplayOfSortByPopUpInUM
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify display of sort by pop up in Um 
+*/ 
+function verifyDisplayOfSortByPopUpInUM()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+
+  		//Click on sort by link
+		_click(_link($lnk_UMSortBy));
+
+  		//Verify display of sort by pop up 
+  		_assertExists(_list(26));
+  
+		//Log out of app
+    	logOut();  
+} 
+
+/*
+Function Name 		:   verifyDisplayOfSortByPopUpInUM
+Author 	 	    		:	Divya
+Created Date 	 	 :   12th feb 2016
+Description		   	   :   This method is used to Verify display of sort by pop up in Um 
+Input				: SortInputCharacter	
+*/ 
+
+function sortingUsingGivenCharacterinUM($sUMSortInputCharacter)
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+
+  		//Click on sort by link
+		_click(_link($lnk_UMSortBy));
+
+		//Click on character A to sort
+  		_click(_link($sUMSortInputCharacter));
+  
+		//Log out of app
+    	logOut();  
+} 
+
+/*
+Function Name 		:   verifyDisplayOfFilterByOption
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is used to Verify display of Filter by option	
+*/ 
+
+
+function verifyDisplayOfFilterByOption()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+		
+		//Click on Filter By option
+		_click(_link(194));
+
+		//Verify existance of list of filter by options
+		_assertExists(_list($lst_FilterBy));
+  		
+		//Log out of app
+    	logOut();  
+}  
+
+/*
+Function Name 		:   verifyDateCreated_NewestFirstFilterOption
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is used to Verify display of list in Newest first sorted order
+*/ 
+function verifyDateCreated_NewestFirstFilterOption()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);			
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+		
+		//Click on Filter By option
+		_click(_link(194));
+
+		//Click on option Date created - newest first option
+		_click(_link($drp_dwn_DateCreated_NewestFirst));
+  
+		//Log out of app
+    	logOut(); 
+} 
+
+
+/*
+Function Name 		:   verifyDateCreated_OldestFirstFilterOption
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is used to Verify display of list in Oldest first sorted order
+*/ 
+function verifyDateCreated_OldestFirstFilterOption()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);			
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+		
+		//Click on Filter By option
+		_click(_link(194));
+
+		//Click on option Date created - newest first option
+		_click(_link($drp_dwn_DateCreated_OldestFirst));
+  
+		//Log out of app
+    	logOut(); 
+} 
+
+
+/*
+Function Name 		:   verifyDateUpdated_NewestFirstFilterOption
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is used to Verify display of list in date updated in newest first sorted order
+*/ 
+function verifyDateUpdated_NewestFirstFilterOption()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);			
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+		
+		//Click on Filter By option
+		_click(_link(194));
+
+		//Click on option Date created - newest first option
+		_click(_link($drp_dwn_DateUpdated_NewestFirst));
+  
+		//Log out of app
+    	logOut(); 
+} 
+
+/*
+Function Name 		:   verifyDateUpdated_OldestFirstFilterOption
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is used to Verify display of list in date updated in oldest first sorted order
+*/ 
+function verifyDateUpdated_OldestFirstFilterOption()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);			
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+		
+		//Click on Filter By option
+		_click(_link(194));
+
+		//Click on option Date created - newest first option
+		_click(_link($drp_dwn_DateUpdated_OldestFirst));
+  
+		//Log out of app
+    	logOut(); 
+} 
+
+/*************************************************************************/
+/*
+Function Name 		:   verifyTitle_Ascending_FilterOption
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is used to Verify display of title as per ascending
+*/ 
+function verifyTitle_Ascending_FilterOption()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);			
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+		
+		//Click on Filter By option
+		_click(_link(194));
+
+		//Click on option Date created - newest first option
+		_click(_link($drp_dwn_TitleAscending));
+  
+		//Log out of app
+    	logOut(); 
+} 
+
+/*
+Function Name 		:   verifyTitle_Descending_FilterOption
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is used to Verify display of title as per descending
+*/ 
+function verifyTitle_Descending_FilterOption()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);			
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+		
+		//Click on Filter By option
+		_click(_link(194));
+
+		//Click on option Date created - newest first option
+		_click(_link($drp_dwn_TitleDescending));
+  
+		//Log out of app
+    	logOut(); 
+} 
+
+/*
+Function Name 		:   verifyListDisplayAsPerSnippet
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is used to Verify display of list sorted according to snippet order
+*/
+function verifyListDisplayAsPerSnippet()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);			
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+		
+		//Click on Filter By option
+		_click(_link(194));
+
+		//Click on option Date created - newest first option
+		_click(_link($drp_dwn_UMList));
+  
+		//Log out of app
+    	logOut(); 
+} 
+/*
+Function Name 		:   addNewUser_In_UM
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is used to add new user in UM
+*/
+
+
+function addNewUser_In_UM()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+
+		//Click on + icon to add new user
+		_click(_link($lnk_UMPlusIcon));
+
+		//Click on user link
+		_click(_link($lnk_UMAddUser));		
+
+		//Enter first name	
+ 		 _setValue(_textbox(14), $sUMFN);
+
+		//Enter last name
+		_setValue(_textbox(15), $sUMLN);
+
+		//Enter email id
+		_setValue(_textbox(16), $sUMEmail);
+
+		//Select country
+		_setSelected(_select(2), $sUMCountry);
+		
+		//Enter Zip code
+		_setValue(_textbox(17), $sUMUser_ZipCode);
+
+		//Select role 
+		_setSelected(_select(3),$sUMUserRole);
+
+		//Click on Next button
+		_click(_submit($btn_Submit));
+
+        //Click on Finish button
+        //_click(_submit("Finish"));
+
+		_click(_submit($btn_UMCancel));
+
+		//Log out of app
+    	logOut(); 
+}
+
+/*
+Function Name 		:   addNewRole_In_UM
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is used to add new role in UM
+*/
+
+
+function addNewRole_In_UM()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+
+		//Click on + icon to add new user
+		_click(_link($lnk_UMPlusIcon));
+
+		//Click on role link
+		_click(_link($txt_Role));	
+
+		//Enter First name
+		_setValue(_textbox($txt_GName), "AutoRole1");
+		
+		//Enter description
+		_setValue(_textarea($txt_UMDescription), "Description");
+		
+		//Click on next button	
+		  _click(_submit($btn_Submit));
+
+		//Click on next button	
+		_click(_button($btn_Submit));
+
+		//Log out of app
+    	logOut();   
+} 
+
+/*
+Function Name 		:   updateUserDetails_In_UM
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is used to update user & validate same in Pending & all sub menus
+*/
+
+function updateUserDetails_In_UM()
+{
+		//Login to site with valid credentials
+      	loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on user management link	
+		_click(_link("/User Management .*/"));
+
+		//Click on Pending link
+		_click(_link("/Pending .*/"));
+  
+		//Click on All users
+		_click(_link($txt_AllUsers));
+
+		//Select one of users & click on edit button
+		_click(_link($lnk_Action, _near(_div($sUserNameB4Edit))));
+
+		//Edit first name
+		_setValue(_textbox(14), $sUserFNToEdit);
+
+		//Click on Edit button
+		_click(_submit($btn_Edit));
+
+		//Validate updation of un
+		_assertEqual($sUserNameAfterEdit, _getText(_link($sUserNameAfterEdit)));
+
+		//Click on All submenu
+		_click(_link("/All [0-9[0-9]/"));
+
+		//Click on All users
+		_click(_link($txt_AllUsers));
+
+		//Validate updation of un
+		_assertEqual($sUserNameAfterEdit, _getText(_link($sUserNameAfterEdit)));
+
+		//Log out of app
+    	logOut(); 
+}
+/*
+Function Name 		:   verifyDisplayOfSortByDropDown
+Author 	 	    		:	Divya
+Created Date 	 	 :   17th feb 2016
+Description		   	   :   This method is verify display of Sort by drop down in devices
+*/
+
+function verifyDisplayOfSortByDropDown()
+{
+		//Login to site with valid credentials
+		loginToSite($sURL,$sUN1,$sPwd1);	
+
+		//Click on Devices 
+		_click(_link("/Devices .*/"));
+  
+ 		 //Click on All Devices link
+		_click(_link("/All Devices .*/"));	
+			
+		//Verify display of sort icon
+		_assertExists(_link(177));
+
+		//Click on drop down of sort icon
+		//_click(_link(177));
+
+		//verify existance of sorting drop downs
+		//_assertExists(_listItem($drpdwn_SortBy));
+
+		//Log out of app
+		//logOut();
+}
+
+
+
+/*
+Function Name 			:   verifyMBNCreatedByDomainAdminIsVisibleToOtherDomain
+Author 	 	    		:	Divya
+Created Date 	 	 	:   13th April 2016
+Description		   	   	:   This method is Verify that MBN created by domain admin is visible to other domain admins
+Input					:   $sURL,$sDomainName1,$sDomainName1_Password,$sDomainName2,$sDomainName2_Password, $iMBNValue ,
+							$drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly
+*/
+
+function verifyMBNCreatedByDomainAdminIsVisibleToOtherDomain
+($sURL,$sDomainName1,$sDomainName1_Password,$sDomainName2,$sDomainName2_Password, $iMBNValue ,$drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly)
+{
+ 
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on link MBN Management 
+	_click(_link($lnk_MBNManagement));
+
+	//Click on link -All MBN's
+	_click(_link($lnk_AllOrg, _near(_link($lnk_MBNManagement))));
+
+	_wait(2000);
+	//Get row count of table
+    var $rowCount=_fetch(_table(4).rows.length);
+	_log($rowCount);
+	//Get table contents 
+    var $Contents= _getTableContents(_table(4));
+
+	//Initialise value to 1
+    var $i=1;
+  
+	/************Block to check if given MBN is already existing in the table , if yes means delete *************/
+    while($i<$rowCount)
+    {
+      //Assign value of 4 coulmn to given variable
+        var $b=$Contents[$i][4];   
+      _log($b);
+     //Verify existance of MBN .If yes means delete else means create new one 
+      if($iMBNValue==$b)
+      {
+        //Click on MBN delete link near given MBN
+        _click(_link($lnk_DeleteMBN, _near(_div($iMBNValue))));
+        
+        //Click on Yes button in pop up
+        _click(_button($btn_YesForDeleteMBN));
+        
+         _log("MBN is already existing .Hence deleted");
+      }
+       $i++;
+    }
+
+	//Click on + icon
+	_click(_link($icon_PlusAddMBN, _near(_span($icon_Mobile))));
+	
+	_wait(2000);
+	/*******Actions on Create MBN pop up********************/
+
+	//Click on country drop down to open the drop down
+	_click(_select($drp_dwn_CountryId));
+
+	//Select desired value from drop down
+	_setSelected(_select($drp_dwn_CountryId), $drp_dwn_MBNCountryId);
+
+	//Click on country drop down to close the drop down
+	_click(_select($drp_dwn_CountryId));
+
+	//Enter MBN to create
+	_setValue(_textbox($txt_MBNValue), $iMBNValue);
+
+	//Select desired value from Type drop down
+	_setSelected(_select($drp_dwn_MBNType), $drp_dwn_MBN_VoiceOnly);
+	
+	//Click on next button
+	_click(_submit($btn_Next));	
+
+	//Click on Create button
+	_click(_submit($btn_Create));
+ 
+	/***********Pop up closure****************************/
+
+	//Validate MBN ,Location and type selected after creation
+	_assertEqual($iMBNValue, _getText(_div($iMBNValue, _near(_link($lnk_MBNInTable)))));
+	_assertEqual($drp_dwn_MBNCountryId, _getText(_div($drp_dwn_MBNCountryId, _near(_link($lnk_LocationInTable)))));
+	_assertEqual($drp_dwn_MBN_VoiceOnly, _getText(_div($drp_dwn_MBN_VoiceOnly, _near(_link($drp_dwn_MBNType)))));
+
+	//Log out from app
+	logOut();
+
+	/******************************Login as Another Domain Admin****************************/
+	loginToSite($sURL,$sDomainName2,$sDomainName2_Password);
+
+	//Click on link MBN Management 
+	_click(_link($lnk_MBNManagement));
+
+	//Click on link -All MBN's
+	_click(_link($lnk_AllOrg, _near(_link($lnk_MBNManagement))));
+
+	//Validate created MBN details are visible to Another domain Admin
+	_assertEqual($iMBNValue, _getText(_div($iMBNValue, _near(_link($lnk_MBNInTable)))));
+	_assertEqual($drp_dwn_MBNCountryId, _getText(_div($drp_dwn_MBNCountryId, _near(_link($lnk_LocationInTable)))));
+	_assertEqual($drp_dwn_MBN_VoiceOnly, _getText(_div($drp_dwn_MBN_VoiceOnly, _near(_link($drp_dwn_MBNType)))));
+
+	//Log out from app
+	logOut();  
+}
+
+/*
+Function Name 			:   verifyMBNCreatedByDomainAdminIsNotVisibleToOrgDomain
+Author 	 	    		:	Divya
+Created Date 	 	 	:   13th April 2016
+Description		   	   	:   This method is Verify that MBN created by domain admin is not visible to other organization admin
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sOrgAdminName1,$sOrgAdminPassword1, $iMBNValue ,
+							$drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly
+*/
+
+function verifyMBNCreatedByDomainAdminIsNotVisibleToOrgDomain
+($sURL,$sDomainName1,$sDomainName1_Password,$sOrgAdminName1,$sOrgAdminPassword1, $iMBNValue ,
+ $drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly)
+{
+  
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on link MBN Management 
+	_click(_link($lnk_MBNManagement));
+
+	//Click on link -All MBN's
+	_click(_link($lnk_AllOrg, _near(_link($lnk_MBNManagement))));
+
+	//Get row count of table
+    var $rowCount=_fetch(_table(4).rows.length);
+	_log($rowCount);
+	//Get table contents 
+    var $Contents= _getTableContents(_table(4));
+
+	//Initialise value to 1
+    var $i=1;
+  
+	/************Block to check if given MBN is already existing in the table , if yes means delete *************/
+    while($i<$rowCount)
+    {
+      //Assign value of 4 coulmn to given variable
+        var $b=$Contents[$i][4];   
+      _log($b);
+     //Verify existance of MBN .If yes means delete else means create new one 
+      if($iMBNValue==$b)
+      {
+        //Click on MBN delete link near given MBN
+        _click(_link($lnk_DeleteMBN, _near(_div($iMBNValue))));
+        
+        //Click on Yes button in pop up
+        _click(_button($btn_YesForDeleteMBN));
+        
+         _log("MBN is already existing .Hence deleted");
+		 _wait(2000);
+      }
+       $i++;
+    }
+
+//Click on + icon
+	_click(_link($icon_PlusAddMBN, _near(_span($icon_Mobile))));
+_wait(2000);
+	/*******Actions on Create MBN pop up********************/
+
+	//Click on country drop down to open the drop down
+	_click(_select($drp_dwn_CountryId));
+
+	//Select desired value from drop down
+	_setSelected(_select($drp_dwn_CountryId), $drp_dwn_MBNCountryId);
+
+	//Click on country drop down to close the drop down
+	_click(_select($drp_dwn_CountryId));
+
+	//Enter MBN to create
+	_setValue(_textbox($txt_MBNValue), $iMBNValue);
+
+	//Select desired value from Type drop down
+	_setSelected(_select($drp_dwn_MBNType), $drp_dwn_MBN_VoiceOnly);
+	
+	//Click on next button
+	_click(_submit($btn_Next));	
+
+	//Click on Create button
+	_click(_submit($btn_Create));
+ _wait(2000);
+	/***********Pop up closure****************************/
+
+	//Validate MBN ,Location and type selected after creation
+	_assertEqual($iMBNValue, _getText(_div($iMBNValue, _near(_link($lnk_MBNInTable)))));
+	_assertEqual($drp_dwn_MBNCountryId, _getText(_div($drp_dwn_MBNCountryId, _near(_link($lnk_LocationInTable)))));
+	_assertEqual($drp_dwn_MBN_VoiceOnly, _getText(_div($drp_dwn_MBN_VoiceOnly, _near(_link($drp_dwn_MBNType)))));
+
+	//Log out from app
+	logOut();
+
+	/******************************Login as Another Domain Admin****************************/
+	loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);
+
+	_click(_span($sOrgNameToClick));
+	
+	//Click on link MBN Management 
+	_click(_link($lnk_MBNManagement));
+
+	//Click on link -All MBN's
+	_click(_link($lnk_AllOrg, _near(_link($lnk_MBNManagement))));
+_wait(2000);
+	//Validate created MBN details are visible to Another domain Admin
+    var $iMBNVal=_getText(_div($iMBNValue, _near(_link($lnk_MBNInTable)))) ;
+    var $sLocationVal= _getText(_div($drp_dwn_MBNCountryId, _near(_link($lnk_LocationInTable))));
+    var $sMBNTyp=_getText(_div($drp_dwn_MBN_VoiceOnly, _near(_link($drp_dwn_MBNType))));	
+
+  	if(($iMBNValue != $iMBNVal) &&($drp_dwn_MBNCountryId != $sLocationVal) && ($drp_dwn_MBN_VoiceOnly != $sMBNTyp))
+    {
+      _log("Created MBN value is not visible to Organisation Admin");
+    }
+     else
+     {
+       _log("Created MBN value is visible to Organisation Admin");
+     }
+    
+	//Log out from app
+	logOut();  
+}
+
+
+/*
+Function Name 			:   verifyMBNCreatedByDomainAdminIsNotVisibleToOrgMember
+Author 	 	    		:	Divya
+Created Date 	 	 	:   13th April 2016
+Description		   	   	:   This method is Verify that MBN created by domain admin is not visible to other organization admin
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sMemberName1,$sMemberPassword1, $iMBNValue ,
+							$drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly
+*/
+
+function verifyMBNCreatedByDomainAdminIsNotVisibleToOrgMember
+($sURL,$sDomainName1,$sDomainName1_Password,$sMemberName1,$sMemberPassword1, $iMBNValue ,
+ $drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly)
+{
+  
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on link MBN Management 
+	_click(_link($lnk_MBNManagement));
+
+	//Click on link -All MBN's
+	_click(_link($lnk_AllOrg, _near(_link($lnk_MBNManagement))));
+
+	//Get row count of table
+    var $rowCount=_fetch(_table(4).rows.length);
+	_log($rowCount);
+	//Get table contents 
+    var $Contents= _getTableContents(_table(4));
+
+	//Initialise value to 1
+    var $i=1;
+  
+	/************Block to check if given MBN is already existing in the table , if yes means delete *************/
+    while($i<$rowCount)
+    {
+      //Assign value of 4 coulmn to given variable
+        var $b=$Contents[$i][4];   
+      _log($b);
+     //Verify existance of MBN .If yes means delete else means create new one 
+      if($iMBNValue==$b)
+      {
+        //Click on MBN delete link near given MBN
+        _click(_link($lnk_DeleteMBN, _near(_div($iMBNValue))));
+        
+        //Click on Yes button in pop up
+        _click(_button($btn_YesForDeleteMBN));
+        
+         _log("MBN is already existing .Hence deleted");
+      }
+       $i++;
+    }
+
+	//Click on + icon
+	_click(_link($icon_PlusAddMBN, _near(_span($icon_Mobile))));
+
+	/*******Actions on Create MBN pop up********************/
+
+	//Click on country drop down to open the drop down
+	_click(_select($drp_dwn_CountryId));
+
+	//Select desired value from drop down
+	_setSelected(_select($drp_dwn_CountryId), $drp_dwn_MBNCountryId);
+
+	//Click on country drop down to close the drop down
+	_click(_select($drp_dwn_CountryId));
+
+	//Enter MBN to create
+	_setValue(_textbox($txt_MBNValue), $iMBNValue);
+
+	//Select desired value from Type drop down
+	_setSelected(_select($drp_dwn_MBNType), $drp_dwn_MBN_VoiceOnly);
+	
+	//Click on next button
+	_click(_submit($btn_Next));	
+
+	//Click on Create button
+	_click(_submit($btn_Create));
+ 
+	/***********Pop up closure****************************/
+
+	//Validate MBN ,Location and type selected after creation
+	_assertEqual($iMBNValue, _getText(_div($iMBNValue, _near(_link($lnk_MBNInTable)))));
+	_assertEqual($drp_dwn_MBNCountryId, _getText(_div($drp_dwn_MBNCountryId, _near(_link($lnk_LocationInTable)))));
+	_assertEqual($drp_dwn_MBN_VoiceOnly, _getText(_div($drp_dwn_MBN_VoiceOnly, _near(_link($drp_dwn_MBNType)))));
+
+	//Log out from app
+	logOut();
+
+	/******************************Login as Another Domain Admin****************************/
+	loginToSite($sURL,$sMemberName1,$sMemberPassword1);
+
+	_click(_span($sOrgNameToClick));
+	//Click on link MBN Management 
+	_click(_link($lnk_MBNManagement));
+
+	//Click on link -All MBN's
+	_click(_link($lnk_AllOrg, _near(_link($lnk_MBNManagement))));
+  
+	//Validate created MBN details are visible to Another domain Admin
+    var $iMBNVal=_getText(_div($iMBNValue, _near(_link($lnk_MBNInTable)))) ;
+    var $sLocationVal= _getText(_div($drp_dwn_MBNCountryId, _near(_link($lnk_LocationInTable))));
+    var $sMBNTyp=_getText(_div($drp_dwn_MBN_VoiceOnly, _near(_link($drp_dwn_MBNType))));	
+
+  	if(($iMBNValue != $iMBNVal) &&($drp_dwn_MBNCountryId != $sLocationVal) && ($drp_dwn_MBN_VoiceOnly != $sMBNTyp))
+    {
+      _log("Created MBN value is not visible to Organisation Admin");
+    }
+     else
+     {
+       _log("Created MBN value is visible to Organisation Admin");
+     }
+    
+	//Log out from app
+	logOut();  
+}
+
+
+/*
+Function Name 			:   verifyDomainCreatedPolicyIsVisibleToAnotherDomainAdmin
+Author 	 	    		:	Divya
+Created Date 	 	 	:   13th April 2016
+Description		   	   	:   This method is Verify that Policy created by domain admin is visible to other domain admins
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,
+							$sDomainName2,$sDomainName2_Password,$sPolicyName,$sPolicyExpiryDate, $sPolicyDescription
+*/
+
+
+function verifyDomainCreatedPolicyIsVisibleToAnotherDomainAdmin($sURL,$sDomainName1,$sDomainName1_Password,
+             $sDomainName2,$sDomainName2_Password,$sPolicyName,$sPolicyExpiryDate, $sPolicyDescription)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Policies));
+
+	//Click on Policy link
+	_click(_link($lnk_PolicySet));
+
+	//Click on + plus icon
+	_click(_link($icon_PlusAddMBN, _near(_span($txt_PolicySetheader))));
+  
+	/**********************Create Policy Pop up*********************************/
+	//Enter Policy name
+	_setValue(_textbox($txt_GName), $sPolicyName);
+
+	//Enter Policy Expiry Date
+	_setValue(_textbox($txt_PolicyExpiryDate), $sPolicyExpiryDate);
+
+	//Enter Policy description	
+	_setValue(_textarea($txt_Description), $sPolicyDescription);
+
+	//Click on next button
+	_click(_submit($btn_Next));	
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on Add policy
+	_click(_button($btn_AddPolicy));
+	/*********************Closure of Pop up**************************/
+	//Validate display of Created policy
+	_assertEqual($sPolicyName, _getText(_link($sPolicyName)));
+
+	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName2,$sDomainName2_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Policies));
+
+	//Click on Policy link
+	_click(_link($lnk_PolicySet));
+
+	//Validate display of Created policy
+	_assertEqual($sPolicyName, _getText(_link($sPolicyName)));
+
+	//Log out from app
+	logOut();
+}
+
+/*
+Function Name 			:   verifyDomainCreatedPolicyIsNotVisibleToOrgAdmin
+Author 	 	    		:	Divya
+Created Date 	 	 	:   13th April 2016
+Description		   	   	:   This method is Verify that Policy created by domain admin is not visible to other organization admin
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,
+							$sPolicyName,$sPolicyExpiryDate, $sPolicyDescription,$sOrgAdminName1,$sOrgAdminPassword1
+*/
+function verifyDomainCreatedPolicyIsNotVisibleToOrgAdmin($sURL,$sDomainName1,$sDomainName1_Password,
+            $sPolicyName,$sPolicyExpiryDate, $sPolicyDescription,$sOrgAdminName1,$sOrgAdminPassword1)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Policies));
+
+	//Click on Policy link
+	_click(_link($lnk_PolicySet));
+
+	//Click on + plus icon
+	_click(_link($icon_PlusAddMBN, _near(_span($txt_PolicySetheader))));
+  
+	/**********************Create Policy Pop up*********************************/
+	//Enter Policy name
+	_setValue(_textbox($txt_GName), $sPolicyName);
+
+	//Enter Policy Expiry Date
+	_setValue(_textbox($txt_PolicyExpiryDate), $sPolicyExpiryDate);
+
+	//Enter Policy description	
+	_setValue(_textarea($txt_Description), $sPolicyDescription);
+
+	//Click on next button
+	_click(_submit($btn_Next));	
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on Add policy
+	_click(_button($btn_AddPolicy));
+	/*********************Closure of Pop up**************************/
+	//Validate display of Created policy
+	_assertEqual($sPolicyName, _getText(_link($sPolicyName)));
+
+	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);
+
+	_click(_span($sOrgNameToClick));
+	//Click on Policy link
+	_click(_link($lnk_Policies));
+
+	//Click on Policy link
+	_click(_link($lnk_PolicySet));
+
+	//verify created policy should not be visible to org admin
+	
+
+	if(_exists(_link($sPolicyName)))
+    {
+      _log("Created policy is visible");
+    }
+     else
+     {
+       _log("Created policy is not visible.Success");
+     }
+
+	//Log out from app
+	logOut();
+} 
+
+
+
+/*
+Function Name 			:   verifyDomainCreatedPolicyIsNotVisibleToOrgMember
+Author 	 	    		:	Divya
+Created Date 	 	 	:   13th April 2016
+Description		   	   	:   This method is Verify that Policy created by domain admin is not visible to other organization admin
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,
+							$sPolicyName,$sPolicyExpiryDate, $sPolicyDescription,$sMemberName1,$sMemberPassword1
+*/
+function verifyDomainCreatedPolicyIsNotVisibleToOrgMember($sURL,$sDomainName1,$sDomainName1_Password,
+            $sPolicyName,$sPolicyExpiryDate, $sPolicyDescription,$sMemberName1,$sMemberPassword1)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Policies));
+
+	//Click on Policy link
+	_click(_link($lnk_PolicySet));
+
+	//Click on + plus icon
+	_click(_link($icon_PlusAddMBN, _near(_span($txt_PolicySetheader))));
+  
+	/**********************Create Policy Pop up*********************************/
+	//Enter Policy name
+	_setValue(_textbox($txt_GName), $sPolicyName);
+
+	//Enter Policy Expiry Date
+	_setValue(_textbox($txt_PolicyExpiryDate), $sPolicyExpiryDate);
+
+	//Enter Policy description	
+	_setValue(_textarea($txt_Description), $sPolicyDescription);
+
+	//Click on next button
+	_click(_submit($btn_Next));	
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on Add policy
+	_click(_button($btn_AddPolicy));
+	
+	/*********************Closure of Pop up**************************/
+	//Validate display of Created policy
+	_assertEqual($sPolicyName, _getText(_link($sPolicyName)));
+
+	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);
+
+	_click(_span($sOrgNameToClick));
+	//Click on Groups link
+	_click(_link($lnk_Policies));
+
+	//Click on Policy link
+	_click(_link($lnk_PolicySet));
+
+	//verify created policy should not be visible to org admin
+
+	if(_exists(_link($sPolicyName)))
+    {
+      _log("Created policy is visible");
+    }
+     else
+     {
+       _log("Created policy is not visible.Success");
+     }
+
+	//Log out from app
+	logOut();
+} 
+
+
+/*
+Function Name 			:   verifyDomainCreatedReportIsVisibleToAnotherDomainAdmin
+Author 	 	    		:	Divya
+Created Date 	 	 	:   13th April 2016
+Description		   	   	:   This method is Verify that Reports created by domain admin is visible to other domain admins  
+*/
+
+function verifyDomainCreatedReportIsVisibleToAnotherDomainAdmin()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	//Create custom report and verify same
+	createCustomReport($lnk_CustomReport,$sReportName,$chk_boxMessageId,$chk_boxMessageStatus,$sToDate,$sToDate1);
+	
+	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName2,$sDomainName2_Password);
+	
+	//Click on Reports link
+	_click(_link($lnk_Report));
+
+	//Click on Custom Report
+	_click(_link($lnk_CustomReport));
+
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sReportName)))
+	{
+      _log("Report added by Domain admin is visible to other domain admin");
+    }
+	else
+    {
+      _log("Report added by Domain admin is not visible to other domain admin");
+    }
+     //Log out from app
+	logOut();
+}
+
+
+/*
+Function Name 			:   verifyDomainCreatedReportIsVisibleToAnotherDomainAdmin
+Author 	 	    		:	Divya
+Created Date 	 	 	:   13th April 2016
+Description		   	   	:   This method is Verify that Reports created by domain admin is visible to other organization admin  
+*/
+
+function verifyDomainCreatedReportIsVisibleToAnotherOrgAdmin()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	//Click on Reports link
+	_click(_link($lnk_Report));
+	_wait(2000);
+	//Click on Custom Report
+	_click(_link($lnk_CustomReport));
+	
+	_wait(2000);
+/*
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sReportName)))
+	{
+      //Click on report link
+		_click(_link($sReportName));
+          
+        //Click on delete button  
+		_click(_link($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+		 _wait(4000);
+	}
+
+	else
+	{
+	_log("Creating new one..");
+	}*/	
+	//Click on + plus icon
+	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_CustomReports))));
+	_wait(2000);
+	/*****************Report creation pop up**********************************/
+  
+	//Select message option in report type
+	_setSelected(_select(0), $sMessageReportType);
+
+	//Enter report title
+	_setValue(_textbox($txt_ReportTitle), $sReportName);
+
+	//Enter Report Description
+	_setValue(_textarea(0), $sReportName);
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on Message Id check box
+	_click(_checkbox($txt_ReportColName, _in(_div($chk_boxMessageId))));
+
+	//Click on Message Status check box
+	_click(_checkbox($txt_ReportColName, _in(_div($chk_boxMessageStatus))));
+
+	//Click on next button
+	_click(_button($btn_NextForReport));
+/*
+	//Click on From text box
+	_setValue(_textbox($txt_ToDate), $sToDate);
+
+	//Click on To text box
+	_setValue(_textbox($txt_ToDate1), $sToDate1);
+	*/
+	//Click on Add Report button
+	_click(_submit($btn_AddReport));
+	_wait(2000);
+	/*****************Report creation pop up closure**********************************/
+	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);
+	
+	//Click on Reports link
+	_click(_link($lnk_Report));
+
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sReportName)))
+	{
+      _log("Report added by Domain admin is visible to other org admin");
+    }
+	else
+    {
+      _log("Report added by Domain admin is not visible to other org admin");
+    }
+     //Log out from app
+	logOut();
+}
+
+
+/*
+Function Name 			:   verifyDomainCreatedReportIsVisibleToAnotherOrgMember
+Author 	 	    		:	Divya
+Created Date 	 	 	:   13th April 2016
+Description		   	   	:   This method is Verify that Reports created by domain admin is visible to other organization member
+*/
+
+function verifyDomainCreatedReportIsVisibleToAnotherOrgMember($sDomainName1,$sDomainName1_Password,$sMemberName1,$sMemberPassword1)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	//Click on Reports link
+	_click(_link($lnk_Report));
+	_wait(2000);
+	//Click on Custom Report
+	_click(_link($lnk_CustomReport));
+/*
+	//Verify whether report name already exists, If yes means delete it.
+	if(_isVisible(_link($sReportName)))
+	{
+      //Click on report link
+		_click(_link($sReportName));
+          
+        //Click on delete button  
+		_click(_link($btn_ReportDelete));
+          _wait(4000);
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+		 _wait(4000);
+	}
+	
+	else 
+	{
+	_log("Report name do not exists.....Hence creating new one");
+	}
+*/
+	
+	//Click on + plus icon
+	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_CustomReports))));
+_wait(4000);
+	/*****************Report creation pop up**********************************/
+  
+	//Select message option in report type
+	_setSelected(_select(0), $sMessageReportType);
+
+	//Enter report title
+	_setValue(_textbox($txt_ReportTitle), $sReportName);
+
+	//Enter Report Description
+	_setValue(_textarea(0), $sReportName);
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on Message Id check box
+	_click(_checkbox($txt_ReportColName, _in(_div($chk_boxMessageId))));
+
+	//Click on Message Status check box
+	_click(_checkbox($txt_ReportColName, _in(_div($chk_boxMessageStatus))));
+
+
+	//Click on next button
+	_click(_button($btn_NextForReport));
+/*
+	//Click on From text box
+	_setValue(_textbox($txt_ToDate), $sToDate);
+
+	//Click on To text box
+	_setValue(_textbox($txt_ToDate1), $sToDate1);*/
+	
+	//Click on Add Report button
+	_click(_submit($btn_AddReport));
+	/*****************Report creation pop up closure**********************************/
+	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sMemberName1,$sMemberPassword1);
+	
+	//Click on Reports link
+	_click(_link($lnk_Report));
+
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sReportName)))
+	{
+      _log("Report added by Domain admin is visible to other org member\employee\user");
+    }
+	else
+    {
+      _log("Report added by Domain admin is not visible to other org member\employee\user");
+    }
+     //Log out from app
+	logOut();
+}
+
+/*
+Function Name 			:   verifyDomainCreatedContactIsNotVisibleToOthers
+Author 	 	    		:	Divya
+Created Date 	 	 	:   13th April 2016
+Description		   	   	:   This method is Verify that contacts created by domain admin is not visible to other domain admins
+Input					:	$sDomainName1,$sDomainName1_Password,$sDomainName2,$sDomainName2_Password
+*/
+
+
+function verifyDomainCreatedContactIsNotVisibleToOthers($sDomainName1,$sDomainName1_Password,$sDomainName2,$sDomainName2_Password,
+$sDomainAdminContact1,$sDomainAdminContact2,$sRole)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on My profile
+	_click(_link($lnk_MyProfile));
+	
+	_wait(1000);
+	//Click on contacts
+	_click(_link($lnk_SContacts, _near(_link($lnk_MyProfile))));
+	
+	//Click on + icon to add contacts
+	_click(_link($plusIcon_Contacts , _near(_heading2($lnk_SContacts))));
+	
+	
+	//Select contacts by clicking on check boxs near by contact names
+	_click(_checkbox($sDomainAdminContact1));	
+	var $sContactName1=_getText(_strong("ng-binding", _near(_checkbox($sDomainAdminContact1))));
+	
+	_click(_checkbox($sDomainAdminContact2));
+	var $sContactName2=_getText(_strong("ng-binding", _near(_checkbox($sDomainAdminContact2))));
+
+	//Click on Add Members button
+	_click(_button($btn_CAddmembers));
+
+	if(_exists(_link($sContactName1)) && _exists(_link($sContactName2)) )
+    {
+      _log("Added contact is visible");
+    }
+	else
+    {
+      _log("Added contact is not visible");
+    }
+
+	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName2,$sDomainName2_Password);
+
+	if($sRole==$sOrgRole)
+	{
+	//change role to organisation
+	_click(_span($sOrgNameToClick));
+	
+	//Click on Contacts under Shortcuts
+	_click(_link($lnk_SContacts, _near(_link($lnk_MyProfile))));
+	}
+	
+	else if($sRole==$sDARole)
+	{
+	//Click on Contacts under Shortcuts
+	_click(_link($lnk_SContacts, _near(_link($lnk_MyProfile))));
+	}
+	
+	else if($sRole==$sMemberRole)
+	{
+	_click(_link($lnk_MContacts));
+	}
+	
+
+	if(_exists(_link($sContactName1)) && _exists(_link($sContactName2)) )
+    {
+      _log("Added contact is visible in other domain admin");
+    }
+	else
+    {
+      _log("Added contact is not visible in other domain admin");
+    }
+
+	//Log out from app
+	logOut();
+  
+}
+/*
+Function Name 			:   verifyDomainCreatedGroupIsVisibleToAnotherDomain
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is Verify that user groups  created by domain admin is visible other domain admins
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sDomainName2,$sDomainName2_Password
+*/
+function verifyDomainCreatedGroupIsVisibleToAnotherDomain($sURL,$sDomainName1,$sDomainName1_Password,
+                               $sDomainName2,$sDomainName2_Password )
+{
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sGroupTitle));
+          
+      //Click on delete button  
+		_click(_italic($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+
+	_wait(3000);
+	//Click on + icon
+	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_UserGroup))));
+
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sGroupTitle);
+
+	//Enter Description
+	_setValue(_textarea(0),$sGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+
+ 	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName2,$sDomainName2_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+	//Verify whether report name is visible to other domain admin
+	if(_exists(_link($sGroupTitle)))
+	{
+      _log("Group is visible to other domain admin");
+	}
+	else
+    {
+      _log("Group is not visible to other domain admin");
+	}
+
+    //Log out from app
+	logOut();
+}
+/*
+Function Name 			:   verifyDomainCreatedGroupIsNotVisibleToOrgMembers
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is Verify that user groups  created by domain admin is visible other domain admins
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sOrgAdminName1,$sOrgAdminPassword1
+*/
+function verifyDomainCreatedGroupIsNotVisibleToOrgMembers($sURL,$sDomainName1,$sDomainName1_Password,
+                              $sOrgAdminName1,$sOrgAdminPassword1 )
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sGroupTitle));
+          
+      //Click on delete button  
+		_click(_italic($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+		 
+	}
+
+	_wait(3000);
+	//Click on + icon
+	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_UserGroup))));
+	_wait(2000);
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sGroupTitle);
+
+	//Enter Description
+	_setValue(_textarea(0),$sGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+
+ 	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);		
+	
+	//Click on Contact groups
+	_click(_link($lnk_ContactGroup));
+
+	//Verify whether report name is visible to other Organistion members/Employees/Admin
+	if(_isVisible(_link($sGroupTitle)))
+	{
+      _log("Group is visible to other Organistion members/Employees/Admin");
+	}
+	else
+    {
+      _log("Group is not visible to other Organistion members/Employees/Admin.Hence Success ...");
+	}
+
+    //Log out from app
+	logOut();
+  
+} 
+/*
+Function Name 			:   verifyDomainCreatedPolicyGroupIsVisibleToOtherDomainAdmin
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is Verify that policy groups  created by domain admin is visible other domain admins
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sDomainName2,$sDomainName2_Password
+*/
+
+function verifyDomainCreatedPolicyGroupIsVisibleToOtherDomainAdmin($sURL,$sDomainName1,$sDomainName1_Password
+                                                                  ,$sDomainName2,$sDomainName2_Password)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Policy groups
+	_click(_link($lnk_PG));
+
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sPolicyGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sPolicyGroupTitle));
+          
+      //Click on delete button  
+		_click(_link($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+
+	//click on + icon
+	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_PolicyHeader))));
+
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sPolicyGroupTitle);
+
+	//Enter description
+	_setValue(_textarea(0),$sPolicyGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+
+ 	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName2,$sDomainName2_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Policy groups
+	_click(_link($lnk_PG));
+
+	//Verify created policy group is visible to domain admin
+	if(_exists(_link($sPolicyGroupTitle)))
+	{
+      _log("Created policy group is visible to domain admin");
+	}
+	else
+    {
+      _log("Created policy group is not visible to domain admin");
+	}
+
+	//Log out from app
+	logOut();
+}
+
+
+/*
+Function Name 			:   verifyDomainCreatedPolicyGroupIsNotVisibleToOrgMembers
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is Verity that policy  groups created by  domain admin is not  visible to other 'organization  admins' 
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sOrgAdminName1,$sOrgAdminPassword1
+*/
+
+function verifyDomainCreatedPolicyGroupIsNotVisibleToOrgMembers($sURL,$sDomainName1,$sDomainName1_Password
+                                                                  ,$sOrgAdminName1,$sOrgAdminPassword1)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Policy groups
+	_click(_link($lnk_PG));
+
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sPolicyGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sPolicyGroupTitle));
+          
+      //Click on delete button  
+		_click(_link($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+
+	//click on + icon
+	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_PolicyHeader))));
+
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sPolicyGroupTitle);
+
+	//Enter description
+	_setValue(_textarea(0),$sPolicyGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+
+ 	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);
+
+	_click(_span($sOrgNameToClick));
+	
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+	
+	//Click on Groups link
+	_click(_link($lnk_PG));
+
+	//Verify created policy group is visible to Organisation Members\Employees\Users
+	if(_exists(_link($sPolicyGroupTitle)))
+	{
+      _log("Created policy group is visible to Organisation Members\Employees\Users");
+	}
+	else
+    {
+      _log("Created policy group is not visible to Organisation Members\Employees\Users");
+	}
+
+	//Log out from app
+	logOut();
+}
+/*
+Function Name 			:   verifyDomainCreatedContactGroupIsNotVisibleToOtherDomain
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is to Verify that contact groups  created by domain admin is not visible other domain admins
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sDomainName2,$sDomainName2_Password
+*/
+
+function verifyDomainCreatedContactGroupIsNotVisibleToOtherDomain($sURL,$sDomainName1,$sDomainName1_Password,
+                                                               $sDomainName2,$sDomainName2_Password  )
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Contact groups
+	_click(_link($lnk_ContactGroup));
+
+	//Verify whether group already exists, If yes means delete it.
+	if(_exists(_link($sContactGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sContactGroupTitle));
+          
+      //Click on delete button  
+		_click(_link($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+
+	//click on + icon
+	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_CGHeader))));
+
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sContactGroupTitle);
+
+	//Enter description
+	_setValue(_textarea(0),$sContactGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+
+ 	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName2,$sDomainName2_Password);
+	
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Contact groups
+	_click(_link($lnk_ContactGroup));
+
+	//Verify created contact group is visible to Organisation Members\Employees\Users
+	if(_exists(_link($sContactGroupTitle)))
+	{
+      _log("Created contact group is visible to other Domain admin");
+	}
+	else
+    {
+      _log("Created contact group is visible to other Domain admin");
+	}
+	//Log out from app
+	logOut();
+  
+}
+/*
+Function Name 			:   verifyDomainCreatedContactGroupIsNotVisibleToOtherOrgMembers
+Author 	 	    		:	Divya
+Created Date 	 	 	:   14th April 2016
+Description		   	   	:   This method is to Verify that contact groups  created by domain admin is not visible other domain admins
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password, $sOrgAdminName1,$sOrgAdminPassword1
+*/
+function verifyDomainCreatedContactGroupIsNotVisibleToOtherOrgMembers($sURL,$sDomainName1,$sDomainName1_Password,             
+                                                 $sOrgAdminName1,$sOrgAdminPassword1  )
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	//Call method to create Contact group
+	createContactGroup($sContactGroupTitle);
+	
+	//Log out from app
+	logOut();
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName2,$sDomainName2_Password);	
+
+	//Click on Groups link
+	_click(_link($lnk_ContactGroup));
+
+	//Verify created policy group is visible to Organisation Members\Employees\Users\Admin
+	if(_exists(_link($sContactGroupTitle)))
+	{
+      _log("Created contact group is visible to Organisation Members\Employees\Users\Admin");
+	}
+	else
+    {
+      _log("Created contact group is visible to Organisation Members\Employees\Users\Admin");
+	}
+	//Log out from app
+	logOut();
+  
+}
+
+/*
+Function Name 			:   verifyErrorMessagewhenDomainAdminIsBlocked
+Author 	 	    		:	Divya
+Created Date 	 	 	:   22th April 2016
+Description		   	   	:   App should not allow blocked domain admin  to login and error message should display as "Account has been blocked by administrator"  when trying to login.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sBlockDomainAdmin,$sBlockDomainAdminPassword
+*/
+function verifyErrorMessagewhenDomainAdminIsBlocked($sURL,$sDomainName1,$sDomainName1_Password,$sBlockDomainAdmin,$sBlockDomainAdminPassword)
+{
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on User Management link
+	_click(_link($lnk_UserManagement));
+
+	//Click on Active link
+	_click(_link($lnk_UMActive));
+
+	//Click on Domain Admin link
+	_click(_strong($lnk_DA));
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MLastName), $sMemberLastName);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	_wait(2000);
+	
+	if(_isVisible(_div($sDomainAdminNameToBlock)))
+    {
+      _log("Domain Admin is existing");
+      if(_isVisible(_link("/Block Member/", _rightOf(_div($sDomainAdminNameToBlock)))))
+      {
+          _log("Domain Admin is not blocked");  
+			_wait(2000);
+          //Click on Block link near Domain Admin Name
+          _click(_link("/Block/", _near(_div($sDomainAdminNameToBlock))));
+
+          //Click on Yes on Block Confirmation Pop up
+          _click(_button($btn_YesToBlockAdmin));     
+			_wait(2000);
+          //Verify unblock option is getting displayed under blocked domain admin
+          _assertVisible(_link("/Unblock/",_click(_div($sDomainAdminNameToBlock))));
+      }
+      else
+      {
+        _log("Contact already blocked .Hence validating error message");       
+      }
+	  
+	  //Log out from app
+	logOut();
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sBlockDomainAdmin,$sBlockDomainAdminPassword);
+
+	//Validate the error message of account blocked 
+	_assertEqual($sBlockedErrorMessage, _getText(_div($sBlockedErrorMessage)));
+    } 
+	else
+	{
+	_log("Domain admin is not existing..");
+	logOut();
+	}
+	
+}
+
+/*
+Function Name 			:   verifyAdminCanLoginWhenDomainAdminIsUnBlocked
+Author 	 	    		:	Divya
+Created Date 	 	 	:   22nd April 2016
+Description		   	   	:   App should not allow blocked domain admin  to login and error message should display as "Account has been blocked by administrator"  when trying to login.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password, $sBlockDomainAdmin,$sBlockDomainAdminPassword
+*/
+function verifyAdminCanLoginWhenDomainAdminIsUnBlocked($sURL,$sDomainName1,$sDomainName1_Password,
+                                                      $sBlockDomainAdmin,$sBlockDomainAdminPassword)
+  {
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on User Management link
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	//Click on search button
+	_click(_div($lnk_MSearchIcon));
+	
+	//Search via email
+	_setValue(_textbox($txt_MEmailId), $sBlockDomainAdmin);
+	
+	//Click on search button
+	_click(_submit($submit_Search));
+	
+		 if(_exists(_div($sDomainAdminNameToUnBlock)))
+		 {
+			if(_exists(_link("/Unblock/", _rightOf(_div($sDomainAdminNameToUnBlock)))))
+			 {
+			  _log("Domain Admin is unblocked"); 
+
+			  //Scroll page towards left 
+			  var $el=_div("list-view-table-main table-responsive-full clearfix");        
+			  _call($el.scrollLeft=300);
+		  
+			  //Click on Block link near Domain Admin Name
+			  _click(_link("/Unblock/", _rightOf(_div($sDomainAdminNameToUnBlock))));
+
+			  //Click on Yes on Block Confirmation Pop up
+			  _click(_button($btn_YesToBlockAdmin));     
+
+			  //Verify unblock option is getting displayed under blocked domain admin
+			  _assertVisible(_link("/Block/",_click(_div($sDomainAdminNameToUnBlock))));
+			
+			  //Log out from app
+			  logOut();
+
+			  //Call method to login to site with valid credentials
+			  loginToSite($sURL,$sBlockDomainAdmin,$sBlockDomainAdminPassword);			
+		  }
+  	 
+		  else
+		  {
+			  _log("Contact is already unblocked .Hence no action taken");  		
+			 
+		  }
+		  }
+		  else
+		  {
+		  _log("Contact not present");
+		  }
+		
+    	  //Log out from app
+			  logOut();
+  }   
+
+/*
+Function Name 			:   verifyMemberCantLoginWhenDomainAdminHasBlocked
+Author 	 	    		:	Divya
+Created Date 	 	 	:   25th April 2016
+Description		   	   	:   App should not allow blocked domain admin  to login and error message should display as "Account has been blocked by administrator"  when trying to login.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password, $sBlockMember1,$sBlockMember1Pwd
+*/
+  
+function verifyMemberCantLoginWhenDomainAdminHasBlocked($sURL,$sDomainName1,$sDomainName1_Password,
+                                     $sBlockMember1,$sBlockMember1Pwd )
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on User Management link
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	//Click on search button
+	_click(_div($lnk_MSearchIcon));
+	
+	//Search via email
+	_setValue(_textbox($txt_MEmailId), $sBlockMember1);
+	
+	//Click on search button
+	_click(_submit($submit_Search));
+
+    if(_exists(_div($sBlockMember1)))
+        {
+          _log("Domain Admin is existing");
+          if(_exists(_link("/Block Member/", _rightOf(_div($sBlockMember1)))))
+          {
+              _log("Domain Admin is not blocked");  
+
+              //Click on Block link near Domain Admin Name
+              _click(_link("/Block/", _near(_div($sBlockMember1))));
+
+              //Click on Yes on Block Confirmation Pop up
+              _click(_button($btn_YesToBlockAdmin));     
+
+              //Verify unblock option is getting displayed under blocked domain admin
+              _assertVisible(_link("/Unblock/",_click(_div($sBlockMember1))));
+			  
+			   //Log out from app
+				logOut();
+        //Call method to login to site with valid credentials
+        loginToSite($sURL,$sBlockMember1,$sBlockMember1Pwd);
+
+        //Validate the error message of account blocked 
+        _assertEqual($sBlockedErrorMessage, _getText(_div($sBlockedErrorMessage)));
+          }
+          else
+          {
+            _log("Contact already blocked .Hence validating error message"); 						
+          }
+        }  
+	else
+	{
+	_log("Contact is not existing");
+	}	
+	//Log out from app
+				logOut();		
+  }
+  
+  
+  /*
+Function Name 			:   verifyMemberCanLoginWhenDomainAdminHasUnBlocked
+Author 	 	    		:	Divya
+Created Date 	 	 	:   25th April 2016
+Description		   	   	:   App should  allow unblocked employee/user to login.  when trying to login.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password, $sBlockDomainAdmin,$sBlockDomainAdminPassword
+*/
+function verifyMemberCanLoginWhenDomainAdminHasUnBlocked($sURL,$sDomainName1,$sDomainName1_Password,$sBlockMember1,$sBlockMember1Pwd)
+{
+//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on User Management link
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+
+    if(_exists(_span($sMemeberNameToUnBlock)))
+        {
+          _log("Domain Admin is existing");
+          if(_exists(_link("/Unblock/", _rightOf(_div($sMemeberNameToUnBlock)))))
+          {
+              _log("Domain Admin is  blocked");  
+
+              //Click on Block link near Domain Admin Name
+              _click(_link("/Unblock/", _near(_div($sMemeberNameToUnBlock))));
+
+              //Click on Yes on Block Confirmation Pop up
+              _click(_button($btn_YesToBlockAdmin));     
+
+              //Verify unblock option is getting displayed under blocked domain admin
+              _assertVisible(_link("/Block/",_click(_div($sMemeberNameToUnBlock))));
+            
+            //Log out from app
+            logOut();
+            //Call method to login to site with valid credentials
+            loginToSite($sURL,$sBlockMember1,$sBlockMember1Pwd);
+            
+ 			//Log out from app
+           	logOut();
+            
+          }
+          else
+          {
+            _log("Contact already unblocked .Hence validating error message");     
+              //Log out from app
+           		 logOut();
+             
+          }
+        }
+		else 
+		{
+		_log("Contact is not existing");
+  //Log out from app
+           		 logOut();		
+		}
+}
+
+  /*
+Function Name 			:   verifyDomainAdminCanAccessAllModules
+Author 	 	    		:	Divya
+Created Date 	 	 	:   25th April 2016
+Description		   	   	:   Verify Domain admin should be able to access the all modules
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password
+*/
+function verifyDomainAdminCanAccessAllModules($sURL,$sDomainName1,$sDomainName1_Password)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Verify links under Shortcuts
+	_click(_link("/Shortcuts/"));
+	_assertEqual("Dashboard", _getText(_link("/Dashboard/")));
+	_assertEqual("Profile", _getText(_link("Profile")));
+	_assertEqual("Contacts", _getText(_link("/Contacts/")));
+
+	//Verify links under organisation
+	_click(_link("/Organizations/"));
+	_assertEqual("/All Organizations/", _getText(_link("/All Organizations/")));
+
+	//Verify links under User management
+	_click(_link($lnk_UserManagement));
+	_assertEqual("/All/", _getText(_link("/All/")));
+	_assertEqual("/Active/", _getText(_link("/Active/")));
+	_assertEqual("/Pending/", _getText(_link("/Pending/")));
+	_assertEqual("/Import/", _getText(_link("/Import/")));
+
+	//Verify links under Configuration
+	_click(_link("/Configuration/"));
+	_assertEqual("Server Configuration", _getText(_link("Server Configuration")));
+	_assertEqual("Secure SMS", _getText(_link("Secure SMS")));
+
+	//Verify links under Devices
+	_click(_link("/Devices /"));
+	_assertEqual("/All Devices /", _getText(_link("/All Devices /")));
+	_assertEqual("/Available /", _getText(_link("/Available /")));
+	_assertEqual("/Assigned /", _getText(_link("/Assigned /")));
+
+	//Verify links under Groups
+	_click(_link("/Groups /"));
+	_assertEqual("/User Groups /", _getText(_link("/User Groups /")));
+	_assertEqual("/Policy Groups /", _getText(_link("/Policy Groups /")));
+	_assertEqual("/Contact Groups /", _getText(_link("/Contact Groups /")));
+             
+	//Verify links under MBN Management
+     _click(_link("/MBN Management /"));
+	 _assertEqual("/All MBN's /", _getText(_link("/All MBN's /")));
+	 _assertEqual("/Import /", _getText(_link("/Import /")));
+
+	//Verify links under Policies
+	_click(_link("/Policies /"));
+	 _assertEqual("/Policy Sets /", _getText(_link("/Policy Sets /")));
+	 _assertEqual("/Drafts /", _getText(_link("/Drafts /")));
+
+	//Verify links under Reports
+	_click(_link("/Reports /"));
+	 _assertEqual("/Custom Report /", _getText(_link("/Custom Report /")));
+	 _assertEqual("/System Report /", _getText(_link("/System Report /")));
+
+	//Verify links under User Roles
+	_click(_link("/User Roles /"));
+	_assertEqual("/Organization Admin /", _getText(_link("/Organization Admin /")));
+	_assertEqual("/Member /", _getText(_link("/Member /")));
+	_assertEqual("/Domain Admin /", _getText(_link("/Domain Admin /")));
+
+	//Log out from app
+	logOut();
+}
+  /*
+Function Name 			:   verifyDomainAdminCanCreateMembers
+Author 	 	    		:	Divya
+Created Date 	 	 	:   25th April 2016
+Description		   	   	:   Verify Domain admin can create members
+*/
+function verifyDomainAdminCanCreateMembers($dEmail)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on User Management link
+	_wait(10000,_isVisible(_link($lnk_UserManagement)));
+	
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	_wait(2000);
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId), $dEmail);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Check existance of member 
+    if(_exists(_div($dEmail)))
+    {	
+       var $el=_div($div_ScrollLeft);        
+	   _call($el.scrollLeft=300);
+      
+      //Click on delete icon near by member name
+      _click(_link($btn_UMDelete, _near(_div($dEmail))));
+
+       //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+    }
+	else
+	{
+	_log("Member do not exist");
+	}
+	//Click on + icon
+	_wait(6000,_isVisible(_link($icon_plus, _near(_heading2($txt_All)))));
+	_click(_link($icon_plus, _near(_heading2($txt_All))));
+
+	//Enter Member first name
+	_setValue(_textbox($txt_FirstName),$sMemberFirstName);
+
+	//Enter Member last name
+    _setValue(_textbox($txt_LastName), $sMemberLastName);
+
+	//Enter member title
+    _setValue(_textbox($txt_Title),$sMemberTitle);
+
+	//select location
+    _setSelected(_select($txt_MemberLocation),$sMemberLocation);
+
+	//Enter zip code
+    _setValue(_textbox($txt_MemberZipCode),$sMemberZipCode);
+
+	//Enter member email
+    _setValue(_textbox($txt_MemberEmail), $dEmail);
+	
+	//Enter phone number
+	_setValue(_textbox($txt_PhoneNumber), $iPhoneNumber);	
+
+	//Click on create button
+    _click(_submit($btn_MemberCreate));
+	
+	_wait(2000);
+	//Validation 1: Domain admin should be able to add an user successfully.
+	
+    _assertVisible(_heading2("Congratulations! Member has been created."));   
+
+	//Click on close button
+	_wait(10000,_isVisible(_button($btn_MemberClose)));
+    _click(_button($btn_MemberClose));
+	
+	//Validation 2: Details entered while creating should be displayed    
+    _assertEqual($dEmail, _getText(_div($dEmail)));
+	_assertEqual($sMemberLocation, _getText(_div($txtVerify_Country)));
+	
+	_wait(2000);
+	
+	//Click on Pending link under User management
+	_click(_link("/Pending/"));
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_MEmailId), $dEmail);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	_wait(2000);
+	
+	//Validate 3: existance of member in table
+    if(_exists(_div($dEmail)))
+    {	
+      _log("Created member exists in User management Pending section..");
+    }
+
+	else
+	{
+	 _log("Created member do not exists in User management Pending section..");	
+    }
+
+	//Log out from app
+      logOut();
+}
+  /*
+Function Name 			:   verifyDomainAdminCanCreateOrg
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Verify Domain admin should be able to add  an 'organizations' successfully and Newly created organization should be  
+							displayed on the 'User Roles' module
+*/
+
+function verifyDomainAdminCanCreateOrg()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Organisation link
+	_click(_link($lnk_Organisation));
+
+	//Click on All Organisation sub link
+	_click(_link($lnk_AllOrg, _near(_link($lnk_Organisation))));
+	
+	_wait(2000);
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter last name to search member name
+	_setValue(_textbox($txt_ONameTosearch), $sNewOrgName);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	//Verify existance of org-if yes then delete it 
+	if(_isVisible(_div($sNewOrgName)))
+       {
+         //Click on delete icon
+       _click(_italic($btn_DeleteAllUserOption, _near(_div($sNewOrgName))));
+         
+          //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+       }
+	   else{
+	   _log("Org name is not existing before");
+	   }
+
+	//Click on + icon to create new organisation
+	_click(_link($icon_PlusOrg, _near(_heading2($txt_AllOrg))));
+
+	//Enter org name
+    _setValue(_textbox($txt_GName), $sNewOrgName);
+
+	//Enter org type
+    _setValue(_textbox($txt_OrgType), $sNewOrgType);
+
+	//Select desired country 
+    _setSelected(_select($drp_dwn_OrgLocationId), $sNewOrgLocation);
+
+	//Enter Zip code
+    _setValue(_textbox($txt_MemberZipCode), $sNewOrgZipCode);
+
+	//Click on Submit button
+    _click(_submit($btn_Submit));
+
+	//click on create button to create new organisation
+    _click(_submit($btn_MemberCreate));
+
+   //Click on close button
+    _click(_button($btn_MemberClose));
+	
+	_wait(1000);
+
+	//Validate that Domain admin should be able to add  an 'organizations' successfully. 
+	_assertEqual($sOrgCreatedSuccessMessage, _getText(_div($sOrgCreatedSuccessMessage)));
+
+	//Click on user roles link
+    _click(_link($lnk_UR));
+
+	//Click on Organization Admin
+    _click(_link($lnk_OA));
+
+	//Validate Newly created organization should be  displayed on the 'User Roles' module	
+    _assertEqual($sNewOrgName, _getText(_link($sNewOrgName)));
+	//Log out from app
+      logOut();
+}
+
+  /*
+Function Name 			:   verifyMembersRIncludedWhileCreatingOrg
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Members included for the organization must be listed  under 'Member' tab for the organization created by domain admin.
+*/
+
+function verifyMembersRIncludedWhileCreatingOrg()
+{	
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Organisation link
+	_click(_link($lnk_Organisation));
+
+	//Click on All Organisation sub link
+	_click(_link($lnk_AllOrg, _near(_link($lnk_Organisation))));
+
+	_wait(2000);
+	
+	//Verify existance of org-if yes then delete it 
+	
+	//Click on search icon
+	_click(_div($btn_SearchMembers));
+	
+	//Enter First name to search member name
+	_setValue(_textbox($txt_ONameTosearch), $sNewOrgName1);
+	
+	//Click on search button
+	_click(_submit($btn_Search));
+	
+	if(_exists(_div($sNewOrgName1)))
+       {
+		_log("Organisation name already exists .Hence deleting it")	;
+			
+         //Click on delete icon
+       _click(_italic($btn_DeleteAllUserOption, _near(_div($sNewOrgName1))));
+         
+          //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+       }
+	   else
+	   {
+	   _log("Organisation name do not exists .Hence creating it");
+	   }
+
+	//Click on + icon to create new organisation
+	_click(_link($icon_PlusOrg, _near(_heading2($txt_AllOrg))));
+
+	//Enter org name
+    _setValue(_textbox($txt_GName), $sNewOrgName1);
+
+	//Enter org type
+    _setValue(_textbox($txt_OrgType), $sNewOrgType);
+
+	//Select desired country 
+    _setSelected(_select($drp_dwn_OrgLocationId), $sNewOrgLocation);
+
+	//Enter Zip code
+    _setValue(_textbox($txt_MemberZipCode), $sNewOrgZipCode);
+
+	//Click on Submit button
+    _click(_submit($btn_Submit));
+	
+	//Select first two members by clicking on check box
+	_click(_checkbox("on[1]"));
+	var $mname1=_getText(_strong(0, _near(_checkbox("on[1]"))));
+	_log($mname1);
+
+	_click(_checkbox("on[2]"));
+	var $mname2=_getText(_strong("ng-binding", _near(_checkbox("on[2]"))));
+	_log($mname2);
+	//click on create button to create new organisation
+    _click(_submit($btn_MemberCreate));
+
+   //Click on close button
+    _click(_button($btn_MemberClose));
+	
+	_wait(1000);
+
+	//Validate that Domain admin should be able to add  an 'organizations' successfully. 
+	_assertEqual($sOrgCreatedSuccessMessage, _getText(_div($sOrgCreatedSuccessMessage)));
+	
+	//Validate Newly created organization should be  displayed on the Organisation table
+    _assertEqual($sNewOrgName1, _getText(_div($sNewOrgName1)));
+
+	//Click on Newly created Organisation name
+	_click(_div( $sNewOrgName1));
+
+    //Click on Company Details tab
+    _click(_link($tab_OrgCompDetails));
+
+	//Validate the details present under this tab with details entered while creating
+    _assertEqual($sNewOrgName1, _getText(_span($sNewOrgName1)));
+    _assertEqual($sNewOrgType, _getText(_span($sNewOrgType)));
+    _assertEqual($sNewOrgLocation, _getText(_span($sNewOrgLocation)));
+    _assertEqual($sNewOrgZipCode, _getText(_span($sNewOrgZipCode)));
+
+	_click(_link($tab_OrgMembers));
+	_assertExists(_div($mname1));
+	//_assertExists(_div($mname2));
+
+	//Log out from app
+      logOut();
+}
+  /*
+Function Name 			:   verifyDomainAdminCanAddUserGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin can add  a ' User Groups' successfully.
+*/
+
+function verifyDomainAdminCanAddUserGroup()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+	_wait(2000);
+	
+	_call(_div($div_VerticalScrollBar).scrollTop=2000); 
+	
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sGroupTitle));
+          
+      //Click on delete button  
+		_click(_italic($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+	else
+	{
+	_log("Group not existing .Hence creating new one");
+	}
+
+	//Click on + icon
+	_click(_link($icon_PlusAddGroup));
+
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sGroupTitle);
+
+	//Enter Description
+	_setValue(_textarea(0),$sGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+/*
+	//Select first two members by clicking on check box 
+	_click(_checkbox("on[1]"));	
+
+	_click(_checkbox("on[2]"));	
+*/
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+	
+	_wait(2000);
+
+    //Validate existance of created group
+    _assertEqual($sGroupTitle, _getText(_link($sGroupTitle)));
+
+	//Log out from app
+      logOut();
+}
+
+ /*
+Function Name 			:   verifyExistanceofMembersAddedWhileCreatingUserGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin can add  a ' User Groups' successfully.
+*/
+function verifyExistanceofMembersAddedWhileCreatingUserGroup()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+	_wait(2000);
+	
+	_call(_div($div_VerticalScrollBar).scrollTop=2000); 
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sGroupTitle1)))
+	{
+      //Click on report link
+		_click(_link($sGroupTitle1));
+          
+      //Click on delete button  
+		_click(_italic($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+	else
+	{
+	_log("Group not existing .Hence creating new one");
+	}
+
+	//Click on + icon
+	_click(_link($icon_PlusAddGroup));
+
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sGroupTitle1);
+
+	//Enter Description
+	_setValue(_textarea(0),$sGroupTitle1);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	//Select first two members by clicking on check box
+	_click(_checkbox("on[1]"));
+	var $mname1=_getText(_strong("ng-binding", _near(_checkbox("on[2]"))));
+
+	_click(_checkbox("on[2]"));
+	var $mname2=_getText(_strong("ng-binding", _near(_checkbox("on[3]"))));
+
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+
+	_wait(2000);
+	//Click on newly created group
+	_click(_link($sGroupTitle1));
+
+	//Validate existance of added members while 
+	_assertExists(_div($mname1));
+	//_assertExists(_div($mname2));
+
+	//Log out from app
+     logOut();
+  
+}
+
+ /*
+Function Name 			:   createContactGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin can add  a ' Contact Groups' .
+*/
+function createContactGroup($sContactGroupTitle)
+{
+	_wait(2000);
+	
+	//Click on Groups link
+	_click(_link($lnk_MyProfile));
+
+	//Click on Contact groups
+	_click(_link($lnk_ContactGroup));
+	
+	_wait(3000);
+	
+	//Verify whether group already exists, If yes means delete it.
+	if(_exists(_link($sContactGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sContactGroupTitle));
+          
+      //Click on delete button  
+		_click(_italic($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+		 
+		 _wait(2000);
+	}
+	else
+	{
+	_log("Group not existing");
+	}
+	//click on + icon
+	_click(_link($icon_PlusAddGroup));
+	
+	_wait(2000);
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sContactGroupTitle);
+
+	//Enter description
+	_setValue(_textarea(0),$sContactGroupTitle);
+
+	//Click on Next button
+	_click(_submit($btn_Next));
+	
+	/*
+	//Select first two members by clicking on check box
+	_click(_checkbox("on[1]"));
+	 $Contactmembername1=_getText(_strong(0, _near(_checkbox("on[1]"))));	
+	*/
+	//Click on Add Group
+	_click(_submit($btn_Addgroup));
+	
+	_call(_div($div_VerticalScrollBar).scrollTop=2000); 
+	
+	//Validate existance of created group
+    _assertEqual($sContactGroupTitle, _getText(_link($sContactGroupTitle)));
+ 	
+}
+
+ /*
+Function Name 			:   verifyDomainAdminCreateContactGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin can add  a ' Contact Groups' successfully.
+*/
+function verifyDomainAdminCreateContactGroup()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Call method to create Contact group
+	createContactGroup($sContactGroupTitle);
+	
+	//Log out from app
+    logOut();
+}
+ /*
+Function Name 			:   verifyExistanceofMembersAddedWhileCreatingContactGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Members included for the contact  group should be displayed under contact  group.
+*/
+function verifyExistanceofMembersAddedWhileCreatingContactGroup()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Call method to create Contact group
+	createContactGroup($sContactGroupTitle1);
+
+	//Click on newly created group
+	_click(_link($sContactGroupTitle1));
+
+	//Validate existance of added members while 
+	//_assertExists(_div($Contactmembername1));
+	//_assertExists(_div($Contactmembername2));
+
+    //Log out from app
+    logOut();
+}
+
+
+ /*
+Function Name 			:   createPolicyGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin can add  a ' Contact Groups' .
+*/
+function createPolicyGroup($lnk_Groups,$lnk_PG,$sPolicyGroupTitle,$txt_PolicyHeader)
+{
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on Policy groups
+	_click(_link($lnk_PG));
+		_wait(2000);
+	
+	_call(_div($div_VerticalScrollBar).scrollTop=2000); 
+	
+	//Verify whether report name already exists, If yes means delete it.
+	if(_exists(_link($sPolicyGroupTitle)))
+	{
+      //Click on report link
+		_click(_link($sPolicyGroupTitle));
+          
+      //Click on delete button  
+		_click(_italic($btn_ReportDelete));
+          
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+	}
+	_wait(2000);
+	
+	//click on + icon
+	_click(_link($icon_PlusAddGroup));
+	
+	_wait(2000);
+	//Enter group title
+	_setValue(_textbox($txt_Title), $sPolicyGroupTitle);
+
+	//Enter description
+	_setValue(_textarea(0),$sPolicyGroupTitle);
+	
+	//Click on next pages
+	_click(_link(1));
+	
+	_click(_italic("fa fa-angle-double-right"));
+	
+	//Select first two members by clicking on check box
+	_click(_checkbox("on[4]"));
+	 $Contactmembername1=_getText(_strong("ng-binding", _near(_checkbox("on[1]"))));
+
+	_click(_checkbox("on[5]"));
+	 $Contactmembername2=_getText(_strong("ng-binding", _near(_checkbox("on[2]"))));
+	 
+	//Click on Next button
+	_click(_submit($btn_Next));
+
+	_wait(2000);
+	//Click on Add Group
+	_click(_submit($btn_Addgroup)); 	
+}
+
+
+/*
+Function Name 			:   verifyExistanceofMembersAddedWhileCreatingPolicyGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:  Members included for the contact  group should be displayed under contact  group.
+*/
+function verifyExistanceofMembersAddedWhileCreatingPolicyGroup()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Call method to create Policy group
+	createPolicyGroup($lnk_Groups,$lnk_PG,$sPolicyGroupTitle1,$txt_PolicyHeader);
+
+	//Click on newly created group
+	_click(_link($sPolicyGroupTitle1));
+
+	//Validate existance of added members while 
+	//_assertExists(_div($Contactmembername1));
+	//_assertExists(_div($Contactmembername2));
+
+    //Log out from app
+    logOut();
+}
+
+
+ /*
+Function Name 			:   verifyDomainAdminCreatePolicyGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin can add  a ' Policy Groups' successfully.
+*/
+function verifyDomainAdminCreatePolicyGroup()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Call method to create policy group
+	createPolicyGroup($lnk_Groups,$lnk_PG,$sPolicyGroupTitle,$txt_PolicyHeader);
+	
+	//Scroll Veritically
+	_call(_div($div_VerticalScrollBar).scrollTop=2000); 
+	
+	_assertEqual($sPolicyGroupTitle, _getText(_link($sPolicyGroupTitle)));
+    //Log out from app
+    logOut();
+}
+
+ /*
+Function Name 			:   searchForMBN
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Search for MBN in search criteria
+*/
+function searchForMBN($iMBNValue)
+{
+	//Click on search button
+	_click(_div($btn_SearchSL, _near(_div($lnk_MBN_All))));
+
+	//Enter MBN to search
+	_setValue(_textbox($txt_MBN), $iMBNValue);
+
+	//Click on search button
+	_click(_submit($btn_Search));
+}
+
+
+ /*
+Function Name 			:   createMBNWithGivenType
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Create MBN with given type
+Input					: 	$iMBNValue,$drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly
+*/
+function createMBNWithGivenType($iMBNValue,$drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly,$radio_MBNAssignToMember1)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	_wait(2000);
+	//Click on link MBN Management 
+	_click(_link($lnk_MBNManagement));
+
+	//Click on link -All MBN's
+	_click(_link($lnk_AllOrg, _near(_link($lnk_MBNManagement))));
+
+	//Check existance of MBN before creating it by calling method to search MBN 	
+	searchForMBN($iMBNValue);
+
+	if(_exists(_div($iMBNValue)))
+    {
+      _log("MBN is already existing .Hence deleting it");
+      
+      //Click on delete icon near MBN
+      _click(_link($lnk_DeleteMBN, _near(_div($iMBNValue))));
+      
+      //Click on Yes button
+        _click(_button($btn_YesForDeleteMBN));
+      
+      //Click on Reset button
+      _click(_submit($btn_Reset));
+	  _wait(2000);
+	  
+    } 
+	else
+    {
+       _log("MBN is not existing");
+      _click(_submit($btn_Reset));
+    }
+
+	//Call method to create MBN	
+	createMBN($drp_dwn_CountryId,$iMBNValue,$drp_dwn_MBN_VoiceOnly,$radio_MBNAssignToMember1); 
+	
+	//method to search MBN 
+	searchForMBN($iMBNValue);
+
+	//Validate MBN ,Location and type selected after creation
+	_assertEqual($iMBNValue, _getText(_div($iMBNValue, _near(_link($lnk_MBNInTable)))));
+	_assertEqual($drp_dwn_MBNCountryId, _getText(_div($drp_dwn_MBNCountryId, _near(_link($lnk_LocationInTable)))));
+	_assertEqual($drp_dwn_MBN_VoiceOnly, _getText(_div($drp_dwn_MBN_VoiceOnly, _near(_link($drp_dwn_MBNType)))));
+
+	//Log out from app
+	logOut();
+  
+}
+ /*
+Function Name 			:   createMBN
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Create MBN with given type
+Input					: 	$iMBNValue,$drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly
+*/
+function createMBN($drp_dwn_CountryId,$iMBNValue,$drp_dwn_MBN_VoiceOnly,$radio_MBNAssignToMember1)
+{
+//Click on + icon
+	_click(_link($icon_PlusAddMBN, _near(_span($icon_Mobile))));
+
+	/*******Actions on Create MBN pop up********************/
+	_wait(2000);
+	//Click on country drop down to open the drop down
+	_click(_select($drp_dwn_CountryId));
+
+	//Select desired value from drop down
+	_setSelected(_select($drp_dwn_CountryId), $drp_dwn_MBNCountryId);
+
+	//Click on country drop down to close the drop down
+	_click(_select($drp_dwn_CountryId));
+
+	//Enter MBN to create
+	_setValue(_textbox($txt_MBNValue), $iMBNValue);
+
+	//Select desired value from Type drop down
+	_setSelected(_select($drp_dwn_MBNType), $drp_dwn_MBN_VoiceOnly);
+	
+	//Select provider 
+	_setSelected(_select($drp_dwn_Vendor), $sVendorTypeD);
+	
+	//Click on next button
+	_click(_submit($btn_Next));	
+
+	//Select a member for MBN
+	//_click(_radio($radio_MBNAssignToMember1));
+	
+	//Click on Create button
+	_click(_submit($btn_Create));
+	/***********Pop up closure***************************/
+ 
+}
+ /*
+Function Name 			:   verifyCannotCreateDuplicatedMBN
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   verify App should not allow domain admin  to create duplicate MBN  with same country and same MBN type.
+Input					: 	$sURL,$sDomainName1,$sDomainName1_Password,$iMBNValue,$drp_dwn_MBNCountryId,$drp_dwn_MBN_VoiceOnly
+*/
+
+function verifyCannotCreateDuplicatedMBN($sURL,$sDomainName1,$sDomainName1_Password,$drp_dwn_CountryId,
+                                         $iMBNValue,$drp_dwn_MBN_VoiceOnly)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on link MBN Management 
+	_click(_link($lnk_MBNManagement));
+
+	//Click on link -All MBN's
+	_click(_link($lnk_AllOrg, _near(_link($lnk_MBNManagement))));
+
+	//Call method to create MBN	
+	createMBN($drp_dwn_CountryId,$iMBNValue,$drp_dwn_MBN_VoiceOnly,$radio_MBNAssignToMember1); 
+	
+	//Validate existance of error message
+	_assertEqual($sDuplicatedMBNErrorMsg, _getText(_div($sDuplicatedMBNErrorMsg)));
+
+	//Click on x to close Create MBN pop up
+	_click(_span($icon_CrossMBNPopup));
+
+	//Log out from app
+	logOut();
+}
+
+ /*
+Function Name 			:   verifyDACanUnassignMembersInMBN
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin should be able to  unassign the employee/user who has associated with MBN
+*/
+
+function verifyDACanUnassignMembersInMBN()
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on link MBN Management 
+	_click(_link($lnk_MBNManagement));
+
+	//Click on link -All MBN's
+	_click(_link($lnk_AllOrg, _near(_link($lnk_MBNManagement))));
+
+	//method to search MBN 
+	searchForMBN($iMBNValue);
+
+	if(_exists(_div($iMBNValue)))
+	{
+	//Click on MBN link
+	_click(_div($iMBNValue));
+
+    //Click on Assigned To Tab
+    _click(_link($tab_MBNAssignedTo));
+
+	//Click on + to assign member
+	_click(_link($lnk_MBNAssignMember));
+
+	//Select first Item in the list
+	_click(_radio($radio_MBNSelectMember,_near(_strong($txt_MBnSelectMember))));
+
+	var $MBNAddMember=_getText(_strong($txt_MBnSelectMember, _near(_radio($radio_MBNSelectMember))));
+
+	//Click on change button
+	_click(_button($btn_MBNOwnerChange));
+
+    if(_exists(_div($MBNAddMember)))
+    {
+      //Click on Unassign button
+        _click(_link($btn_MBNUnassign));
+
+        //Click on Yes button
+       _click(_button($btn_YesForDeleteMBN));
+      
+      //Validate the success message
+	_assertEqual($sMBNOwnerChangedMessage, _getText(_div($sMBNOwnerChangedMessage)));
+    }
+	}
+	else
+	{
+	_log("MBN is not existing...");
+	}
+	//Log out from app
+	logOut();
+}
+  
+ /*
+Function Name 			:   createPolicySet
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin should be able to  unassign the employee/user who has associated with MBN
+Input					:	$sPolicyName,$sPolicyExpiryDate,$sPolicyDescription
+*/
+  function createPolicySet($sPolicyName,$sPolicyExpiryDate,$sPolicyDescription)
+  {
+  	//Click on Groups link
+	_click(_link($lnk_Policies));
+
+	//Click on Policy link
+	_click(_link($lnk_PolicySet));
+	
+	_wait(2000);
+	//check existance of policy set, if yes means delete
+	  if(_exists(_link($sPolicyName)))
+	  {				
+		  //Click on Policy set
+		  _click(_link($sPolicyName));
+		  
+		  //Click on delete button
+		  _click(_italic($btn_ReportDelete));
+		  
+		  _wait(2000);
+		  //click on yes button in pop up
+		   _click(_button($btn_YesForDeleteMBN));
+		   
+		   _log("Policy set already exists .Hence deleted");
+	  }
+  	_wait(4000);
+	
+	//Click on + plus icon
+	_click(_link($icon_PlusAddMBN, _near(_span($txt_AllPolicy))));
+	
+	_wait(2000);
+	/**********************Create Policy Pop up*********************************/
+	//Enter Policy name
+	_setValue(_textbox($txt_GName), $sPolicyName);
+
+	//Enter Policy Expiry Date
+	_setValue(_textbox($txt_PolicyExpiryDate), $sPolicyExpiryDate);
+
+	//Enter Policy description	
+	_setValue(_textarea($txt_Description), $sPolicyDescription);
+
+	//Click on next button
+	_click(_submit($btn_Next));	
+
+	//Click on include for Data storage interval
+	_click(_checkbox($chk_Box_ON, _near(_cell($txt_DataStorageInterval))));
+	
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on next button
+	_click(_button($btn_Next));
+
+	//Click on next button
+	_click(_button($btn_Next));
+	
+	var $memname=$sPolicyName;
+	
+	//_click(_checkbox($chk_Box_ON, _near(_strong($sPolicyName))));
+
+	//Click on next button
+	_click(_button($btn_Next));
+	
+	//select member
+	//_click(_checkbox("on[41]"));
+	
+	//Click on Add policy
+	_click(_button($btn_AddPolicy));	
+	
+	/*********************Closure of Pop up************************/
+	//Validate display of Created policy
+	_assertEqual($sPolicyName, _getText(_link($sPolicyName)));
+  }
+/*
+Function Name 			:   verifyDomainAdminCanCreatePolicySetwithMembersAndGroups
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Verify Domain admin can create policy set and assign members as well as add group name 
+*/
+function verifyDomainAdminCanCreatePolicySetwithMembersAndGroups()
+{
+  
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Create a policy set 
+	createPolicySet($sPolicyName,$sPolicyExpiryDate,$sPolicyDescription);
+
+	//Log out from app
+	logOut();
+} 
+ /*
+Function Name 			:   verifyDACanUnassignMembersInGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Verify Domain admin can create policy set and assign members as well as add group name 
+							Members unassigned for the user group is removed from the user group.
+Input					:   $sURL,$sDomainName1,$sDomainName1_Password,$lnk_UserGroup,$sGroupTitle
+*/ 
+
+function verifyDACanUnassignMembersInGroup($sURL,$sDomainName1,$sDomainName1_Password,$lnk_UserGroup,$sGroupTitle)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+  	//Check exitsance of group 
+    if(_exists(_link($sGroupTitle)))
+    {
+      _log("Group already exists .Hence unassigning members");
+      
+      //Click on group 
+      _click(_link($sGroupTitle));
+      
+    // _click(_link("Unassign", _near(_span("Anantha N"))));
+      
+      if(_exists(_link($lnk_GUnassign)))
+      {
+        //Click on unassign link
+      _click(_link($lnk_GUnassign));
+      
+      //Click on Yes button
+       _click(_button($btn_YesForDeleteMBN));
+      }
+    }
+	//Log out from app
+    logOut();  
+} 
+ /*
+Function Name 			:   verifyDACanAssignMembersInGroup
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin should be able to assign more members to the existing user group
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$lnk_UserGroup,$chckbox_Gon
+*/ 
+
+function verifyDACanAssignMembersInGroup($sURL,$sDomainName1,$sDomainName1_Password,$lnk_UserGroup,$sGroupTitle,$chckbox_Gon)
+{
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	if($lnk_UserGroup=="/User Groups /" || $lnk_UserGroup=="/Policy Groups /")
+	{
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+	}
+	else  if($lnk_UserGroup=="/Contact Groups /")
+	{
+	
+	//Click on My profile link
+	_click(_link($lnk_MyProfile));
+	
+	//Click on contact groups link
+	_click(_link($lnk_ContactGroup));
+	
+	}
+  	//Check exitsance of group 
+    if(_isVisible(_link($sGroupTitle)))
+    {         
+      //Click on group 
+      _click(_link($sGroupTitle));  
+       
+      //click on + to add members 
+     _click(_link($icon_PlusUpdateMembers));
+      
+	  if(_checkbox($chckbox_Gon).checked == true )
+	  {
+		//Click on all name check box
+		_click(_checkbox($chckbox_Gon));
+      
+		//Click on all name check box
+		_click(_checkbox($chckbox_Gon));
+		
+		if($lnk_UserGroup=="/Policy Groups /")
+		{
+		//Click on add members button
+		_click(_button($btn_MUpdate));
+		}
+		else
+		{
+		_click(_button($submit_Save));		
+		}
+	  }
+	  else
+	  {
+		//Click on all name check box
+		_click(_checkbox($chckbox_Gon));
+		
+		if($lnk_UserGroup=="/Policy Groups /")
+		{
+		//Click on add members button
+		_click(_button($btn_MUpdate));
+		}
+		else
+		{
+		_click(_button($submit_Save));		
+		}
+	  
+	/*  
+		_log("Member is not existing");
+		_click(_button($btn_CrossMark));*/
+	  }
+      
+    }
+	else
+	{
+	_log("Group title is not existing to assign member..");
+	}
+	//Log out from app
+    logOut();  
+  
+}
+ /*
+Function Name 			:   createCustomReport
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Create custom report and verify same
+Input					:	$lnk_CustomReport,$sReportName,$chk_boxMessageId,$chk_boxMessageStatus,$sToDate,$sToDate1
+*/ 
+
+function createCustomReport($lnk_CustomReport,$sReportName,$chk_boxMessageId,$chk_boxMessageStatus,$sToDate,$sToDate1)
+{
+
+	//Click on Reports link
+	_click(_link($lnk_Report));
+
+	//Click on Custom Report
+	_click(_link($lnk_CustomReport));
+
+	 _wait(3000);
+	//Verify whether report name already exists, If yes means delete it.
+	if(_isVisible(_link($sReportName)))
+	{
+      //Click on report link
+		_click(_link($sReportName));
+          
+        //Click on delete button  
+		_click(_italic($btn_ReportDeleteOption));
+          
+		  _wait(3000);
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+		 
+		 _wait(1000);
+	}
+
+	//Click on + plus icon
+	_click(_link($icon_PlusAddGroup));
+
+	/*****************Report creation pop up**********************************/
+  
+	//Select message option in report type
+	//_setSelected(_select(0), $sMessageReportType);
+
+	//Enter report title
+	_setValue(_textbox($txt_ReportTitle), $sReportName);
+
+	//Enter Report Description
+	//_setValue(_textarea(0), $sReportName);
+
+	_wait(1000);
+	//Click on next button
+	_click(_submit(0));
+
+	//Click on Message Id check box
+	_click(_checkbox($chckbx_ReportType, _in(_div($chk_boxMessageId))));	
+
+	//Click on Message Status check box
+	_click(_checkbox($chckbx_ReportType, _in(_div($chk_boxMessageStatus))));
+
+	//Click on next button
+	_click(_button($btn_NextForReport));
+/*
+	//Click on From text box
+	_setValue(_textbox($txt_ToDate), $sToDate);
+
+	//Click on To text box
+	_setValue(_textbox($txt_ToDate1), $sToDate1);*/
+	
+	//Click on Add Report button
+	_click(_submit($btn_AddReport));
+	/*****************Report creation pop up closure**********************************/
+	
+	_wait(5000);
+	//Validate the existance of created report
+	_assertEqual($sReportName, _getText(_link($sReportName)));	
+}
+  
+   /*
+Function Name 			:   verifyDACanAddContacts
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin should be able to add  'Contacts' successfully .
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sContactName1,$sContactName2
+*/ 
+  
+  function verifyDACanAddContacts($sURL,$sDomainName1,$sDomainName1_Password,$sContactName1,$sContactName2)
+{
+  	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	createUserByDomainAdmin($sMemberFirstName,$dName2,$dEmail);
+	_wait(4000);
+	createUserByDomainAdmin($sMemberFirstName,$dName3,$dEmail1);
+	
+
+	//Click on Contacts under Shortcuts
+	_click(_link($lnk_SContacts, _near(_link($lnk_MyProfile))));
+
+	_wait(1000);
+	
+	//Click on + icon to add contacts
+	_click(_link($icon_PlusAddGroup, _near(_heading2($lnk_Contacts))));
+
+	//Search for given Contact name
+	_setValue(_textbox($txt_GName),$dName2);
+
+	//Click on apply button
+	_click(_button($btn_Apply));
+
+	//Select contacts by clicking on check boxs near by contact names
+	_click(_checkbox($chkbox_OnStatus, _near(_strong($sMemberFirstName+" "+$dName2))));
+
+	//Search for given Contact name
+	_setValue(_textbox($txt_GName), $dName3);
+
+	//Click on apply button
+	_click(_button($btn_Apply));
+	_click(_checkbox($chkbox_OnStatus, _near(_strong($sMemberFirstName+" "+$dName3))));
+
+	//Click on Add Members button
+	_click(_button($btn_GSave));
+
+	if((_exists(_link($sMemberFirstName+" "+$dName2))) || (_exists(_link($sMemberFirstName+" "+$dName3)) ))
+    {
+      _log("Added contact is visible");
+    }
+	else
+    {
+      _log("Added contact is not visible");
+    }
+
+	//Log out from app
+	logOut();
+}
+ /*
+Function Name 			:   searchContacts
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Search contact by given name, if existing means delete it
+Input					:	$sContactName1
+*/ 
+function searchContacts($sContactName1)
+{
+  //check existance of contact
+	if(_exists(_link($sContactName1)))
+       {
+       
+         //Click on contact name
+       _click(_link($sContactName1));
+
+         //Click on delete button	
+		_click(_link($btn_ContactDelete));
+
+		//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+
+       }
+}
+ /*
+Function Name 			:   verifyDACanUpdateMember
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin should be able to edit an user successfully.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sMFNToSearch,$sMemberToEdit
+*/ 
+
+function verifyDACanUpdateMember($sURL,$sDomainName1,$sDomainName1_Password,$sMFNToSearch,$sMemberToEdit)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on User Management link
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+
+		_wait(1000);
+
+	//Click on search icon
+    _click(_div($lnk_MSearchIcon));
+
+	//Enter first name to search
+    _setValue(_textbox($txt_MFirstName),$sMFNToSearch);
+
+	//Click on search button
+    _click(_submit($btn_Search));
+
+	//Check existance of member 
+    if(_exists(_div($sMemberToEdit)))
+    {
+       var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=300);
+      
+      //Click on delete icon near by member name
+      _click(_link($btn_MEdit, _near(_div($sMemberToEdit))));
+	  
+	  //Clear the content and edit the last name
+	   _setValue(_textbox($txt_LastName), "");
+	  _setValue(_textbox($txt_LastName), "Test28");
+
+       //Click on Yes on Block Confirmation Pop up
+      _click(_submit($btn_MUpdate));
+      
+      //Validate existance of member updated success message
+      _assertEqual($sUpdatedMemberSuccessMessage, _getText(_div($sUpdatedMemberSuccessMessage)));	  
+	
+    }
+
+	//Log out from app
+    logOut();
+}
+
+
+ /*
+Function Name 			:   verifyDACanEditOrg
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin should be able to edit  an 'organizations' successfully.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sContactNameSearch,$sOrgNameToEdit,$sOrgNameToEdit
+*/ 
+
+function verifyDACanEditOrg($sURL,$sDomainName1,$sDomainName1_Password,$sContactNameSearch,$sOrgNameToEdit,
+                            $sOrgNameToEdit1)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	_wait(2000);
+	//Click on Organisation link
+	_click(_link($lnk_Organisation));
+
+	//Click on All Organisation sub link	
+	_click(_link($lnk_AllOrg, _near(_link($lnk_Organisation))));
+	
+	_wait(2000);
+	//Click on search icon
+    _click(_div($lnk_MSearchIcon));
+
+	//Enter  name to search
+    _setValue(_textbox($txt_ONameTosearch), $sContactNameSearch);
+
+	//Click on search button
+    _click(_submit($btn_Search));
+
+	//Check existance of member 
+    if(_exists(_div($sOrgNameToEdit)))
+    {
+       var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=300);
+      
+      //Click on delete icon near by member name
+      _click(_link($btn_Edit, _near(_div($sOrgNameToEdit))));
+      
+      //Clear the content on name
+		_setValue(_textbox($txt_GName), "");
+      //Edit the name
+      _setValue(_textbox($txt_GName), $sOrgNameToEdit1);
+
+       //Click on Yes on Block Confirmation Pop up
+      _click(_submit($btn_MUpdate));
+      
+      //Validate existance of member updated success message
+      _assertEqual($sOrgEditedSuccessMessage, _getText(_div($sOrgEditedSuccessMessage)));
+    }
+	//Log out from app
+    logOut();
+  
+}
+
+ /*
+Function Name 			:   verifyDACanDeleteOrganisation
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:  	Domain admin should be able to delete  an 'organizations' successfully.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password, $sOrgNameToDelete
+*/ 
+function verifyDACanDeleteOrganisation($sURL,$sDomainName1,$sDomainName1_Password, $sOrgNameToDelete)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Organisation link
+	_click(_link($lnk_Organisation));
+
+	//Click on All Organisation sub link
+	_click(_link($lnk_AllOrg, _near(_link($lnk_Organisation))));
+
+	//Click on search icon
+    _click(_div($lnk_MSearchIcon));
+
+	//Enter  name to search
+    _setValue(_textbox($txt_ONameTosearch), $sOrgNameToDelete);
+
+	//Click on search button
+    _click(_submit($btn_Search));
+
+	//Check existance of member 
+    if(_exists(_div($sOrgNameToDelete)))
+    {
+       var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=300);    
+            
+      //Delete org
+      _click(_link($btn_ODelete));
+
+    	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+      
+      //Validate success message after deletion
+      _assertEqual($sOrgDeletedSM, _getText(_div($sOrgDeletedSM)));
+    }
+    else
+    {
+      _log("Org is not existing ");
+    }
+	//Log out from app
+   logOut();
+}
+ /*
+Function Name 			:   verifyDACanEditGroups
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:  	Domain admin can edit  a ' User Groups' successfully.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password, $sOrgNameToDelete
+*/ 
+
+
+function verifyDACanEditGroups($sURL,$sDomainName1,$sDomainName1_Password,$lnk_UserGroup,$sUserGroupNameToEdit,
+                               $sUserGroupNameToEdit1)
+{
+//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+	//Check exitsance of group 
+    if(_exists(_link($sUserGroupNameToEdit)))
+    {         
+	
+	  //Click user group to edit
+	  _click(_link($sUserGroupNameToEdit));	
+	
+      //Click on edit button
+      _click(_link($btn_EditUserGroup));
+      
+      //clear the data
+      _setValue(_textbox($txt_Title), "");
+      
+	  _wait(2000);
+      //Edit title
+      _setValue(_textbox($txt_Title), $sUserGroupNameToEdit1);
+      
+      //Click on save button
+      _click(_submit($btn_GSave));
+    }
+	else
+    {
+      _log("group not existing to edit");
+    }
+	//Log out from app
+    logOut();   
+}
+
+/*
+Function Name 			:   verifyDACanDeleteGroups
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:  	Domain admin can delete  a ' User Groups' successfully.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$lnk_UserGroup,$sUserGroupNameToDelete
+*/ 
+
+function verifyDACanDeleteGroups($sURL,$sDomainName1,$sDomainName1_Password,$lnk_UserGroup,$sUserGroupNameToDelete)
+{
+//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on Groups link
+	_click(_link($lnk_Groups));
+
+	//Click on User groups link
+	_click(_link($lnk_UserGroup));
+
+	//Check exitsance of group 
+    if(_exists(_link($sUserGroupNameToDelete)))
+    {         
+	 //Click on group name
+     _click(_link($sUserGroupNameToDelete));
+	
+      //Click on edit button
+      _click(_link($btn_ReportDelete));         
+      
+		//Click on Yes button
+      _click(_button($btn_YesForDeleteMBN));
+    }
+	else
+    {
+      _log("Group is not existing to delete");
+    }
+	//Log out from app
+    logOut();   
+}
+
+/*
+Function Name 			:   verifyDACanEditMBN
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:  	Domain admin should be able to edit  'MBN'
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sMBNValueToEdit
+*/ 
+
+function verifyDACanEditMBN($sURL,$sDomainName1,$sDomainName1_Password,$sMBNValueToEdit)
+{
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on link MBN Management 
+	_click(_link($lnk_MBNManagement));
+
+	//Click on link -All MBN's
+	_click(_link($lnk_AllOrg, _near(_link($lnk_MBNManagement))));
+
+	//method to search MBN 
+	searchForMBN($sMBNValueToEdit);
+	_wait(2000);
+	
+	//Click on MBN link
+    if(	_exists(_div($sMBNValueToEdit)))
+    {
+      //Click on edit button
+        _click(_link($btn_EditMBN));
+
+        //Clear and edit the MBN
+        _setValue(_textbox($txt_MBNValue), "");
+		_wait(2000);
+        _setValue(_textbox($txt_MBNValue), $sMBNValueToEdit);
+      
+      	//Click on Update 
+        _click(_submit($btn_MUpdate));
+      
+      //Validated the edit MBN
+      _assertEqual($sMBNValueToEdit, _getText(_div($sMBNValueToEdit)));
+    }
+    else
+    {
+      _log("MBN is not existing.Hence not edited");
+    }
+
+	//Log out from app
+	logOut();
+}
+
+/*
+Function Name 			:   verifyDACanDeleteMBN
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:  	Domain admin should be able to delete  'MBN'
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sMBNValueToDelete
+*/ 
+function verifyDACanDeleteMBN($sURL,$sDomainName1,$sDomainName1_Password,$sMBNValueToDelete)
+{
+//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on link MBN Management 
+	_click(_link($lnk_MBNManagement));
+
+	//Click on link -All MBN's
+	_click(_link($lnk_AllOrg, _near(_link($lnk_MBNManagement))));
+
+	//method to search MBN 
+	searchForMBN($sMBNValueToDelete);
+
+	//Click on MBN link
+    if(	_exists(_div($sMBNValueToDelete)))
+    {
+      //Click on delete button
+       _click(_link($btn_DeleteMBN));
+      
+      //Click on Yes button
+      _click(_button($btn_YesForDeleteMBN));  
+        
+    }
+    else
+    {
+      _log("MBN is not existing.Hence not deleted");
+    }
+
+	//Log out from app
+	logOut();
+}
+/*
+Function Name 			:   verifyDACanDeletePolicyName
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:  	Domain admin should be able to delete  'Policy' successfully.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sPolicyNameToDelete
+*/ 
+
+function verifyDACanDeletePolicyName($sURL,$sDomainName1,$sDomainName1_Password,$sPolicyNameToDelete)
+{
+    //Call method to login to site with valid credentials
+      loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+    //Click on Groups link
+        _click(_link($lnk_Policies));
+
+        //Click on Policy link
+        _click(_link($lnk_PolicySet));
+	
+	//check existance of policy set, if yes means delete
+	  if(_exists(_link($sPolicyNameToDelete)))
+	  {
+		_log("Policy set exists .Hence deleting");
+		
+		  //Click on Policy set
+		  _click(_link($sPolicyNameToDelete));
+		  
+		  //Click on delete button
+		  _click(_link($btn_ReportDelete));
+		  
+		  //click on yes button in pop up
+		   _click(_button($btn_YesForDeleteMBN));
+        
+        //Validate policy deleted success message
+        _assertEqual($sPolicySetDeletedSM, _getText(_div($sPolicySetDeletedSM)));
+	  }
+      else
+      {
+        _log("Policy set is not existing to delete");  
+      }
+
+	//Log out from app
+	logOut();
+  
+}
+
+
+
+/*
+Function Name 				:  verifyOrgAdminCanDeleteGroup
+Author 	 	    	     	:  Divya
+Created Date 	      		:  20 May 2016
+Description		        	:  This method is used to Verify that Organization admin can delete groups
+Input			          	:  $sURL,$sOrgAdminName1,$sOrgAdminPassword1,$lnk_ContactGroups,$sGroups_ContactGrpToDelete
+*/ 
+
+function verifyOrgAdminCanDeleteGroup($sURL,$sOrgAdminName1,$sOrgAdminPassword1,$lnk_ContactGroups,$sGroups_ContactGrpToDelete)
+{
+			//Call method to login to site with valid credentials
+  			      	   loginToSite($sURL,$sOrgAdminName1,$sOrgAdminPassword1);
+			
+			        // Click on User icon
+			        _click(_button($btn_Usericon));
+			
+			        // Click on Organization Admin
+			        _click(_span($sOrgAdminNameToSelect));
+			
+			        // Click on Groups
+			         _click(_link($lnk_Groups));
+			
+					// Click on Contact Groups
+					_click(_link($lnk_ContactGroups));
+		
+  					// Check for the Contact is present in the list
+		     		if(_isVisible(_link($sGroups_ContactGrpToDelete)))
+			        {
+                      	// Click on the Contact Group
+			          	_click(_link($sGroups_ContactGrpToDelete));
+			         
+			           // Click on Delete Icon
+			            _click(_link($lnk_Delete));
+			
+			           // Click on Yes
+			           _click(_button($btn_Yes, _near(_heading4($heading_ConfirmDelete))));                  
+     			       }
+					else
+                    {                      
+                      _log("Group is not available");                      	
+                    }
+  				// Log out from app
+	          	logOut();	
+  
+}
+
+
+
+
+/****************************************************************************************************************************************************************/
+/*
+Function Name 			:   verifyDACanEditPolicySet
+Author 	 	    			:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Verify Domain admin can edit  policy set  
+Input					: 	$sURL,$sDomainName1,$sDomainName1_Password,$sPolicyNameToEdit,
+                                 $txt_Scroll_Content	
+*/
+function verifyDACanEditPolicySet($sURL,$sDomainName1,$sDomainName1_Password,$sPolicyNameToEdit,
+                                 $txt_Scroll_Content)
+{
+	//Call method to login to site with valid credentials
+    loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+    //Click on Groups link
+    _click(_link($lnk_Policies));
+
+     //Click on Policy link
+     _click(_link($lnk_PolicySet));
+
+		//Scroll Veritically
+	_call(_div($txt_Scroll_Content).scrollTop=8000); 
+
+	//check existance of policy set, if yes means delete
+	  if(_isVisible(_link($sPolicyNameToEdit)))
+	  { 
+        
+        //Cal method to edit policy 
+         editPolicySet($sPolicyNameToEdit);        
+		_wait(2000);
+	     
+      }
+
+      else
+      {
+         _log("Policy set is not existing to edit..");     
+        
+        //Create a policy set 
+		createPolicySet($sPolicyNameToEdit,$sPolicyExpiryDate,$sPolicyDescription);       
+        
+        _wait(5000);        		
+        
+        //Scroll Veritically
+		_call(_div($txt_Scroll_Content).scrollTop=8000); 
+        
+        //Cal method to edit policy 
+        editPolicySet($sPolicyNameToEdit);   
+      }  
+
+	//Log out from app
+	logOut();
+}
+
+/*
+Function Name 			:   editPolicySet
+Author 	 	    			:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Verify Domain admin can edit  policy set  
+Input					: 	$sPolicyNameToEdit
+                                 
+*/
+function editPolicySet($sPolicyNameToEdit)
+{
+  		//click on policy
+        _click(_link($sPolicyNameToEdit));
+        _wait(4000);
+		//Click on edit button
+		_click(_link($btn_EditPolicySet));
+
+		_wait(2000);
+        
+        //Clear the contents of policy
+         _setValue(_textbox($txt_GName),"");  
+        
+            //Enter Policy name
+          _setValue(_textbox($txt_GName),$sPolicyNameToEdit);          
+
+          //Click on next button
+          _click(_submit($btn_Next));	
+
+          //Click on next button
+          _click(_button($btn_Next));
+
+          //Click on next button
+          _click(_button($btn_Next));
+        
+		//Click on add policy
+		_click(_button($btn_SaveChangesToPolicy));
+
+}
+
+/*
+Function Name 			:   verifyDACanEditCustomReport
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Verify Domain admin should be able to edit  'Custom Reports' successfully and changes made on the report should get reflected.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sReportNameToEdit
+*/ 
+function verifyDACanEditCustomReport($sURL,$sDomainName1,$sDomainName1_Password,
+                                    $sReportNameToEdit)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	//Click on Reports link
+	_click(_link($lnk_Report));
+
+	//Click on Custom Report
+	_click(_link($lnk_CustomReport));	
+	
+	//Scroll bottom
+	_call(_div($txt_Scroll_Content).scrollTop=20000); 
+
+	$sReportNameToEdit=$sPolicyNameToEdit+$sTimeStamp1;
+	if(_isVisible(_link($sReportNameToEdit)))
+    {
+      editCustomReport($sReportNameToEdit);
+    }
+
+	else
+    {
+      //Create custom report and verify same
+	createCustomReport($lnk_CustomReport,$sReportNameToEdit,$chk_boxMessageId,
+                       $chk_boxMessageStatus,$sToDate,$sToDate1);
+      	//Scroll bottom
+      _call(_div($txt_Scroll_Content).scrollTop=20000); 
+      
+      editCustomReport($sReportNameToEdit);
+    }
+
+	//Log out from app
+	logOut();
+}
+
+
+/*
+Function Name 			:   verifyDACanEditCustomReport
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Method to edit custom report
+Input					:	$sReportNameToEdit
+*/ 
+function editCustomReport($sReportNameToEdit)
+{
+  //Click on report name
+      _click(_link($sReportNameToEdit));     
+      
+  _wait(3000);
+      //Click on edit button
+      _click(_link($btn_REditReport));
+  
+        _wait(2000);
+ 	 //Enter report title as blank
+	_setValue(_textbox($txt_ReportTitle),"");
+  
+      //Enter report title
+	_setValue(_textbox($txt_ReportTitle),$sReportNameToEdit);
+      
+      //Click on next button
+	_click(_button($btn_Next));
+      
+      //Click on next button
+	_click(_button($btn_NextForReport));
+      
+      //Click on edit report button
+      _click(_submit($btn_OMEditReport));
+}
+
+
+/*
+Function Name 			:   verifyDACandeleteCR
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Domain admin should be able to delete  'Custom Reports' successfully.
+Input					:	$sURL,$sDomainName1,$sDomainName1_Password,$sReportNameTodelete
+*/ 
+function verifyDACandeleteCR($sURL,$sDomainName1,$sDomainName1_Password,$sReportNameTodelete)
+{
+//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	//Click on Reports link
+	_click(_link($lnk_Report));
+
+	//Click on Custom Report
+	_click(_link($lnk_CustomReport));
+
+	if(_isVisible(_link($sReportNameTodelete)))
+	{
+      //Call method to delete report
+     deleteCustomReport($sReportNameTodelete);
+	}
+	else
+    {
+      //Create custom report and verify same
+	createCustomReport($lnk_CustomReport,$sReportNameTodelete,$chk_boxMessageId,
+                       $chk_boxMessageStatus,$sToDate,$sToDate1);
+      
+      	//Scroll bottom
+      _call(_div($txt_Scroll_Content).scrollTop=20000);   
+      
+     //Call method to delete report 
+    deleteCustomReport($sReportNameTodelete);
+    }
+	//Log out from app
+	logOut();
+
+  }
+ /*
+Function Name 			:   deleteCustomReport
+Author 	 	    		:	Divya
+Created Date 	 	 	:   1st May 2016
+Description		   	   	:   Method to delete custom report
+Input					:	$sReportNameTodelete
+*/ 
+function deleteCustomReport($sReportNameTodelete)
+{
+   			//Click on report link
+		_click(_link($sReportNameTodelete));
+          
+        //Click on delete button  
+		_click(_italic($btn_ReportDeleteOption));
+          
+		  _wait(3000);
+      	//Click on Yes button
+         _click(_button($btn_YesForDeleteMBN));
+		 
+		 _wait(1000);
+}
+                  
+ /*
+Function Name 			:   verifyDACandeleteUsers
+Author 	 	    		:	Divya
+Created Date 	 	 	:   25th April 2016
+Description		   	   	:   Domain admin should be able to delete an user successfully.
+Input					:$sURL,$sDomainName1,$sDomainName1_Password,$sUMUserToDelete
+*/
+function verifyDACandeleteUsers($sURL,$sDomainName1,$sDomainName1_Password,$sUMUserToDelete)
+{
+	//Login to site with valid credentials
+     loginToSite($sURL,$sDomainName1,$sDomainName1_Password);	
+
+	//Click on user management link	
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	//Click on search button
+	_click(_div($lnk_MSearchIcon));
+	
+	//Search via email
+	_setValue(_textbox($txt_MEmailId), $sUMUserToDelete);
+	
+	//Click on search button
+	_click(_submit($submit_Search));
+
+    if(_isVisible(_div($sUMUserToDelete)))
+    {
+       var $el=_div("list-view-table-main table-responsive-full clearfix");        
+	   _call($el.scrollLeft=300);
+      
+      //Click on delete icon near by member name
+      _click(_link("/Delete/", _near(_div($sUMUserToDelete))));
+
+       //Click on Yes on Block Confirmation Pop up
+        _click(_button($btn_YesToBlockAdmin));   
+    }
+    else
+    {
+     _log("User not available");  
+      
+    }
+
+		//Log out of app
+    logOut();
+}
+   

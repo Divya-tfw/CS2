@@ -1,0 +1,15 @@
+/*****************************************************************************
+
+FileName				:Config.sah
+Description				:This file contains all configuration details about the app like URL,Username, Password
+AuthorName	 	 	  :Divya Raju.R
+DateOfCreation		  :1/27/2016
+DateOfModification   :1/27/2016
+
+******************************************************************************/
+
+$sURL="https://qa106portal.celleport.com/app/#/login";
+//$sStage_URL="http://dev105.celleport.com/app/#/login";
+
+$sQA_URL="https://qa106portal.celleport.com/app/#/login";
+$sDev_URL="http://dev105.celleport.com:70/";

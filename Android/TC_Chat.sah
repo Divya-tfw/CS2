@@ -1,0 +1,62 @@
+_include("../Base/IncludeFiles.sah");	
+
+
+var $suiteInfo= _suiteInfo();
+var $sGroupName=$suiteInfo["GroupName"];
+var $sActual=$suiteInfo["SentMessage"];
+
+
+
+
+
+		//Call method to login to site with valid credentials
+		loginToSite($sURL,$sDN3,$sDN3_Pwd);
+
+		//Check existance of Communication
+		if(_isVisible(_div("Communication Center")))
+		{
+			_log("Communication center is visible");
+			
+			//Click on chat icon
+			_click(_italic("fa chat-img-icon"));
+			
+			_setValue(_textbox(1), $sGroupName);
+			
+			$sGroupName="/"+$sGroupName+"/";
+			//check existance of group chat
+			if(_isVisible(_heading2($sGroupName)))	
+			{
+				
+				_click(_heading2($sGroupName));
+				
+				_wait(2000);
+			 var $verifyMsg=_getText(_span("message-html-content ng-binding"));
+				
+				//_assertEqual($verifyMsg,$sActual);
+				
+				if(_areEqual($verifyMsg,$sActual))
+					
+				{
+					_log(" Verfication of message from sender to reciepient is same");
+				}
+				else
+				{
+					_log("Verfication of message from sender to reciepient is not same");
+				}
+			}
+			
+			else
+			{
+				_log("Group chat name is not visible");
+			}
+		}
+		else
+		{
+			_log("Communication center is not visible");
+		}
+
+		//Log out from app
+        logOut();
+
+
+

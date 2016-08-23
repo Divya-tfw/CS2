@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");
+
+//verify Contact groups  created by Organization member should not visible domain admins
+verifyVisiblityOfCreatedContactGroup($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMCGGroupTitle1,$sOMEmp);

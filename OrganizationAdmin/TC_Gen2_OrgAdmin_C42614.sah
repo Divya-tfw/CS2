@@ -1,0 +1,6 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can edit  'MBN'
+   verifyThatOrgAdminCanEditMBN($sMBNEdit_notes_OrgAdmin);
+
+

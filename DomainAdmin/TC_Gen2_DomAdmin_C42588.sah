@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Verify that contacts created by domain admin is not visible to other 'employee/user' 
+verifyDomainCreatedContactIsNotVisibleToOthers($sDomainName1,$sDomainName1_Password,$sMemberName2,$sMemberPassword2,
+                                                  $sOAMember21,$sOAMember22,$sMemberRole);

@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+	
+//Verify that Domain admin should be able to delete  'Contacts' successfully.
+verifyDACanDeleteAddedContact();
+

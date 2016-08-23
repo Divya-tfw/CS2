@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Verify organization created by  domain admin should not be visible to other 'organization member'
+visibilityOfOrgCreatedByOM($sNewOrgNameForVisiblityOM,$sOrgMember1, $sOrgMemPwd1);

@@ -1,0 +1,18 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+	
+	//Click on Reports link
+	_click(_link($lnk_Report));
+
+	//Click on system report
+	_click(_link($lnk_SystemReport));
+
+	//Click on All Receieved messages link
+	_click(_link($lnk_AllRM));
+
+	_wait(3000);
+
+	//Click on export button
+	_click(_link($btn_Export));

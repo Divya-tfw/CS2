@@ -1,0 +1,4 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Employee/User created by domain admin should not be visible other organization member
+verifyDACreatedMemberNotVisibileToANotherOM($sEmp1, $sEmp1Pwd);

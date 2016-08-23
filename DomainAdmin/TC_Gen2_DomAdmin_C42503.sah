@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Domain admin should be able to edit an user successfully.
+verifyDACanUpdateMember($sURL,$sDomainName1,$sDomainName1_Password,$sMFNToSearch,$sMemberToEdit);
+

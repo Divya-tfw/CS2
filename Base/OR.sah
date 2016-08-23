@@ -1,0 +1,634 @@
+/*****************************************************************************
+
+FileName				:OR.sah
+Description				:This file contains all GUI objects Locator values stored under userdefined variables
+AuthorName	 	 	  :Divya Raju.R
+DateOfCreation		  :1/27/2016
+DateOfModification   :1/27/2016
+
+******************************************************************************/
+
+//Site Landing page
+$lnk_Login="Login";
+$txt_WindowMaximise="maximize";
+$lnk_Home="Home";
+$lnk_PortalFeatures="Portal Features";
+$lnk_SecureLine="SecureLine";
+$lnk_Support="Support";
+$lnk_Registration="Registration";
+$txt_AppInfo="Welcome to the CellTrust Corp. SecureLine Portal";
+$lnk_AppStore="App Store";
+$lnk_PlayStore="Play Store";
+$lnk_WindowsMarket="Windows Market";
+$lnk_BlackBerryWorld="BlackBerry World";
+$img_CellTrustLogo="logo-white.png";
+$btn_LoginConitnue="Continue";
+$btn_AcceptToContinue="Accept";
+$txtVerify_Country="ng-binding[1]";
+
+//Login page
+$txt_Email="username";
+$txt_Password="password";
+$btn_SignIn="Sign In";
+$span_User="user-profile-fname ng-binding";
+$lnk_LogOut="Log Out";
+$btn_Cancel="Cancel";
+$lnk_RegisterAsCompany="Register as Company";
+$lnk_RegisterAsUser="Register as User";
+$lnk_ForgetPassword="Forgot Password?";
+$lnk_NeedHelp="Need Help?";
+$lnk_SecurityAndPolicy="Security & Privacy";
+$btn_RememberMe="Remember me";
+$lnk_Needhelp="Need Help?";
+$lnk_SecurityAndPrivacy="Security & Privacy";
+$btn_Send="Send";
+$txt_EmailNotFound="toast toast-error";
+//Forgot Pwd
+$lnk_ForgotPassword="Forgot Password?";
+
+//Home page
+$lnk_RequestIcon="glyphicon glyphicon-user";
+$lnk_MessageIcon="glyphicon glyphicon-envelope[1]";
+$lnk_NotificationIcon="glyphicon glyphicon-flag";
+$lnk_ChatIcon="fa fa-comments chat-active";
+$lnk_Urgent_Message="Urgent Message";
+$lnk_BroadCastMessage="Broadcast Message";
+$lnk_ComposeMessage="Compose Message";
+$lnk_Inbox="Inbox";
+$lnk_History="History";
+$lnk_Contacts="Contacts";
+
+//Forgot password
+$txt_EmailAddressForForgotPassword="emailId ng-pristine ng-untouched ng-valid";
+//Registration Link as user
+$lnk_Individual="Individual";
+$lnk_Company="Company";
+$txt_FirstName="FirstName";
+$txt_LastName="LastName";
+$txt_REmailId="Email";
+$txt_RPwd="Password";
+$txt_RCPwd="Password2";
+$drpdwn_Location="LocationId";
+$txt_ZipCode="ZipCode";
+$txt_Accesskey="AccessKey";
+$txt_Label="I accept the Terms and Conditions and Privacy Policy of CellTrust.";
+$btn_Submit="Next";
+$txt_AccountInformation="Account Information";
+$txt_verifyAccountInfo="ng-binding";
+$btn_Finish="Finish";
+
+//Register As Comp
+$txt_CompanyName="WhiteTxt-fi ng-pristine ng-valid ng-touched";
+$drpdwn_RIndustry="WhiteTxt-fi mBotO ng-pristine ng-untouched ng-valid";
+$drpdwn_RIndustryType="WhiteTxt-fi half-inp-left ng-untouched ng-valid ng-dirty ng-valid-parse";
+$drpdwn_RCountry="form-control WhiteTxt-fi half-inp-right ng-touched ng-dirty ng-valid-parse";
+$drpdwn_REmpNum="3";
+$drpdwn_RRevenue="4";
+
+//Policy
+$lnk_Policy="Policies 2";
+$lnk_PolicySet="Policy Sets 1";
+$lnk_Drafts="Drafts 1";
+
+//Devices
+$lnk_AllDevices="All Devices";
+$txt_TimeStampUnderDeviceType="theme-text ng-binding";
+//Drop down device Os
+$drpdwn_DeviceOsVAlue="DeviceOs";
+$drpdwn_CountryValue="Country";
+$drpdwn_StatusValue="Status";
+$drpdwn_HandSetValue="Handset";
+
+//device type
+$drpdwn_AllDeviceTypeVAlue="All";
+$drpdwn_UnknownDeviceTypeValue="Unknown";
+$drpdwn_IOSDeviceTypeValue="IOS";
+$drpdwn_AndroidDeviceTypeValue="Android";
+$drpdwn_WindowsPhoneDeviceTypeValue="WindowsPhone";
+$drpdwn_BalckBerryDeviceTypeValue="BlackBerry";
+$lnk_Pending="Pending";
+$lnk_Current="Current";
+$txt_DeviceOsDropDwnContents="device-os-type";
+
+//Add new device
+$txt_AddNewDevice="Add New Device";
+$icon_CloseWindow="fa fa-close";
+$div_AdvancedSearch="Advanced Search";
+$txt_RegisteredFrom="Registered From:";
+$txt_P2PExpiryFrom="P2P Expiry From:";
+$drpdwn_OS="OS:";
+$drpdwn_DeviceStatus="Device Status:";
+$btn_Reset="RESET";
+$btn_Search="SEARCH";
+$txt_RegisteredFromDate="To:";
+$txt_RegisteredToDate="To:[1]";
+$txt_P2PExpiryFromDate="To:[2]";
+$txt_P2PExpiryToDate="To:[3]";
+$lnk_SortIcon="ABC[1]";
+$drpdwn_SortBy="Sort By:[1]";
+$btn_SearchSL="Search";
+$txt_MBN="MBN:";
+$icon_Mobile="mobile-icon";
+
+
+
+//Groups
+$txt_Title="Title";
+$drp_dwn_GType="Type";
+$txt_GName="Name";
+$txt_MNameToSearch="Name[3]";
+$btn_Addgroup="Add Group";
+$chkbox_OnStatus="on";
+$lnk_SortBy="Sort By";
+$icon_PlusAddGroup="plus-group fa fa fa-plus-circle";
+$lnk_Groups="/Groups /";
+$lnk_PG="/Policy Groups /";
+$txt_PolicyHeader="/Policy/";
+$lnk_UserGroup="/User Groups /";
+$lnk_GUnassign="Unassign";
+$lnk_ContactGroup="/Contact Groups /";
+$icon_PlusUpdateMembers="Update Members";
+$txt_CGHeader="/Contact Groups/";
+$btn_GAddMembers="Add Members";
+$txt_AssignedMemberUpdateMsg="message ng-binding";
+$txt_AssignedMemberUpdateMsg="message ng-binding";
+$chckbox_Gon="on";
+$txt_UserGroup="/User/";
+$btn_GSave="Save";
+$btn_EditUserGroup="fa fa-pencil";
+
+
+
+
+//User Management
+$lnk_UserManagement="/User Management/";
+$lnk_UMAll="/All/";
+$lnk_UMActive="/Active/";
+$lnk_DomainAdminUM="Domain Admin[2]";
+$lnk_DA="Domain Admin";
+$lnk_UMAllUsers="All Users";
+$txt_Pending="Pending";
+$txt_Active="Active";
+$txt_Import="Import";
+$txt_UserAndRoles="Users & Roles";
+$txt_AllUsersSection="subsidebar-main";
+$div_UserSearch="User Search";
+$icon_Chat="fa fa-comments";
+$txt_Role="Role";
+$txt_UMAddNewMember="Add New Member";
+$txt_UMAddNewRole="Add a Role";
+$lnk_UMSortBy="sortby-icon dropdown-toggle[1]";
+$lst_FilterBy="dropdown-menu dropdown-menu-right filter-by[1]";
+$drp_dwn_DateCreated_NewestFirst="Date Created (newest first)";
+$drp_dwn_DateCreated_OldestFirst="Date Created (oldest first)";
+$drp_dwn_DateUpdated_NewestFirst="Date Updated (newest first)";
+$drp_dwn_DateUpdated_OldestFirst="Date Updated (oldest first)";
+$drp_dwn_TitleAscending="Title (ascending)";
+$drp_dwn_TitleDescending="Title (descending)";
+$drp_dwn_UMList="List";
+$lnk_UMPlusIcon="plus-group fa fa fa-plus-circle dropdown-toggle";
+$lnk_UMAddUser="User[1]";
+$btn_UMCancel="Cancel[1]";
+$txt_UMDescription="Description";
+$btn_Edit="Edit";
+$lnk_Action="Action";
+$lnk_UMImport="Import";
+$btn_FileChoseForImport="csvFile";
+$txt_FailedRecords="Failed records:";
+$btn_CancelImport="CANCEL";
+$lnk_MBNIMport="Import[1]";
+
+$lnk_OAMember=_link("item-link ng-binding[2]");
+$lnk_OAAll=_link("ng-binding[14]");
+$btn_EditUG=_italic("fa fa-pencil");
+$btn_DeleteUG=_italic("glyphicon glyphicon-trash");
+/*****************/
+$icon_plus="fa fa-plus-circle ng-isolate-scope";
+$txt_All="All";
+$txt_MemberLocation="Location";
+$txt_MemberZipCode="ZipCode";
+$txt_MemberEmail="Email";
+$btn_MemberCreate="Create";
+$btn_MemberClose="Close";
+$icon_PlusOrg="fa fa-plus-circle";
+$txt_AllOrg="All";
+$txt_OrgType="Type";
+$drp_dwn_OrgLocationId="LocationId";
+$btn_MEdit="Edit User";
+$btn_MUpdate="Update";
+$lnk_MSearchIcon="Search[2]";
+$txt_MFirstName="First Name:";
+$btn_SearchMembers="tools-icon-main advance-srch-menu";
+$txt_MLastName="Last Name:";
+$drp_dwn_Vendor="Vendor";
+$txt_MEmailId="Email:";
+$btn_UMAllUsersDelete="Delete User";
+$drp_dwn_ConflictAction="importExceptionAction";
+$btn_ImportFile="IMPORT";
+$btn_Proceed="PROCEED";
+$btn_UMDelete="/Delete/";
+$div_ScrollLeft="list-view-table-main table-responsive-full clearfix";
+$div_VerticalScrollBar="sub-sidebar-content-inner";
+$txt_PhoneNumber="PhoneNumber";
+$txt_PN=_textbox("PhoneNumber");
+
+$txt_OrgSearchName="Name[3]";
+$lnk_UserRoles1="/User Roles /";
+$lnk_OrgAdmin1="/Organization Admin /";
+
+
+
+/****************Domain Admin ***************************************************************************\
+
+/***MBN Management**/
+
+$lnk_MBNManagement="/MBN Management/";
+$lnk_AllMBNS="/All MBN's/";
+$drp_dwn_CountryId="CountryId";
+$txt_MBNValue="Mbn";
+$drp_dwn_MBNType="Type";
+$btn_Next="Next";
+$btn_Create="Create";
+$lnk_MBNInTable="MBN[1]";
+$lnk_LocationInTable="Location";
+$lnk_DeleteMBN="Delete MBN";
+$btn_YesForDeleteMBN="Yes";
+$lnk_MBN_All="All[1]";
+$icon_PlusAddMBN="plus-group fa fa fa-plus-circle ng-isolate-scope";
+$icon_CrossMBNPopup="fa fa-times";
+$radio_MBNAssignToMember1="selectMember";
+$radio_MBNAssignToMember2="selectMember[2]";
+$radio_MBNAssignToMember3="selectMember[3]";
+$radio_MBNAssignToMember4="selectMember[4]";
+$tab_MBNAssignedTo="Assigned To";
+$lnk_MBNAssignMember="Change Owner";
+$radio_MBNSelectMember="/selectMember/";
+$txt_MBnSelectMember="ng-binding";
+$btn_MBNOwnerChange="Change";
+$btn_MBNUnassign="Unassign";
+$btn_EditMBN="Edit MBN";
+$btn_DeleteMBN="Delete MBN";
+$txt_Scroll_Content="sub-sidebar-content-inner";
+
+
+/****Policy ******/
+$txt_PolicyExpiryDate="Expire Date:";
+$txt_Description="Description";
+$btn_AddPolicy="Add Policy";
+$btn_ReportDelete="glyphicon glyphicon-trash";
+$btn_RDelete=_italic("fa fa-pencil");
+$btn_DeleteAllUserOption="fa fa-trash";
+$btn_ReportDeleteOption="glyphicon glyphicon-trash";
+$txt_ReportTitle="Report Title: *";
+$chk_boxMessageId="Message";
+$chk_boxMessageStatus="Message Status";
+$btn_NextForReport="Next";
+$txt_ToDate="To:";
+$txt_ToDate1="To:[1]";
+$btn_AddReport="Add Report";
+$txt_AllPolicy="/All Policies/";
+$btn_SaveChangesToPolicy="Save Changes";
+$btn_EditPolicySet="tools-icon-main[1]";
+/*****************************Policies**************/
+
+$lnk_Policies="/Policies /";
+$lnk_PolicySet="/Policy Sets /";
+$btn_CrossMark="x";
+$txt_PolicySetheader="/All Policies/";
+
+/******Contacts*******/
+$lnk_ContactsUnderShortCuts="Contacts[3]";
+$btn_YesToBlockAdmin="Yes";
+
+/**************Organizations***********************/
+$tab_OrgCompDetails="Details";
+$tab_OrgMembers="Members[1]";
+$lnk_Organisation="/Organizational Units/";
+$lnk_AllOrg="/All/";
+$txt_ONameTosearch="Name:";
+$btn_OEdit="EDIT";
+$btn_ODelete="DELETE";
+$btn_SDelete="/DELETE/";
+$lnk_UR="/User Roles/";
+
+$lnk_OA="/Organization Admin/";
+$lnk_DomainAdminUnderUR="/Domain Admin/";
+
+
+
+
+/*************Reports********************************/
+$chckbx_ReportType="Report Type: *";
+$lnk_CustomReport="/Custom/";
+$lnk_Report="/Reports/";
+$txt_CustomReports="Custom Reports";
+$txt_ReportColName="Report Type: *";
+$btn_REditReport="tools-icon-main";
+
+
+/************************Contacts***********************/
+$btn_CAddmembers="Add Members";
+$lnk_SContacts="Contacts";
+$btn_Apply="Apply";
+$btn_ContactDelete="fa fa-trash profile-top-icon-button";
+$lnk_MyProfile="My Profile";
+$lnk_MContacts="/Contacts /";
+$lnk_ProfileLinkUnderMP="Profile[1]";
+
+$option_Organisation="Organization";
+$btn_AddOrgInUR="ADD[1]";
+
+
+/*********************************************************organisation Member***************************************************/
+$lnk_Devices="/Devices/";
+$lnk_MDashboard="Dashboard[1]";
+$lnk_MAddressBook="/Address Book/";
+$lnk_MPolicies="/Policies/";
+$lnk_MMBN="/MBN's/";
+$txt_HeaderContact="/Contact/";
+$lnk_OMReports="/Reports /";
+$btn_OMDeleteReport="glyphicon glyphicon-trash";
+$btn_OMEditReport="Edit Report";
+$lnk_MDevices="/Devices .*/";
+$lnk_MAllDevices="/All Devices .*/";
+$lnk_MPendingDevices="/Pending .*/";
+$btn_CGEdit="tools-icon-main";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**************************************************************ORGANISATION ADMIN****************************************************************************************/
+//Login page
+$txt_Email="username";
+$txt_Password="password";
+$btn_SignIn="Sign In";
+// User Icon
+$btn_Usericon = "btn btn-default dropdown-toggle[1]"; //btn btn-default dropdown-toggle[1]
+$lnk_DomainAdmin = "Domain Admin";
+$lnk_OrgAdmin_NorthwesternMutual = "[Admin] Northwestern Mutual";
+$lnk_OrgAdmin_NorthwesternMutual1 = "Northwestern Mutual";
+$lnk_OrgAdmin_Org1IND = "Organization1-IND";
+$lnk_OrgMember_OrgBanIND = "Org Bangalore IND.....";
+$c_cursorStyle = "not-allowed";
+$lnk_LogOut = "Log Out";
+$msg_EleDisabled = "Element is disabled";
+$_cursorr = 'cursor';
+$s_ADMIN = "ADMIN";
+
+//ShortCuts 
+$lnk_Shortcuts = "/Shortcuts/";
+$lnk_Contacts = "/Contacts/";
+$plusIcon_Contacts = "plus-group fa fa fa-plus-circle";
+$strng_ContactName_OA = "Aravinda Chundi"; 
+$lnk_AddMembers = "Add Members";
+$msg_ContactAddedToList = "Contact list updated.";
+$frst_ContactName = "ng-scope[1]";
+$contactName = "ng-binding[2]";
+$lnk_DeleteIcon = "fa fa-trash profile-top-icon-button";
+$msg_RemoveContact = "You are about to remove this from your contact list. Are you sure you want to continue?Yes No";
+$msg_ContactPresent = "Still contact is present";
+$msg_ContactNOTPresent = "Still contact is present";
+
+// My Profile 
+$lnk_MyProfile = "/My Profile/";
+$lnk_Profile = "Profile";
+$lnk_EditContactInfo = "Edit Contact Information";
+$msg_MemberUpdated = "Member has been updated.";
+$lnk_Contacts = "Contacts";
+$heading_ConfirmRemove ="Confirm remove";
+$icon_Profile_DeleteIcon = "fa fa-trash profile-top-icon-button";
+$lbl_Tools = "Tools";
+$msg_ContactsEmpty = "Contacts are Empty ";
+$name_Contacts = "file-name pull-left ng-binding";
+$btn_Apply = "Apply";
+$chk_Box_ON="on";
+  
+// Groups
+$lnk_Groups = "/Groups /";
+$lnk_emp_Groups = "/Groups .*/";
+$lnk_UserGroups = "/User Groups/";
+$lnk_Edit = "Edit";
+$txtbox_Title = "Title";  
+$submit_Save = "Save";
+$plusicon_Groups = "plus-group fa fa fa-plus-circle";
+$chkbox_SelectedUser = "on";
+$chkbox_SelectedUser_1st  = "on[1]";  
+$chkbox_SelectedUser_2nd = "on[2]";
+$chkbox_SelectedUser_3rd  = "on[3]";  
+$chkbox_SelectedUser_4th = "on[4]";
+$chkbox_SelectedUser_5th  = "on[5]";  
+$chkbox_SelectedUser_6th = "on[6]";
+$submit_AddGroup = "Add Group";
+$lnk_PolicyGroups = "/Policy Groups/";
+$lnk_ContactGroups = "/Contact Groups/";
+$selected_ContactedName = "ng-binding";
+$selected_ContactedName2 = "ng-binding[1]";
+$lnk_FullName = "Full Name";
+$btn_CrossMrk = "/×/";
+$msg_NoMembersInGroupToSelect = "There are no members in the group to select";
+$record_Groups = "ng-binding[2]";
+$msg_UsersGroup_recordsNotPresent = "No UsersGroup records found";
+$grpDeleted = "Group deleted.";
+$msg_PolicyGroup_recordsNotPresent = "No Policy Groups records found";
+$msg_ContactGroup_recordsNotPresent = "No Contact Groups records found";
+$name_Groups = "file-name pull-left ng-binding";
+$lnk_Email = "Email";
+$frst_RowEmail = "ng-binding[3]";
+$lnk_Unassign = "Unassign";
+$heading_ConfirmUnassign = "Confirm unassign";
+$msg_GrpUpadted = "Group Updated";
+$msg_RecordAllreadyCreated = "record all ready created..!!";
+$msg_UserGpWithOutMemebers = "UserGroup created without selecting members";
+$msg_PolicyGpsWithOutMemebers = "PolicyGroups created without selecting members";
+$msg_ContactGpsWithOutMemebers = "ContactGroups created without selecting members";
+$btn_Cancel = "Cancel";
+
+// Policy
+$lnk_Policies = "/Policies .*/";
+$lnk_PolicySets = "/Policy Sets .*/"
+$plusIcon_Policies  = "plus-group fa fa fa-plus-circle ng-isolate-scope";
+$txt_Name = "Name";
+$txtarea_Description = "Description";
+$lnk_Next = "Next";
+$btn_SaveasDraft = "Save As Draft";
+$strng_Name = "Nagaraj Shivpooje"; //"Anantha N";
+$chkbox_ON = "on";
+$btn_AddPolicy = "Add Policy";
+$lnk_Edit = "Edit";
+$lnk_Delete = "Delete";
+$msg_DeletePolicyOrWantToContinue = "You are about to delete this policy. Are you sure you want to continue?"
+$btn_Yes = "Yes";
+$strng_GroupName = "Org policy group"
+$heading_oa_AllPolicies  = "/All Policies/";
+$s_grp_Policy = "Gp_Automation";
+$btn_Back = "Back";
+$lbl_Description = "Description:";
+$btn_SaveChanges = "Save Changes";
+$msg_PolicyRemoved = "Policy successfully removed.";
+$btn_pencil_EditIcon = "fa fa-pencil";
+$txtbox_Policy_AssignMemebers = "Name[1]"
+$btn_Apply_AssignMembers = "Apply[1]";
+$heading_AssignMembers_Policy = "Add a Policy - Assign Members";
+$txt_DataStorageInterval="Data storage interval";
+$txt_Refresh="refresh";
+
+// MBN Management
+$lnk_MBNmgmt = "/MBN Management .*/";
+$lnk_AllMBNs =  "/All/";  //"/All MBN's/"
+$lnk_OM_MBNs = "/MBN's .*/";
+$icon_Search = "glyphicon glyphicon-search";
+$txtbox_MBN = "MBN:"
+$submit_Search = "SEARCH";
+$lnk_DeleteMBN = "Delete MBN";
+$heading_ConfirmDelete = "Confirm Delete";
+$splusicon_MBN_OrgAdmin = "plus-group fa fa fa-plus-circle ng-isolate-scope";
+$drpdwn_MBNcountry ="CountryId";
+$txtbox_MBNnumber = "Mbn";
+$drpdwn_MBNtype = "Type";
+$drpdwn_MBNprovider = "Vendor";
+$txtarea_MBNNotes = "Notes";
+$submit_Next = "Next";
+$radiobtn_SelectMembr = "selectMember";
+$radiobtn_SelectMembr_V = "selectMember[2]";
+$radiobtn_SelectMembr_M = "selectMember[1]";
+$sAssignName_MBN = "text-success ng-binding";
+$sExp_AssignName = "ng-binding[11]";
+$submit_Create = "Create";
+$lnk_assignTO = "Assigned To";
+$err_MsgMBN = "Duplicated MBN";
+$btn_Close = "close";
+$lnk_Unassign = "Unassign";
+$heading_ConfirmUnassig = "Confirm Unassignment";
+$lnk_EditMBN = "Edit MBN";
+$lbl_Notes = "Notes";
+$msg_MBN_recordsNotPresent = "No MBN records found";
+$heading_NoIteamsToDisplay = "No items to display.";
+$heading_MBNs0 = "MBNs (0)";
+$record_MBN = "ng-binding[2]";
+$txt_MBNDeletd = "MBN deleted.";
+$heading_MBNOwner = "MBN Owner";
+$link_ChangeOwner = "Change Owner";
+$btn_Change = "Change";
+$msg_MBN_successOwner = "MBN owner successfully updated.";
+$lnk_mnb_LocationHeading = "Location";
+
+// Reports
+$lnk_Reports = "/Reports.*/";
+$lnk_CustomReports = "/Custom/";
+$plusicon_Report_OrgAdmin  = "plus-group fa fa fa-plus-circle";
+$txtarea_Description = "Description";
+$chk_Message = "Message";
+$chk_Message_1 = "1";
+$chk_MessageId = "Message Id";
+$chk_MessageId_2 = "2";
+$chk_MessageStatus = "Message Status";
+$chk_MessageStatus_3 = "3";
+$btn_Nxt = "Next";
+$txtbox_TO = "To:";
+$txtbox_TO_1 = "To:[1]";
+$lnk_AddReport = "Add Report";
+$heading_oa_CustReports = "Custom Reports";
+$txtbox_ExpireDate = "Expire Date:";
+$btn_icon_Trash = "glyphicon glyphicon-trash";
+$msg_report_RecordNotPresent = "Record not present ";
+$submit_EditReport = "Edit Report";
+$btn_Export="Export";
+
+$lnk_SystemReport="/System /";
+$lnk_AllRM="All Received Messages";
+
+
+// Members
+$lnk_Members = "/Members .*/";
+$lnk_Active = "/Active/";
+$lnk_ALL = "/All/";
+$lnk_MOrganizationAdmin = "Organization Admin";
+$lnk_AllUsers = "All Users";
+$smembers_SearchIcon = "glyphicon glyphicon-search";
+$lnk_BlockMember = "Block Member";
+$lnk_UnblockMember = "Unblock Member";
+$titl_BlockMember = "BLOCK MEMBER";
+$titl_UnBlockMember = "UNBLOCK MEMBER";
+$txtbox_Email = "Email:";
+$msg_MembersBlocked = "Member allready blocked";
+$msg_SearchMemberDontExist = "Seacrhing member do not exist";
+$lnk_EditUsr ="Edit User";
+$submit_Update = "Update";
+$slbl_title = "Title:";
+$lnk_Add ="ADD";
+$lnk_StrtConversation = "START CONVERSATION";
+$lnk_Add_Member = "Member";
+$txtbox_FirstName = "FirstName";
+$txtbox_LastName = "LastName";
+$drpdown_Location = "Location";
+$txtbox_zipCode = "ZipCode";
+$txtbox_s_Email = "Email";
+$heading_MemberCreated = "Member Created";
+$msg_MemberPresent = "Member Present!!!";
+$lnk_HideUser = "Hide User";
+$Tableheading_Action = "Action";
+$lnk_Pending = "/Pending/";
+$lnk_deleteUser = "Delete User";
+$s_EmailNewMember = "col-xs-8[2]";
+$div_oa_Tools = "Tools";
+$div_oa_Search = "Search";
+$msg_MemberDeleted = "Member deleted.";
+$msg_MemberUnBlocked = "Member unblocked";
+
+// User Roles
+$lnk_UserRoles = "/User Roles/";
+$lnk_DomainAdmin = "/Domain Admin .*/";
+$lnk_OrganizationAdmin = "/Organization Admin/";
+$lnk_Admins = "Admins";
+$lnk_UpdateMembers = "Update Members";
+$memberName_OrgAdmin = "Claudiu Stoianof";
+$msg_ReqIsAllowedOnlyForDomainAdmin = "Request is allowed only for domain administrators";
+$msg_MemberNotFoundToCheck = "Memebre not found to check Member OR allreday checked";
+$lnk_AssignMemebrs = "Assign Members";
+
+// Organizational Units
+$lnk_OrgUnits = "/Organizational Units/";
+
+// User Management
+$lnk_d_UserManagement = "/User Management/";
+$lnk_d_All = "/All/";
+
+
+/*************************************7/20/2016*****************************/
+$btn_DeleteCGs=_italic("glyphicon glyphicon-trash");

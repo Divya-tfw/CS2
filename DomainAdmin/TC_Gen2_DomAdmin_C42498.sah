@@ -1,0 +1,7 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Domain admin should be able to assign more members to the existing user group
+verifyDACanAssignMembersInGroup($sURL,$sDomainName1,$sDomainName1_Password,
+                                $lnk_UserGroup,$sGroupTitle,$chckbox_Gon);
+
+

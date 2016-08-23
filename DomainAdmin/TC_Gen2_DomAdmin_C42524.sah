@@ -1,0 +1,106 @@
+_include("../Base/IncludeFiles.sah");	
+
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+  	//Create user to assign them as DA
+	createUserByDomAdmin($sMemberFirstName,$sEmail2);	
+
+	//Click on User roles
+	_click(_link($lnk_UR));
+
+	//Click on Organisation admin
+	_click(_link($lnk_OA, _near(_link($lnk_UserRoles))));
+
+	//Click on add button
+	_click(_button($btn_AddOrgInUR));
+
+	//Click on org option
+	_click(_link($option_Organisation));
+
+	createOrgUnderUROA($sMemberFirstName,$sEmail2);
+
+	_wait(3000);
+
+	//Click on Domain Admin Link
+	_click(_link($lnk_DomainAdminUnderUR, _near(_link($lnk_UR))));
+
+	//Click on Organisation admin
+	_click(_link($lnk_OA, _near(_link($lnk_UserRoles))));
+
+	verifyDACanpromoteUserASOAUnderUR($sMemberFirstName,$sEmail2);
+	
+	//Log out from app
+    logOut();
+
+
+function createOrgUnderUROA($sMemberFirstName,$sEmail2)
+{
+  //Enter org name
+    _setValue(_textbox($txt_GName), $sNewOrgName+$sEmail2);
+
+	//Enter org type
+    _setValue(_textbox($txt_OrgType), $sNewOrgType);
+
+	//Select desired country 
+    _setSelected(_select($drp_dwn_OrgLocationId), $sNewOrgLocation);
+
+	//Enter Zip code
+    _setValue(_textbox($txt_MemberZipCode), $sNewOrgZipCode);
+
+	//Click on Submit button
+    _click(_submit($btn_Next));
+
+	_wait(2000);
+	//Set created user in text box
+	_setValue(_textbox($txt_OrgSearchName), $sMemberFirstName+" "+$sEmail2);
+
+	_wait(2000);
+    //Click on Apply button
+    _click(_button($btn_Apply));
+
+    //Click on check box
+    _click(_checkbox($chk_Box_ON, _near(_strong($sMemberFirstName+" "+$sEmail2))));
+
+	//click on create button to create new organisation
+    _click(_submit($btn_MemberCreate));
+
+   //Click on close button
+    _click(_button($btn_MemberClose));
+  
+}
+
+function verifyDACanpromoteUserASOAUnderUR($sMemberFirstName,$sEmail2)
+{
+  
+  //Scroll downwards
+	_call(_div("sub-sidebar-content-inner").scrollTop=5000); 
+
+	if(_isVisible(_link($sMemberFirstName+" "+$sEmail2)))
+    {
+      //Click on created organisation
+      _click(_link($sMemberFirstName+" "+$sEmail2));
+      
+      //Click on Admins
+    _click(_link($lnk_Admins));
+      
+      //Click on + to assign members
+	_click(_link($lnk_AssignMemebrs));
+
+	//Set created user in text box
+	_setValue(_textbox($txt_GName), $sMemberFirstName+" "+$sEmail2);
+
+    //Click on Apply button
+    _click(_button($btn_Apply));
+
+    //Click on check box
+    _click(_checkbox($chk_Box_ON, _near(_strong($sMemberFirstName+" "+$sEmail2))));
+
+    //Click on save button
+    _click(_button($btn_GSave));
+    }
+    else
+    {
+      _log("Created organisation is not found");
+    }
+}

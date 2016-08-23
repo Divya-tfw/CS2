@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Contacts  created by Organization member should  not visible to other Organization member
+ verifyOMAddedContactsVisiblity($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMContactSearchValue,
+                    $sContactName1ToSelect,$sContactName2ToSelect,$sOMEmpoyee,$sEmployee_account1,$sEmployee_pwd1);

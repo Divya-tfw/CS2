@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");
+
+// Verify that Organization admin can add 'MBN' with 'Voice only'
+    verifyThatOrgAdminCanAddMBNwithVoiceOnly
+      ($sMBNCountry_OrgAdmin,$sMBNnumber_VO_OrgAdmin,$sMBNType_VO_OrgAdmin,$sMBNProvider_OrgAdmin,$sMBNnotes_OrgAdmin);

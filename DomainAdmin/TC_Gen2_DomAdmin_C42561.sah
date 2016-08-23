@@ -1,0 +1,5 @@
+_include("../Base/IncludeFiles.sah");	
+
+//Verify that policy groups  created by domain admin is visible other domain admins
+verifyDomainCreatedPolicyGroupIsVisibleToOtherDomainAdmin($sURL,$sDomainName1,$sDomainName1_Password
+                                                                  ,$sDN2,$sDN2_Password);
