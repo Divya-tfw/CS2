@@ -146,7 +146,7 @@ $lnk_PG="/Policy Groups /";
 $txt_PolicyHeader="/Policy/";
 $lnk_UserGroup="/User Groups /";
 $lnk_GUnassign="Unassign";
-$lnk_ContactGroup="/Contact Groups /";
+$lnk_ContactGroup="/My Groups /";
 $icon_PlusUpdateMembers="Update Members";
 $txt_CGHeader="/Contact Groups/";
 $btn_GAddMembers="Add Members";
@@ -199,7 +199,7 @@ $btn_CancelImport="CANCEL";
 $lnk_MBNIMport="Import[1]";
 
 $lnk_OAMember=_link("item-link ng-binding[2]");
-$lnk_OAAll=_link("ng-binding[14]");
+$lnk_OAAll=_link("ng-binding[25]");
 $btn_EditUG=_italic("fa fa-pencil");
 $btn_DeleteUG=_italic("glyphicon glyphicon-trash");
 /*****************/
@@ -328,7 +328,7 @@ $btn_REditReport="tools-icon-main";
 
 /************************Contacts***********************/
 $btn_CAddmembers="Add Members";
-$lnk_SContacts="Contacts";
+$lnk_SContacts="My Secure Contacts";
 $btn_Apply="Apply";
 $btn_ContactDelete="fa fa-trash profile-top-icon-button";
 $lnk_MyProfile="My Profile";
@@ -354,6 +354,17 @@ $lnk_MAllDevices="/All Devices .*/";
 $lnk_MPendingDevices="/Pending .*/";
 $btn_CGEdit="tools-icon-main";
 
+
+
+$lnk_MyCGroup=_link("/My Groups /");
+$lnk_OMMyProfile="My Profile";
+$lnk_OMSecureContacts="/My Secure Contacts /";
+$lnk_OMStdContacts="/My Standard Contacts /";
+
+$lnk_OMMBN="/MBN's /";
+$lnk_OMDevices="/Devices /";
+$lnk_OMPolicies="/Policies /";
+$lnk_OMReports="/Reports /";
 
 
 
@@ -632,3 +643,6 @@ $lnk_d_All = "/All/";
 
 /*************************************7/20/2016*****************************/
 $btn_DeleteCGs=_italic("glyphicon glyphicon-trash");
+
+/****************************Org Member*******************************/
+

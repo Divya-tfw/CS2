@@ -1,4 +1,4 @@
-_include("../Base/IncludeFiles.sah");
+_include("../Base/IncludeFiles.sah");	
 
 //Verify that members included for the User groups is displayed under User groups
    verifyThatMembersIncludedForTheUsergroupsIsDisplayedUnderUserGroups

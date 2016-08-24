@@ -1,4 +1,5 @@
-_include("../Base/IncludeFiles.sah");
+_include("../Base/IncludeFiles.sah");	
+
 
 //Verify Organization member should be able to delete  'Contacts' successfully.
 verifyOMCanDeleteContacts($sURL, $sOrgMember1, $sOrgMemPwd1,$sContactNameToDelete);

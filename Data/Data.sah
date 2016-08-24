@@ -42,14 +42,18 @@ $sBlockMember1="testtfw2+2@gmail.com";
 $sBlockMember1Pwd="1234567890";
 $sOMGroupTitleToEdit="Test123";
 $sOMEditReportName="Test123";
+$sOMOrgAdmin="OrganisationAdmin";
 $sOMGroupTitleToDelete="Test456";
 $sOrgMember1="testtfw3+89@gmail.com";
+$sDomainOption="DomainAdmin";
  $sOrgMemPwd1="Salaryview1!";
 $sOMDeleteReportName="QA"; 
  $sEmp1="testtfw3+4@gmail.com";
  $sEmp1Pwd="8105854236";
- 
+ $sContactNameToDelete="Auto test345";
+ $sOMCGGroupTitle1="Auto_Test_edited";
  $sEmployee_account1="testtfw3+4@gmail.com";
+ $sOMEmp="Employee";
  $sEmployee_pwd1="8105854236";
 $sInvalidUN="prashanthprakash52@gmail.com";
 $sOMContactSearchValue="HI";
@@ -345,9 +349,9 @@ $sEdit_ = "AutomationTester";
 // MBN
 $sMBNCountry_OrgAdmin = "India";
 	// MBN numbers
-$sMBNnumber_VO_OrgAdmin = "7771117770";  // voice
-$sMBNnumber_MO_OrgAdmin = "3339996666"; // msg
-$sMBNnumber_VandM_OrgAdmin = "2211221122"; // voice and Msg
+$sMBNnumber_VO_OrgAdmin = "+7771117770";  // voice
+$sMBNnumber_MO_OrgAdmin = "+3339996666"; // msg
+$sMBNnumber_VandM_OrgAdmin = "+2211221122"; // voice and Msg
    // MBN type
 $sMBNType_VO_OrgAdmin = "Voice Only";
 $sMBNType_MO_OrgAdmin = "Messaging Only";
@@ -390,3 +394,5 @@ $sNewOrgNameForVisiblity="Auto_Org";
 $sNewOrgNameForVisiblityOA="Auto_ORG_By_DA";
 $sNewOrgNameForVisiblityOM="Auto_ORG_OM";
 $sOrgAdminNameToselect="Auto_Org727";
+$sOMReportName="Auto_OMReport";
+$sOMoption="Organisation_Member";

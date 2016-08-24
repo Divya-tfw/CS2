@@ -21,14 +21,14 @@ function verifyExistanceOfLinksInOrganisationMemberInHomePage($sURL, $sOrgMem1, 
 
 	//Verify existance of following links 
     _assertExists(_link($lnk_MDashboard));
-    _assertExists(_link($lnk_MyProfile));
-    _assertExists(_link($lnk_MContacts));
-    _assertExists(_link($lnk_ContactGroups));
-    _assertExists(_link($lnk_MAddressBook));
-    _assertExists(_link($lnk_MMBN));
-    _assertExists(_link($lnk_Devices));
-    _assertExists(_link($lnk_MPolicies));
-    _assertExists(_link($lnk_Report));
+    _assertExists($lnk_MyCGroup);
+    _assertExists(_link($lnk_OMMyProfile));
+    _assertExists(_link($lnk_OMSecureContacts));
+    _assertExists(_link($lnk_OMStdContacts));
+    _assertExists(_link($lnk_OMMBN));
+    _assertExists(_link($lnk_OMDevices));
+    _assertExists(_link($lnk_OMPolicies));
+    _assertExists(_link($lnk_OMReports));
 
 	// Log out from app
      logOut();
@@ -73,7 +73,7 @@ Input						:   $sGroupTitle
 function createContactGroupAsOM($sGroupTitle)
 {
  	//Click on Contact Groups link
-    _click(_link($lnk_ContactGroups));
+    _click($lnk_MyCGroup);
 
 	//Check existance of group & delete it ,if existing
 	if(_isVisible(_link($sGroupTitle)))
@@ -93,7 +93,7 @@ function createContactGroupAsOM($sGroupTitle)
       
 	  _wait(3000);
 		//Click on + icon
-       _click(_link($plusIcon_Contacts, _near(_heading2($txt_HeaderContact))));
+       _click(_link($plusIcon_Contacts));
 
 	   _wait(3000);
         //Enter Title
@@ -163,7 +163,10 @@ function verifyOMCanAddReport($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMReportName)
 
 	//Click on next button
     _click(_submit($btn_Next));
-
+	
+	//Click on next button
+    _click(_button($btn_Nxt ));
+/*
 	//Select Message option
     _click(_checkbox($chckbx_ReportType, _in(_div($sOMReportType1Toselect))));
 
@@ -175,7 +178,7 @@ function verifyOMCanAddReport($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMReportName)
 
 	//Click on date filter 
     _click(_textbox($txtbox_TO));
-/*
+
 	//Select repesctive date from calender
     _click(_span($sOMDateforReport, _near(_strong($sOMYearForReport))));
 
@@ -486,7 +489,7 @@ else if((_areEqual($sOMEmp,"Employee"))||(_areEqual($sOMoption,"Organisation_Mem
 
 
 /*
-Function Name 		    		:   verifyOMCanDeleteContactGroup
+Function Name 		    		:   verifyOMCanDeleteContactGroups
 TestCaseId						:  	TC_Gen2_OrgMember_C9
 Module							:	Contact groups
 SubModule						:	Contact groups
@@ -504,7 +507,7 @@ function verifyOMCanDeleteContactGroups($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMGr
  	loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
 
 	//Click on Contact Groups link
-    _click(_link($lnk_ContactGroups));
+    _click($lnk_MyCGroup);
 
 	//Check existance of group & delete it ,if existing
 	if(_isVisible(_link($sOMGroupTitleToDelete)))
@@ -694,7 +697,7 @@ function verifyOMCanEditCcontactGroups($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMGro
  	loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
 
 	//Click on Contact Groups link
-    _click(_link($lnk_ContactGroups));
+    _click($lnk_MyCGroup);
 
 	//Check existance of group & delete it ,if existing
 	if(_isVisible(_link($sOMGroupTitleToEdit)))
@@ -746,7 +749,7 @@ function verifyOMCanEditCcontactGroups($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMGro
 
 
 /*
-Function Name 		    		:   verifyOMCanEditReport
+Function Name 		    		:   verifyOMCanEditReports
 TestCaseId						:  	TC_Gen2_OrgMember_C8
 Module							:	Reports
 SubModule						:	Contact Groups
@@ -810,7 +813,11 @@ function verifyOMCanEditReports($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMEditReport
 
 	//Click on next button
     _click(_submit($btn_Next));
+	
+	//Click on next button
+    _click(_button($btn_Nxt ));
 
+	/*
 	//Select Message option
     _click(_checkbox($chckbx_ReportType, _in(_div($sOMReportType1Toselect))));
 
@@ -822,7 +829,7 @@ function verifyOMCanEditReports($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMEditReport
 
 	//Click on date filter 
     _click(_textbox($txtbox_TO));
-/*
+
 	//Select repesctive date from calender
     _click(_span($sOMDateforReport, _near(_strong($sOMYearForReport))));
 
@@ -876,8 +883,9 @@ Input					     	:   $sURL, $sOrgMem1, $sOrgMem1Pwd,$sDomainName1, $sDomainName1_
 									,$sDomainOption
 */
 
-function verifyVisiblityOfCreatedContactGroup($sURL,  $sOrgMember1, $sOrgMemPwd1,$sOMCGGroupTitle1,$sDomainOption)
+function verifyVisiblityOfCreatedContactGroup($sURL,  $sOrgMember1, $sOrgMemPwd1,$sDomainOption)
 {
+$sOMCGGroupTitle1=$Mem1+$sTimeStamp1;
 	//Call method to login to site with valid credentials
  	loginToSite($sURL,  $sOrgMember1, $sOrgMemPwd1);
 
@@ -897,7 +905,7 @@ function verifyVisiblityOfCreatedContactGroup($sURL,  $sOrgMember1, $sOrgMemPwd1
         _click(_link($lnk_Groups));
 
         //Click on Contact groups
-        _click(_link($lnk_ContactGroup));
+        _click($lnk_MyCGroup);
 
         //Verify whether group already exists, If yes means delete it.
         if(_isVisible(_link($sOMCGGroupTitle1)))
@@ -924,7 +932,7 @@ function verifyVisiblityOfCreatedContactGroup($sURL,  $sOrgMember1, $sOrgMemPwd1
 		 _click(_link($lnk_Groups));
 			
 		// Click on Contact Groups
-		_click(_link($lnk_ContactGroups));
+		_click($lnk_MyCGroup);
 		
   		// Check for the Contact is present in the list
 		 if(_isVisible(_link($sOMCGGroupTitle1)))
@@ -942,10 +950,10 @@ function verifyVisiblityOfCreatedContactGroup($sURL,  $sOrgMember1, $sOrgMemPwd1
 	 else if(($sDomainOption=="Employee")||($sDomainOption=="Organisation_Member") )
     {
  		//Call method to login to site with valid credentials
-  		loginToSite($sURL,$sEmployee_account,$sEmployee_pwd);
+  		loginToSite($sURL,$sEmployee_account1,$sEmployee_pwd1);
       
         //Click on Contact Groups link
-      _click(_link($lnk_ContactGroups));
+      _click($lnk_MyCGroup);
 
         //Check existance of group & delete it ,if existing
         if(_isVisible(_link($sOMCGGroupTitle1)))

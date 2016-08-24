@@ -1,4 +1,4 @@
-_include("../Base/IncludeFiles.sah");
+_include("../Base/IncludeFiles.sah");		
 
 // Verify that Organization admin can edit an 'User ' into the domain
 	verifyThatOrgAdminCanEditAnUserIntoTheDomain($sDomainName3, $sEdit_Titl);

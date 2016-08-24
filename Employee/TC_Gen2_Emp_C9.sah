@@ -1,5 +1,5 @@
-_include("../Base/IncludeFiles.sah");
+_include("../Base/IncludeFiles.sah");	
 
 //verify Organization member should be able to delete  a 'Contact Groups' successfully and and confirmation message "Group Deleted" should be displayed
-verifyOMCanDeleteContactGroup($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMGroupTitleToDelete);
+verifyOMCanDeleteContactGroups($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMGroupTitleToDelete);
 

@@ -494,12 +494,13 @@ function verifyDACreatedMemberNotVisibileToANotherOA()
   	//Change role to organisation admin
 	_click(_div($sOrgAdminNameToselect));
 
+	_wait(2000);
 	//Click on member tab
 	_click($lnk_OAMember);
 
 	//Click on All link
 	_click($lnk_OAAll);
-
+	_wait(2000);
 	//Click on search icon
 	_click(_div($btn_SearchMembers));
 	
@@ -1476,7 +1477,7 @@ function verifyDomainCreatedContactGroupIsNotVisibleToOtherDomain($sURL,$sDomain
 	}
 
 	//click on + icon
-	_click(_link($icon_PlusAddGroup, _near(_heading2($txt_CGHeader))));
+	_click(_link($icon_PlusAddGroup));
 
 	//Enter group title
 	_setValue(_textbox($txt_Title), $sContactGroupTitle);
@@ -1529,6 +1530,8 @@ function verifyDomainCreatedContactGroupIsNotVisibleToOtherOrgMembers($sURL,$sDo
 	//Call method to login to site with valid credentials
 	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
 	
+	_wait(3000);
+	sContactGroupTitle=$Mem1+$sTimeStamp1;
 	//Call method to create Contact group
 	createContactGroup($sContactGroupTitle);
 	

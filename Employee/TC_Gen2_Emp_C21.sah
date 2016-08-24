@@ -1,7 +1,114 @@
-_include("../Base/IncludeFiles.sah");
+_include("../Base/IncludeFiles.sah");	
 
 //verify Contacts created by Organization member should not visible to domain admins
- verifyOMAddedContactsVisiblity($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMContactSearchValue,
-                    $sContactName1ToSelect,$sContactName2ToSelect,$sDomainOption,$sDomainName1, $sDomainName1_Password);
+verifyOMAddedContactsVisiblity($sURL, $sOrgMember1, $sOrgMemPwd1,$sOMContactSearchValue,
+                   $sContactName1ToSelect,$sContactName2ToSelect,$sDomainOption,$sDomainName1, $sDomainName1_Password);
 
 
+
+//createUser_Under_AllUserSection($sMemberFirstName+$sTimeStamp1,$sMemberLastName);
+//createUser_Under_AllUserSection($sMemberFirstName+$sTimeStamp1,$sMemberLastName);
+	
+	/*$sContactName1ToSelect=$sMemberFirstName+$sTimeStamp1+" "+$sMemberLastName;
+	//$sContactName2ToSelect=$sMemberFirstName+$sTimeStamp1+" "+$sMemberLastName;
+	//Call method to login to site with valid credentials
+ 	loginToSite($sURL, $sOrgMember1, $sOrgMemPwd1);
+
+	//Click on contacts link
+    _click(_link($lnk_MContacts));
+
+	//Click on + icon to add contacts
+    _click(_link($icon_PlusAddGroup));
+	
+	addContactOM($sContactName1ToSelect);
+	addContactOM($sContactName2ToSelect);
+	
+	//Click on Add members
+    _click(_button($btn_GSave));
+
+	//verify success message
+    _assertExists(_div($sOMContactListUpdateMessage));
+
+	// Log out from app
+    logOut();
+if((_areEqual($sOMEmp,"Employee"))||(_areEqual($sOMoption,"Organisation_Member") ))
+    {
+	_log("selected option is employee or other organisation member");
+	
+	
+ 		//Call method to login to site with valid credentials
+  		loginToSite($sURL,$sEmployee_account,$sEmployee_pwd);
+      
+       //Click on contacts link
+   		 _click(_link($lnk_MContacts));
+      
+      if(_exists(_strong($sContactName1ToSelect)) || _exists(_strong($sContactName2ToSelect)) )
+      {
+		_log("Contact added as organisation member is displayed ..");
+      }
+      else
+      {
+        _log("Contact added as organisation member is not displayed ..");
+      }
+	
+      // Log out from app
+	      logOut();
+		  
+      */
+      
+ function createUser_Under_AllUserSection($sMemberFirstName,$sMemberLastName)
+{
+	//Call method to login to site with valid credentials
+	loginToSite($sURL,$sDomainName1,$sDomainName1_Password);
+
+	//Click on User Management link
+	_wait(10000,_isVisible(_link($lnk_UserManagement)));
+	
+	_click(_link($lnk_UserManagement));
+
+	//Click on All link under User management
+	_click(_link($lnk_UMAll, _under(_link($lnk_UserManagement))));
+
+	//Click on All users link
+	_click(_link($lnk_UMAllUsers));
+	
+	_wait(2000);	
+	
+	//Click on + icon
+	_wait(6000,_isVisible(_link($icon_plus, _near(_heading2($txt_All)))));
+  
+	_click(_link($icon_plus, _near(_heading2($txt_All))));
+
+	//Enter Member first name
+	_setValue(_textbox($txt_FirstName),$sMemberFirstName);
+
+	//Enter Member last name
+    _setValue(_textbox($txt_LastName), $sMemberLastName);
+
+	//Enter member title
+    _setValue(_textbox($txt_Title),$sMemberTitle);
+
+	//select location
+    _setSelected(_select($txt_MemberLocation),$sMemberLocation);
+
+	//Enter zip code
+    _setValue(_textbox($txt_MemberZipCode),$sMemberZipCode);
+
+	//Enter member email
+    _setValue(_textbox($txt_MemberEmail), $email_qa_);
+
+	//Click on create button
+    _click(_submit($btn_MemberCreate));
+	_wait(2000);
+	//Validation 1: Domain admin should be able to add an user successfully.
+	
+    _assertVisible(_heading2("Congratulations! Member has been created."));   
+
+	//Click on close button
+	_wait(10000,_isVisible(_button($btn_MemberClose)));
+    _click(_button($btn_MemberClose));
+	
+	// Log out from app
+      logOut();
+}
+    

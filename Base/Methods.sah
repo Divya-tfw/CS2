@@ -20,7 +20,7 @@ var $nHour = $now.getHours();
 var $nMin = $now.getMinutes();
 var $nSec = $now.getSeconds();
 var $sTimeStamp1=$nYear+""+$nMonth+""+$nDate+""+$nHour+""+$nMin+""+$nSec;
-
+var $sRN=$Mem1+$sTimeStamp1;
 $sPolicyNameToEdit=$sPolicyNameToEdit+""+$sTimeStamp1;
 
 var $now = new Date();
@@ -5532,6 +5532,8 @@ function createCustomReport($lnk_CustomReport,$sReportName,$chk_boxMessageId,$ch
 	_click(_link($lnk_CustomReport));
 
 	 _wait(3000);
+	 
+	 $sReportName=$sRN;
 	//Verify whether report name already exists, If yes means delete it.
 	if(_isVisible(_link($sReportName)))
 	{
@@ -5564,16 +5566,18 @@ function createCustomReport($lnk_CustomReport,$sReportName,$chk_boxMessageId,$ch
 
 	_wait(1000);
 	//Click on next button
-	_click(_submit(0));
-
+	_click(_submit($btn_NextForReport));
+	
+	//Click on next button
+	_click(_button($btn_NextForReport));
+/*
 	//Click on Message Id check box
 	_click(_checkbox($chckbx_ReportType, _in(_div($chk_boxMessageId))));	
 
 	//Click on Message Status check box
-	_click(_checkbox($chckbx_ReportType, _in(_div($chk_boxMessageStatus))));
+	_click(_checkbox($chckbx_ReportType, _in(_div($chk_boxMessageStatus))));*/
 
-	//Click on next button
-	_click(_button($btn_NextForReport));
+	
 /*
 	//Click on From text box
 	_setValue(_textbox($txt_ToDate), $sToDate);

@@ -19,9 +19,11 @@
 ../DomainAdmin/TC_Gen2_DomAdmin_C42477.sah,"Domain_Admin,All,Gen2_DomAdmin_C42477,Groups,Policy_Group,Add,Demo",http://sahitest.com/demo/training/login.htm,C42477,Gen2_DomAdmin_C42477,"1. Domain admin should be able to add  a 'Policy Groups' successfully.
 
 2. Newly added 'Policy Groups' should be displayed in the mid frame.",
-../DomainAdmin/TC_Gen2_DomAdmin_C42477.sah,"Domain_Admin,All,Gen2_DomAdmin_C42477,Groups,Policy_Group,Add,Demo",http://sahitest.com/demo/training/login.htm,C42477,Gen2_DomAdmin_C42477,"1. Domain admin should be able to add  a 'Policy Groups' successfully.
+../DomainAdmin/TC_Gen2_DomAdmin_C42472.sah,"Domain_Admin,All,Gen2_DomAdmin_C42472,User_Management,All_Users,Add,Demo",http://sahitest.com/demo/training/login.htm,C42472,Gen2_DomAdmin_C42472,"1. Domain admin should be able to add an user successfully.
+2. User name along with details entered on step 4 should be displayed on the table consisting on pending members
+3. Added user should receive a email from 'SecureLine Support' contains email initiation link
 
-2. Newly added 'Policy Groups' should be displayed in the mid frame.",
+4. Added  user must be displayed under 'pending' section of user management page.",
 ../DomainAdmin/TC_Gen2_DomAdmin_C42479.sah,"Domain_Admin,All,Gen2_DomAdmin_C42479,Groups,Contact_Group,Add",http://sahitest.com/demo/training/login.htm,C42479,Gen2_DomAdmin_C42479,"1. Domain admin should be able to add  a 'Contact Groups' successfully.
 
 2. Newly added 'Contact Groups' should be displayed in the mid frame.",
@@ -207,17 +209,33 @@ roles other than domain admin such as  organization admin, organization member a
 ../DomainAdmin/TC_Gen2_DomAdmin_C42557.sah,"Domain_Admin,All,Gen2_DomAdmin_C42557,Groups,User_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42557,Gen2_DomAdmin_C42557,'User Groups'  created by domain admin should be visible other domain admins,
 ../DomainAdmin/TC_Gen2_DomAdmin_C42559.sah,"Domain_Admin,All,Gen2_DomAdmin_C42559,Groups,User_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42559,Gen2_DomAdmin_C42559,'User Groups' created by  domain admin should  not  visible to other organization member,
 ../DomainAdmin/TC_Gen2_DomAdmin_C42560.sah,"Domain_Admin,All,Gen2_DomAdmin_C42560,Groups,User_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42560,Gen2_DomAdmin_C42560,'User Groups' created by  domain admin should  not  visible to other 'Employee/User',
-../DomainAdmin/TC_Gen2_DomAdmin_C42560.sah,"Domain_Admin,All,Gen2_DomAdmin_C42560,Groups,User_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42560,Gen2_DomAdmin_C42560,'User Groups' created by  domain admin should  not  visible to other 'Employee/User',
-../DomainAdmin/TC_Gen2_DomAdmin_C42560.sah,"Domain_Admin,All,Gen2_DomAdmin_C42560,Groups,User_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42560,Gen2_DomAdmin_C42560,'User Groups' created by  domain admin should  not  visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42472.sah,"Domain_Admin,All,Gen2_DomAdmin_C42472,User_Management,All_Users,Add,Demo",http://sahitest.com/demo/training/login.htm,C42472,Gen2_DomAdmin_C42472,"1. Domain admin should be able to add an user successfully.
+2. User name along with details entered on step 4 should be displayed on the table consisting on pending members
+3. Added user should receive a email from 'SecureLine Support' contains email initiation link
+
+4. Added  user must be displayed under 'pending' section of user management page.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42472.sah,"Domain_Admin,All,Gen2_DomAdmin_C42472,User_Management,All_Users,Add,Demo",http://sahitest.com/demo/training/login.htm,C42472,Gen2_DomAdmin_C42472,"1. Domain admin should be able to add an user successfully.
+2. User name along with details entered on step 4 should be displayed on the table consisting on pending members
+3. Added user should receive a email from 'SecureLine Support' contains email initiation link
+
+4. Added  user must be displayed under 'pending' section of user management page.",
 ../DomainAdmin/TC_Gen2_DomAdmin_C42563.sah,"Domain_Admin,All,Gen2_DomAdmin_C42563,Groups,Policy_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42563,Gen2_DomAdmin_C42563,'Policy  Groups' created by  domain admin should not  visible to other organization member,
 ../DomainAdmin/TC_Gen2_DomAdmin_C42564.sah,"Domain_Admin,All,Gen2_DomAdmin_C42564,Groups,Policy_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42564,Gen2_DomAdmin_C42564,'Policy  Groups' created by  domain admin should  not  visible to other 'Employee/User',
 ../DomainAdmin/TC_Gen2_DomAdmin_C42569.sah,"Domain_Admin,All,Gen2_DomAdmin_C42569,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42569,Gen2_DomAdmin_C42569,'Contact Groups'  created by domain admin should not be visible other domain admins,
-../DomainAdmin/TC_Gen2_DomAdmin_C42569.sah,"Domain_Admin,All,Gen2_DomAdmin_C42569,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42569,Gen2_DomAdmin_C42569,'Contact Groups'  created by domain admin should not be visible other domain admins,
+../DomainAdmin/TC_Gen2_DomAdmin_C42472.sah,"Domain_Admin,All,Gen2_DomAdmin_C42472,User_Management,All_Users,Add,Demo",http://sahitest.com/demo/training/login.htm,C42472,Gen2_DomAdmin_C42472,"1. Domain admin should be able to add an user successfully.
+2. User name along with details entered on step 4 should be displayed on the table consisting on pending members
+3. Added user should receive a email from 'SecureLine Support' contains email initiation link
+
+4. Added  user must be displayed under 'pending' section of user management page.",
 ../DomainAdmin/TC_Gen2_DomAdmin_C42571.sah,"Domain_Admin,All,Gen2_DomAdmin_C42571,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42571,Gen2_DomAdmin_C42571,'Contact Groups'  created by  domain admin should  not  visible to other organization member,
 ../DomainAdmin/TC_Gen2_DomAdmin_C42572.sah,"Domain_Admin,All,Gen2_DomAdmin_C42572,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42572,Gen2_DomAdmin_C42572,'Contact Groups'  created by  domain admin should  not  visible to other 'Employee/User',
 ../DomainAdmin/TC_Gen2_DomAdmin_C42577.sah,"Domain_Admin,All,Gen2_DomAdmin_C42577,Policy,Policy_Set,Policy_Visibility",http://sahitest.com/demo/training/login.htm,C42577,Gen2_DomAdmin_C42577,Policy created by domain admin should be visible to other domain admins,
 ../DomainAdmin/TC_Gen2_DomAdmin_C42572.sah,"Domain_Admin,All,Gen2_DomAdmin_C42572,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42572,Gen2_DomAdmin_C42572,'Contact Groups'  created by  domain admin should  not  visible to other 'Employee/User',
-../DomainAdmin/TC_Gen2_DomAdmin_C42572.sah,"Domain_Admin,All,Gen2_DomAdmin_C42572,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42572,Gen2_DomAdmin_C42572,'Contact Groups'  created by  domain admin should  not  visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42472.sah,"Domain_Admin,All,Gen2_DomAdmin_C42472,User_Management,All_Users,Add,Demo",http://sahitest.com/demo/training/login.htm,C42472,Gen2_DomAdmin_C42472,"1. Domain admin should be able to add an user successfully.
+2. User name along with details entered on step 4 should be displayed on the table consisting on pending members
+3. Added user should receive a email from 'SecureLine Support' contains email initiation link
+
+4. Added  user must be displayed under 'pending' section of user management page.",
 ../DomainAdmin/TC_Gen2_DomAdmin_C42572.sah,"Domain_Admin,All,Gen2_DomAdmin_C42572,Groups,Contact_Group,Groups_Visibility",http://sahitest.com/demo/training/login.htm,C42572,Gen2_DomAdmin_C42572,'Contact Groups'  created by  domain admin should  not  visible to other 'Employee/User',
 ../DomainAdmin/TC_Gen2_DomAdmin_C42577.sah,"Domain_Admin,All,Gen2_DomAdmin_C42577,Policy,Policy_Set,Policy_Visibility",http://sahitest.com/demo/training/login.htm,C42577,Gen2_DomAdmin_C42577,Policy created by domain admin should be visible to other domain admins,
 ../DomainAdmin/TC_Gen2_DomAdmin_C42578.sah,"Domain_Admin,All,Gen2_DomAdmin_C42578,Policy,Policy_Set,Policy_Visibility",http://sahitest.com/demo/training/login.htm,C42578,Gen2_DomAdmin_C42578,Policy created by domain admin should not be visible to other organization admin,
@@ -227,11 +245,27 @@ roles other than domain admin such as  organization admin, organization member a
 ../DomainAdmin/TC_Gen2_DomAdmin_C42582.sah,"Domain_Admin,All,Gen2_DomAdmin_C42582,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42582,Gen2_DomAdmin_C42582,Reports created by domain admin should be visible to other organization admin,
 ../DomainAdmin/TC_Gen2_DomAdmin_C42583.sah,"Domain_Admin,All,Gen2_DomAdmin_C42583,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42583,Gen2_DomAdmin_C42583,Reports created by domain admin should be visible to other organization member,
 ../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42472.sah,"Domain_Admin,All,Gen2_DomAdmin_C42472,User_Management,All_Users,Add,Demo",http://sahitest.com/demo/training/login.htm,C42472,Gen2_DomAdmin_C42472,"1. Domain admin should be able to add an user successfully.
+2. User name along with details entered on step 4 should be displayed on the table consisting on pending members
+3. Added user should receive a email from 'SecureLine Support' contains email initiation link
+
+4. Added  user must be displayed under 'pending' section of user management page.",
+../DomainAdmin/TC_Gen2_DomAdmin_C42472.sah,"Domain_Admin,All,Gen2_DomAdmin_C42472,User_Management,All_Users,Add,Demo",http://sahitest.com/demo/training/login.htm,C42472,Gen2_DomAdmin_C42472,"1. Domain admin should be able to add an user successfully.
+2. User name along with details entered on step 4 should be displayed on the table consisting on pending members
+3. Added user should receive a email from 'SecureLine Support' contains email initiation link
+
+4. Added  user must be displayed under 'pending' section of user management page.",
 ../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
 ../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42472.sah,"Domain_Admin,All,Gen2_DomAdmin_C42472,User_Management,All_Users,Add,Demo",http://sahitest.com/demo/training/login.htm,C42472,Gen2_DomAdmin_C42472,"1. Domain admin should be able to add an user successfully.
+2. User name along with details entered on step 4 should be displayed on the table consisting on pending members
+3. Added user should receive a email from 'SecureLine Support' contains email initiation link
+
+4. Added  user must be displayed under 'pending' section of user management page.",
 ../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
 ../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
-../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
-../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
-../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
-../DomainAdmin/TC_Gen2_DomAdmin_C42584.sah,"Domain_Admin,All,Gen2_DomAdmin_C42584,Reports,Custom_Reports,Reports_Visibility",http://sahitest.com/demo/training/login.htm,C42584,Gen2_DomAdmin_C42584,Reports created by domain admin should be visible to other 'Employee/User',
+../DomainAdmin/TC_Gen2_DomAdmin_C42472.sah,"Domain_Admin,All,Gen2_DomAdmin_C42472,User_Management,All_Users,Add,Demo",http://sahitest.com/demo/training/login.htm,C42472,Gen2_DomAdmin_C42472,"1. Domain admin should be able to add an user successfully.
+2. User name along with details entered on step 4 should be displayed on the table consisting on pending members
+3. Added user should receive a email from 'SecureLine Support' contains email initiation link
+
+4. Added  user must be displayed under 'pending' section of user management page.",
