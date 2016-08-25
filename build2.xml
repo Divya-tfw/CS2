@@ -16,7 +16,7 @@
 	
 	<target name="set_properties_chrome" depends="set_timestamp">
     	<property name="scriptDir" value="D:/Auto_Tools/Sv6.3/userdata/CS2/"/>
-    	<property name="scriptName" value="Suite/Gen2_Demo.dd.csv"/>
+    	<property name="scriptName" value="Android/TC_Chat.sah"/>
 		<property name="browser" value="chrome"/>
 		<property name="sendemail" value="true"/>
 		<property name="emailtrigger" value="success,failure"/>
@@ -28,10 +28,10 @@
 		<property name="host" value="localhost"/>
 		<property name="port" value="9999"/>
 		<property name="singlesession" value="false"/>
-		<property name="threads" value="8"/>
-		<property name="showPeriodicSummary" value="true"/>
-		<property name="failedSuiteName" value="Gen2_Demo_failed_${browser}.dd.csv"/>
-		<property name="failedSuite" value="Suite/${failedSuiteName}"/>
+		<property name="threads" value="7"/>
+		
+		<property name="failedSuiteName" value="TC_Chat.sah"/>
+		<property name="failedSuite" value="Android/${failedSuiteName}"/>
 	</target>
 
 	<target name="runtestschrome" depends="set_properties_chrome">
@@ -50,15 +50,12 @@
 			failureproperty="sahi.failed.${browser}"
 			failedSuiteName="${failedSuiteName}"
 			haltonfailure="false"
-			singlesession="${singlesession}"
-			
+			singlesession="${singlesession}"			
 			threads="${threads}">
 			<!-- Custom fields - add, edit or remove as required -->
-			<customfield key="GroupName" value="Auto"/>
-			<customfield key="SentMessage" value="Hi"/>
-			<!-- Offline reports -->
-			<report type="junit" logdir="D:\Allworkspace\Junit"/>
-			<report type="html" logdir="D:\Allworkspace\Html"/>
+			<customfield key="GroupName" value="${GroupName}"/>
+			<customfield key="SentMessage" value="${SentMessage}"/>
+			
 		</sahi>
 		<antcall target="failsahichrome"/>
 	</target>
