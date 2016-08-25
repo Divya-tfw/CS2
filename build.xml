@@ -60,10 +60,23 @@
 			<report type="junit" logdir="D:\Allworkspace\Junit"/>
 			<report type="html" logdir="D:\Allworkspace\Html"/>
 		</sahi>
+		<antcall target="gen"/>
 		<antcall target="failsahichrome"/>
 	</target>
 
     <target name="failsahichrome" depends="set_properties_chrome" if="sahi.failed.${browser}">
         <fail message="Sahi tests failed on browser ${browser}!"/>
-    </target>		
+    </target>	
+
+<target name="gen" >
+                <property name="genReportDir" location="D:\Allworkspace\Junit1\New\"/>
+                <delete dir="D:\Allworkspace\Junit1\New\"/>
+     <mkdir  dir="D:\Allworkspace\Junit1\New\"/>
+                <junitreport todir="D:\Allworkspace\Junit1\New\">
+                        <fileset dir="D:\Allworkspace\Junit">
+                                <include name="**/TEST-*.xml"/>
+                        </fileset>
+                        <report format="frames" todir="D:\Allworkspace\Junit1\New\"/>
+                </junitreport>
+        </target>
 </project>
